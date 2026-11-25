@@ -112,7 +112,7 @@ figure img{cursor:zoom-in}
   <div class="eyebrow">LinkNode Rev 1 · layout and routing · updated 2026-11-23</div>
   <h1>LinkNode Rev 1: board decisions</h1>
   <p class="lede">The final decision for every block of the board, as it stands today. Click any image to enlarge it; zoom with the wheel, pinch or +/−, drag to pan, Esc to close. How each decision was reached is in the worklog (<code>docs/worklog/2026-11-23-t41-placement.md</code>).</p>
-  <div class="status"><a href="#cost">Cost ≈ $110 / board (10), $57 (100)</a> · floorplan B6 <span class="pill ok">approved</span> <a href="#blk1">Connector edge and holes</a> <span class="pill ok">approved</span> <a href="#edge">Edge margin</a> <span class="pill ok">approved</span> <a href="#blk2">Power</a> <span class="pill ok">approved</span> <a href="#blk3">Radios</a> <span class="pill ok">approved</span> <a href="#blk4">RV1106 surroundings</a> <span class="pill ok">approved</span> <a href="#silk">Silkscreen</a> <span class="pill ok">approved</span> <a href="#labels">Labels</a> <span class="pill ok">approved</span> <a href="#expansion">Expansion</a> <span class="pill ok">approved</span> <a href="#route1">Routing rules + Section 1</a> <span class="pill ok">approved</span> <a href="#route2">Routing 2: USB</a> <span class="pill ok">approved</span> <a href="#route3a">Routing 3a: RV1106 local nets</a> <span class="pill ok">approved</span> <a href="#route3c">Routing 3b: SD + HaLow SDIO at 50 Ω</a> <span class="pill ok">approved</span> <a href="#exp3">Expansion v3: two FPCs (plan)</a> <span class="pill ok">approved</span> <a href="#exp3p">Expansion v3: placement</a> <span class="pill ok">approved</span> <a href="#route3e">Routing 3d: east side + FPC A</a> <span class="pill ok">approved</span> <a href="#route3f">Routing 3e: FPC B audio</a> <span class="pill ok">approved</span> <a href="#route3g">Routing 3f: microSD reference plane</a> <span class="pill ok">approved</span> <a href="#route3h">Routing 3g: HaLow SDIO reference plane</a> <span class="pill ok">approved</span> <a href="#route3i">Routing 3h: microSD escape stitching</a> <span class="pill ok">approved</span> <a href="#route3j">Routing 3i: ESP32-C5 SPI under the module</a> <span class="pill ok">approved</span> <a href="#route3k">Routing 3j: control lines to the power area</a> <span class="pill ok">approved</span></div>
+  <div class="status"><a href="#cost">Cost ≈ $110 / board (10), $57 (100)</a> · floorplan B6 <span class="pill ok">approved</span> <a href="#blk1">Connector edge and holes</a> <span class="pill ok">approved</span> <a href="#edge">Edge margin</a> <span class="pill ok">approved</span> <a href="#blk2">Power</a> <span class="pill ok">approved</span> <a href="#blk3">Radios</a> <span class="pill ok">approved</span> <a href="#blk4">RV1106 surroundings</a> <span class="pill ok">approved</span> <a href="#silk">Silkscreen</a> <span class="pill ok">approved</span> <a href="#labels">Labels</a> <span class="pill ok">approved</span> <a href="#expansion">Expansion</a> <span class="pill ok">approved</span> <a href="#route1">Routing rules + Section 1</a> <span class="pill ok">approved</span> <a href="#route2">Routing 2: USB</a> <span class="pill ok">approved</span> <a href="#route3a">Routing 3a: RV1106 local nets</a> <span class="pill ok">approved</span> <a href="#route3c">Routing 3b: SD + HaLow SDIO at 50 Ω</a> <span class="pill ok">approved</span> <a href="#exp3">Expansion v3: two FPCs (plan)</a> <span class="pill ok">approved</span> <a href="#exp3p">Expansion v3: placement</a> <span class="pill ok">approved</span> <a href="#route3e">Routing 3d: east side + FPC A</a> <span class="pill ok">approved</span> <a href="#route3f">Routing 3e: FPC B audio</a> <span class="pill ok">approved</span> <a href="#route3g">Routing 3f: microSD reference plane</a> <span class="pill ok">approved</span> <a href="#route3h">Routing 3g: HaLow SDIO reference plane</a> <span class="pill ok">approved</span> <a href="#route3i">Routing 3h: microSD escape stitching</a> <span class="pill ok">approved</span> <a href="#route3j">Routing 3i: ESP32-C5 SPI under the module</a> <span class="pill ok">approved</span> <a href="#route3k">Routing 3j: control lines to the power area</a> <span class="pill ok">approved</span> <a href="#route4a">Routing 4a: regulator cores</a> <span class="pill wait">for review</span> <a href="#route4a2">Routing 4a-2: U2 corner</a> <span class="pill wait">for review</span></div>
 </div></header>
 <main class="wrap">
 
@@ -1356,6 +1356,131 @@ figure img{cursor:zoom-in}
   <figure><img src="img/route/t63_3d_bottom.jpg" alt="3D whole bottom" width="1936" height="1512" loading="lazy"><figcaption><b>3D, whole board, bottom</b> (mirrored).</figcaption></figure>
   </div>
 </section>
+
+<section id="route4a">
+  <div class="shead"><span class="pill wait">for review</span><span class="num">Routing · Section 4a · regulator cores</span>
+  <h2>Six bucks and the 5 V boost are done; the charger’s switch nodes are laid; the U2 corner is in part 2 below</h2>
+  <p>This is the first part of section 4 (power). It covers the switching-regulator cores, laid in the order of each datasheet’s layout guideline:
+    <ul class="tight">
+      <li>TLV62569 §10.1 (p.13);</li>
+      <li>TPS61089 §11.1 (p.22);</li>
+      <li>BQ25798 Rev C §8.4.1 (p.139), which is a priority-ordered list.</li>
+    </ul>
+  The work is on branch <code>section-4a</code> (commit <code>3178150</code>), not on main. The U2 corner is in part 2 below.</p></div>
+  <div class="tldr"><b>TL;DR</b><ul class="tight">
+    <li><b>Done: six TLV62569 bucks</b>, all on one template:
+      <ul class="tight">
+        <li>the six are U5 VDD_0V9, U6 VCC_DDR, U7 VCC_1V8, U8 VCC_3V3, U10 VCC3V3_C5 and U11 VCC3V3_HALOW;</li>
+        <li>on top: VIN → C<sub>IN</sub> at 0.5 mm, SW → L at 0.6 mm (about 1.3 mm long) and L → C<sub>OUT</sub> at 0.6 mm, with two vias from the input cap to the In2 5 V plane;</li>
+        <li>on the bottom: the FB divider, with V<sub>OUT</sub> sensed at the output cap and kept away from SW, plus the EN RC.</li>
+      </ul></li>
+    <li><b>Done: U4 TPS61089 boost:</b>
+      <ul class="tight">
+        <li>the SW strap to L2 is about 1 mm long, because L2’s pad is 0.8 mm from the SW pin;</li>
+        <li>V<sub>OUT</sub> and GND run as paired 0.8 mm straps along C33/C32/C30/C31, with plane vias;</li>
+        <li>the input path Q9 → C24 → L2 is 0.8 mm wide; the router first gave it 0.12 mm, and that was replaced.</li>
+      </ul></li>
+    <li><b>Done: U2 charger SW1/SW2</b>, per TI item 2:
+      <ul class="tight">
+        <li>vias under the IC at the SW pins, on the BTST caps’ SW pads;</li>
+        <li>1.0 mm bottom straps;</li>
+        <li>three vias into each L1 pad;</li>
+        <li>the 0.1 µF PMID/SYS caps C10/C19 stay at the IC (item 1).</li>
+      </ul></li>
+    <li><b>Changed in approved sections:</b>
+      <ul class="tight">
+        <li>C5_PWR_EN and HALOW_PWR_EN were re-routed round the regulator blocks;</li>
+        <li>U7’s FB via moved 0.2 mm;</li>
+        <li>the I2C ends at U2 were removed, because they crossed the SW1/SW2 corridor. The owner approved this.</li>
+      </ul></li>
+    <li><b>U2 corner:</b> done in <a href="#route4a2">part 2</a> (U2 rotated 90°).</li>
+    <li><b>Still to come in section 4:</b>
+      <ul class="tight">
+        <li>4b: the input and battery path;</li>
+        <li>4c: the SoC rails;</li>
+        <li>4d: the radio rails;</li>
+        <li>4e: RF and leftovers;</li>
+        <li>4f: GND.</li>
+      </ul></li>
+    <li><b>Checks on the branch:</b>
+      <ul class="tight">
+        <li>DRC has no errors: the 4 known library warnings, plus 2 “dangling” warnings for the I2C stubs;</li>
+        <li>parity is 0;</li>
+        <li>every bend is 45°, and nothing new is jagged;</li>
+        <li>unconnected links are 267, down from 354.</li>
+      </ul></li>
+  </ul></div>
+  <figure><img src="img/route/t64_nets.png" alt="Section 4a nets by function" width="2200" height="2164" loading="lazy"><figcaption><b>Section 4a by function</b> (branch): SW nodes red, 5 V orange, buck outputs green, FB/EN purple, boost input brown, re-routed enables pink, the open I2C ends blue.</figcaption></figure>
+  <div class="pair">
+  <figure><img src="img/route/t64_kicad_before.png" alt="KiCad plot before" width="1564" height="2880" loading="lazy"><figcaption><b>KiCad plot, BEFORE</b> (main <code>14d77dd</code>).</figcaption></figure>
+  <figure><img src="img/route/t64_kicad.png" alt="KiCad plot after" width="1564" height="3320" loading="lazy"><figcaption><b>KiCad plot, AFTER</b> (branch), with numbered notes. Notes 9–10 are the open items.</figcaption></figure>
+  </div>
+  <figure><img src="img/route/t64_inner.png" alt="Inner layers after" width="2152" height="2104" loading="lazy"><figcaption><b>Inner layers, AFTER</b>: In1 stays solid GND; on In2 the regulators’ input vias land on the 5 V plane.</figcaption></figure>
+  <div class="pair">
+  <figure><img src="img/inner/kicad/t64_before.png" alt="KiCad inner before" width="1632" height="1584" loading="lazy"><figcaption><b>KiCad plot of In1/In2, BEFORE.</b></figcaption></figure>
+  <figure><img src="img/inner/kicad/t64_after.png" alt="KiCad inner after" width="1632" height="1584" loading="lazy"><figcaption><b>KiCad plot of In1/In2, AFTER.</b></figcaption></figure>
+  </div>
+  <figure><img src="img/route/t64_all.png" alt="Whole board" width="4681" height="3691" loading="lazy"><figcaption><b>Whole board</b> (KiCad plot, branch).</figcaption></figure>
+  <div class="pair">
+  <figure><img src="img/route/t64_3d_top_zoom_before.jpg" alt="3D top before" width="1488" height="2184" loading="lazy"><figcaption><b>3D, power area top, BEFORE.</b></figcaption></figure>
+  <figure><img src="img/route/t64_3d_top_zoom_after.jpg" alt="3D top after" width="1488" height="2184" loading="lazy"><figcaption><b>3D, power area top, AFTER.</b></figcaption></figure>
+  <figure><img src="img/route/t64_3d_bottom_zoom_before.jpg" alt="3D bottom before" width="1488" height="2184" loading="lazy"><figcaption><b>3D, power area bottom, BEFORE</b> (mirrored).</figcaption></figure>
+  <figure><img src="img/route/t64_3d_bottom_zoom_after.jpg" alt="3D bottom after" width="1488" height="2184" loading="lazy"><figcaption><b>3D, power area bottom, AFTER</b> (mirrored).</figcaption></figure>
+  <figure><img src="img/route/t64_3d_top.jpg" alt="3D whole top" width="1936" height="1512" loading="lazy"><figcaption><b>3D, whole board, top.</b></figcaption></figure>
+  <figure><img src="img/route/t64_3d_bottom.jpg" alt="3D whole bottom" width="1936" height="1512" loading="lazy"><figcaption><b>3D, whole board, bottom</b> (mirrored).</figcaption></figure>
+  </div>
+</section>
+
+<section id="route4a2" class="current">
+  <div class="shead"><span class="pill wait">for review</span><span class="num">Routing · Section 4a, part 2 · the U2 charger corner</span>
+  <h2>U2 turned 90° so every pin side faces where its signals go; the charger’s power stage is laid by TI’s list</h2>
+  <p>The owner handed the U2 corner over (“you can move everything around as long as it matches the signal requirements”) and approved the rotation. The guideline is BQ25798 Rev C §8.4.1 (p.139), a priority-ordered list. The work is on branch <code>section-4a</code>, not on main.</p></div>
+  <div class="tldr"><b>TL;DR</b><ul class="tight">
+    <li><b>Why rotate:</b> with U2 at 0°, the battery pins (VBAT, SDRV, BATP, TS) faced east while the ship FET Q13, VCELL and the NTC are west, REGN (pin 5) had to cross the chip to ILIM_HIZ (pin 17), and D+/D−, the input FETs and the south pins shared one 1 mm strip. The router failed several nets there.</li>
+    <li><b>After the turn</b> (90° anticlockwise, 1 mm north):
+      <ul class="tight">
+        <li>north: SDRV, BAT, CHG_INT, PROG, BTST2, BATP, ILIM_HIZ, TS — toward Q13 and the battery;</li>
+        <li>west: VSYS, SW2, GND, SW1, PMID — L1 sits west of U2;</li>
+        <li>south: STAT, VBUS, BTST1, REGN, D+, D−, VAC2 — toward the input FETs;</li>
+        <li>east: SDA, SCL, CE, QON, ACDRV1/2, VAC1 — toward the SoC and USB.</li>
+      </ul>
+      U2, L1, C10, C19, the BTST caps and the 4a SW1/SW2 straps turned as one piece, so TI items 1–2 keep their geometry.</li>
+    <li><b>TI list, item by item:</b>
+      <ul class="tight">
+        <li>#1: C10 (PMID) and C19 (SYS) 0.1 µF on U2’s layer at the pins, GND pin 27 to both and a plane via; bulk through vias (PMID C7–C9 on the bottom under L1, SYS C16–C18 on top + C15);</li>
+        <li>#2: SW1/SW2 unchanged (vias under the IC, 1 mm bottom straps, three vias per L1 pad);</li>
+        <li>#3: REGN cap C13 at pin 5 through one via under the IC (bottom); its ground vias come with 4f;</li>
+        <li>#4: C6 0.1 µF right at the VBUS pins 2/3, bulk C4/C5 further out on the bottom;</li>
+        <li>#5: C20/C21 on a 0.45 mm VBAT trunk from pins 22/23 to Q13, 2–4 mm from the pins;</li>
+        <li>#7: BATP and TS fan out north-east, away from the SW nodes in the west.</li>
+      </ul></li>
+    <li><b>Other nets:</b> SDRV under the VBAT caps to Q13’s gate; CHG_INT up the trunk to the 3j route; I2C and CHG_INT pass the RTC crystal at ≥ 1 mm (HDG item 11); D+/D− to R26/R27; CE, ACDRV1/2 to R5/R20/R21; the LED and the BATP sense (100 Ω to VCELL at Q13).</li>
+    <li><b>Parts moved:</b> Q13, C20/C21, C16–C18 (top); C7–C9, C4/C5, C13 to the bottom; R4/R6/R7/R8 to the top in a row north-east of U2; R5, R9, R10, R20, R21, R504, R505 on the bottom.</li>
+    <li><b>Left for 4b:</b> U2 pins 8 (VAC2), 9 (VAC1) and 12 (QON): their traces cross the input-FET path, so they go with it.</li>
+    <li><b>Also in this copy:</b> 14 plane-tap vias from the earlier test (GND to In1, 5 V and VDD_0V9 to In2).</li>
+    <li><b>Checks:</b> DRC = the 4 known library warnings only; parity 0; every bend 45°; jagged routes unchanged; unconnected 216 (267 before the taps and this corner).</li>
+  </ul></div>
+  <figure><img src="img/route/t66_nets.png" alt="U2 corner by function" width="2200" height="1276" loading="lazy"><figcaption><b>U2 corner by function</b>: SW red, PMID orange, VSYS green, VBAT/VCELL cyan, charger VBUS brown, small signals purple, I2C/CHG_INT blue, D+/D− pink.</figcaption></figure>
+  <div class="pair">
+  <figure><img src="img/route/t66_kicad_before.png" alt="KiCad before" width="1324" height="1380" loading="lazy"><figcaption><b>KiCad plot, BEFORE</b> (branch <code>3178150</code>).</figcaption></figure>
+  <figure><img src="img/route/t66_kicad.png" alt="KiCad after" width="1324" height="1940" loading="lazy"><figcaption><b>KiCad plot, AFTER</b>, with numbered notes.</figcaption></figure>
+  </div>
+  <figure><img src="img/route/t66_inner.png" alt="Inner layers after" width="1832" height="1098" loading="lazy"><figcaption><b>Inner layers, AFTER</b>: In1 stays solid GND; the new vias land on the 5 V plane on In2.</figcaption></figure>
+  <div class="pair">
+  <figure><img src="img/inner/kicad/t66_before.png" alt="KiCad inner before" width="1392" height="834" loading="lazy"><figcaption><b>KiCad plot of In1/In2, BEFORE.</b></figcaption></figure>
+  <figure><img src="img/inner/kicad/t66_after.png" alt="KiCad inner after" width="1392" height="834" loading="lazy"><figcaption><b>KiCad plot of In1/In2, AFTER.</b></figcaption></figure>
+  </div>
+  <figure><img src="img/route/t66_all.png" alt="Whole board" width="4681" height="3811" loading="lazy"><figcaption><b>Whole board</b> (KiCad plot, branch).</figcaption></figure>
+  <div class="pair">
+  <figure><img src="img/route/t66_3d_top_zoom_before.jpg" alt="3D top before" width="1376" height="1488" loading="lazy"><figcaption><b>3D, U2 corner top, BEFORE</b>.</figcaption></figure>
+  <figure><img src="img/route/t66_3d_top_zoom_after.jpg" alt="3D top after" width="1376" height="1488" loading="lazy"><figcaption><b>3D, U2 corner top, AFTER</b>.</figcaption></figure>
+  <figure><img src="img/route/t66_3d_bottom_zoom_before.jpg" alt="3D bottom before" width="1376" height="1488" loading="lazy"><figcaption><b>3D, U2 corner bottom, BEFORE</b> (mirrored).</figcaption></figure>
+  <figure><img src="img/route/t66_3d_bottom_zoom_after.jpg" alt="3D bottom after" width="1376" height="1488" loading="lazy"><figcaption><b>3D, U2 corner bottom, AFTER</b> (mirrored).</figcaption></figure>
+  <figure><img src="img/route/t66_3d_top.jpg" alt="3D whole top" width="1904" height="1488" loading="lazy"><figcaption><b>3D, whole board, top</b>.</figcaption></figure>
+  <figure><img src="img/route/t66_3d_bottom.jpg" alt="3D whole bottom" width="1904" height="1488" loading="lazy"><figcaption><b>3D, whole board, bottom</b> (mirrored).</figcaption></figure>
+  </div>
+</section>
+
 
 
 
