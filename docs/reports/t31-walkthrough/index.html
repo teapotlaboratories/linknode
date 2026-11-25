@@ -93,6 +93,15 @@ figure img{cursor:zoom-in}
 .lb-stage img{position:absolute;left:0;top:0;transform-origin:0 0;max-width:none;background:var(--sheet);user-select:none;-webkit-user-drag:none;border-radius:2px}
 .lb-cap{color:#fff;font-size:.86rem;padding:.5rem max(12px,env(safe-area-inset-right,0px)) calc(.6rem + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));max-height:22vh;overflow:auto}
 .lb-cap code{color:#fff}
+.lb-bar .n{font-family:var(--f-mono);font-size:.8rem;color:#fff;opacity:.85;margin-right:.9rem}
+.lb-nav{position:absolute;top:50%;z-index:2;transform:translateY(-50%);width:3rem;height:3rem;border-radius:50%;display:grid;place-items:center;padding:0;cursor:pointer;color:#fff;border:1px solid rgba(255,255,255,.35);background:rgba(16,22,20,.34);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);opacity:.72;transition:opacity .15s,background-color .15s}
+.lb-nav:hover,.lb-nav:focus-visible{opacity:1;background:rgba(16,22,20,.6)}
+.lb-nav:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.lb-nav[disabled]{opacity:.16;cursor:default}
+.lb-nav svg{width:1.4rem;height:1.4rem}
+.lb-nav.prev{left:max(12px,env(safe-area-inset-left,0px))}
+.lb-nav.next{right:max(12px,env(safe-area-inset-right,0px))}
+@media (max-width:600px){.lb-nav{width:2.6rem;height:2.6rem}}
 .flow{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:.7rem 1rem;display:grid;gap:.4rem}
 .flow ol{list-style:none;padding-left:0}
 .fl{display:inline-block;min-width:1.9em;text-align:center;color:#fff;font-family:var(--f-mono);font-size:.75rem;font-weight:600;border-radius:4px;padding:0 .3em;margin-right:.4em}
@@ -103,7 +112,7 @@ figure img{cursor:zoom-in}
   <div class="eyebrow">LinkNode Rev 1 · layout and routing · updated 2026-11-23</div>
   <h1>LinkNode Rev 1: board decisions</h1>
   <p class="lede">The final decision for every block of the board, as it stands today. Click any image to enlarge it; zoom with the wheel, pinch or +/−, drag to pan, Esc to close. How each decision was reached is in the worklog (<code>docs/worklog/2026-11-23-t41-placement.md</code>).</p>
-  <div class="status"><a href="#cost">Cost ≈ $110 / board (10), $57 (100)</a> · floorplan B6 <span class="pill ok">approved</span> <a href="#blk1">Connector edge and holes</a> <span class="pill ok">approved</span> <a href="#edge">Edge margin</a> <span class="pill ok">approved</span> <a href="#blk2">Power</a> <span class="pill ok">approved</span> <a href="#blk3">Radios</a> <span class="pill ok">approved</span> <a href="#blk4">RV1106 surroundings</a> <span class="pill ok">approved</span> <a href="#silk">Silkscreen</a> <span class="pill ok">approved</span> <a href="#labels">Labels</a> <span class="pill ok">approved</span> <a href="#expansion">Expansion</a> <span class="pill ok">approved</span> <a href="#route1">Routing rules + Section 1</a> <span class="pill ok">approved</span> <a href="#route2">Routing 2: USB</a> <span class="pill ok">approved</span> <a href="#route3a">Routing 3a: RV1106 local nets</a> <span class="pill ok">approved</span> <a href="#route3c">Routing 3b: SD + HaLow SDIO at 50 Ω</a> <span class="pill ok">approved</span> <a href="#exp3">Expansion v3: two FPCs (plan)</a> <span class="pill ok">approved</span> <a href="#exp3p">Expansion v3: placement</a> <span class="pill ok">approved</span> <a href="#route3e">Routing 3d: east side + FPC A</a> <span class="pill ok">approved</span> <a href="#route3f">Routing 3e: FPC B audio</a> <span class="pill ok">approved</span> <a href="#route3g">Routing 3f: microSD reference plane</a> <span class="pill ok">approved</span> <a href="#route3h">Routing 3g: HaLow SDIO reference plane</a> <span class="pill ok">approved</span> <a href="#route3i">Routing 3h: microSD escape stitching</a> <span class="pill ok">approved</span></div>
+  <div class="status"><a href="#cost">Cost ≈ $110 / board (10), $57 (100)</a> · floorplan B6 <span class="pill ok">approved</span> <a href="#blk1">Connector edge and holes</a> <span class="pill ok">approved</span> <a href="#edge">Edge margin</a> <span class="pill ok">approved</span> <a href="#blk2">Power</a> <span class="pill ok">approved</span> <a href="#blk3">Radios</a> <span class="pill ok">approved</span> <a href="#blk4">RV1106 surroundings</a> <span class="pill ok">approved</span> <a href="#silk">Silkscreen</a> <span class="pill ok">approved</span> <a href="#labels">Labels</a> <span class="pill ok">approved</span> <a href="#expansion">Expansion</a> <span class="pill ok">approved</span> <a href="#route1">Routing rules + Section 1</a> <span class="pill ok">approved</span> <a href="#route2">Routing 2: USB</a> <span class="pill ok">approved</span> <a href="#route3a">Routing 3a: RV1106 local nets</a> <span class="pill ok">approved</span> <a href="#route3c">Routing 3b: SD + HaLow SDIO at 50 Ω</a> <span class="pill ok">approved</span> <a href="#exp3">Expansion v3: two FPCs (plan)</a> <span class="pill ok">approved</span> <a href="#exp3p">Expansion v3: placement</a> <span class="pill ok">approved</span> <a href="#route3e">Routing 3d: east side + FPC A</a> <span class="pill ok">approved</span> <a href="#route3f">Routing 3e: FPC B audio</a> <span class="pill ok">approved</span> <a href="#route3g">Routing 3f: microSD reference plane</a> <span class="pill ok">approved</span> <a href="#route3h">Routing 3g: HaLow SDIO reference plane</a> <span class="pill ok">approved</span> <a href="#route3i">Routing 3h: microSD escape stitching</a> <span class="pill ok">approved</span> <a href="#route3j">Routing 3i: ESP32-C5 SPI under the module</a> <span class="pill ok">approved</span> <a href="#route3k">Routing 3j: control lines to the power area</a> <span class="pill wait">for review</span></div>
 </div></header>
 <main class="wrap">
 
@@ -1198,6 +1207,156 @@ figure img{cursor:zoom-in}
   </div>
 </section>
 
+<section id="route3j" class="approved">
+  <div class="shead"><span class="pill ok">approved</span><span class="num">Routing · Section 3i · ESP32-C5 SPI straight under the module</span>
+  <h2>SPI and EN run straight under U801 instead of round it (owner’s routing)</h2>
+  <p>The owner re-routed the four RV1106 ↔ ESP32-C5 SPI lines (commit <code>f6cc561</code>, “route esp32-c5”) without moving any part. U801 stays at 180°. Then:
+    <ul class="tight">
+      <li>commit <code>d279e3c</code> reconnected C5_EN, which the re-route had left open, removed two stubs that ended in unused vias, and added a GND stitching via;</li>
+      <li>the owner then re-routed C5_EN along the SPI corridor (commit <code>1859306</code>, “fix routing”), replacing the EN route from <code>d279e3c</code>.</li>
+    </ul>
+  All three commits are on the main board. The WROOM-1U datasheet v1.3 has no keep-out under the module: its keep-out (p.12, §11) applies only to the PCB antenna of the WROOM-1. So copper under the 1U is allowed.</p></div>
+  <div class="tldr"><b>TL;DR</b><ul class="tight">
+    <li><b>Owner’s routing:</b>
+      <ul class="tight">
+        <li>The four SPI lines leave the RV1106 on the bottom and run straight east under the module at y 139.4–140.6.</li>
+        <li>They come up through vias inside the module outline (x 172–173). Short top-layer runs then go to pins 4, 9 and 12. CLK has its own via beside pin 8.</li>
+        <li>HANDSHAKE, DATA_READY and UART RX/TX now finish on top, which frees the bottom under them.</li>
+        <li><b>C5_EN</b> (<code>1859306</code>): it leaves the via at (155.7, 131.5) south on the bottom, then runs east at y 139.2 just north of the SPI lanes. It comes up through a via inside the module outline at (171.4, 139.1), and a top-layer run goes to pin 3. That is 42.9 mm, against 47.5 mm before the re-route. The via at (175.54, 145.28) stays as R801/C801’s connection to pin 3.</li>
+      </ul></li>
+    <li><b>Fixes:</b>
+      <ul class="tight">
+        <li>The CS and MOSI stubs to the old unused vias at (177.0, 134.1) and (176.55, 137.91) are removed.</li>
+        <li>A GND stitching via is added at (176.6, 143.7).</li>
+        <li>The CS, MOSI and HANDSHAKE vias are snapped onto their lanes, which removes 0.03–0.07 mm slivers.</li>
+      </ul></li>
+    <li><b>Checks on main (<code>1859306</code>):</b> DRC has no errors (only the 4 known library-mismatch warnings). Parity is 0. Every ESP32-C5 signal line is connected; C5_PWR_EN waits for section 3c. Every bend is 45°, and the jagged-route list is unchanged. There are no dangling vias, and the unconnected count is still 360.</li>
+    <li><b>EN beside MISO:</b> on the bottom, EN runs 15.2 mm alongside MISO with a 0.16 mm edge gap (MOSI is 0.48 mm away). This passes DRC. EN is a slow reset line with R801 (10 kΩ) to 3.3 V and C801 (1 µF) to GND at the pin, so the 1 µF shunts any coupled SPI edges to ground at the module. This is fine as is; it is not a change request.</li>
+    <li><b>Reference plane:</b> the bottom-layer SPI lanes run over the In2 5 V plane (VCC5V0_SYS), as before, and about 1–2.5 mm of each crosses the VDD_0V9 island near the RV1106. Their bottom length over 5 V is now 16–20 mm, against 31–45 mm before.</li>
+    <li><b>Open point:</b> the three SPI vias under the module, at (172.1, 139.4), (172.6, 140.2) and (173.0, 139.8), are 4.2–4.8 mm from the nearest GND via. Before, the vias at the east end of the lanes had one within 0.6 mm. Adding a GND via beside them, for example inside the module’s GND pad area, would give the return current a short path between the planes. This is not changed yet; it needs your OK. The new EN via at (171.4, 139.1) is 5.3 mm from a GND via, which does not matter for a slow line.</li>
+  </ul></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Net</th><th>Before (mm)</th><th>After (mm)</th><th>Vias</th></tr></thead>
+    <tbody>
+      <tr><td>C5_SPI_CLK</td><td>56.0</td><td>33.1</td><td>2</td></tr>
+      <tr><td>C5_SPI_MOSI</td><td>60.4</td><td>37.7</td><td>2</td></tr>
+      <tr><td>C5_SPI_MISO</td><td>51.9</td><td>40.1</td><td>2</td></tr>
+      <tr><td>C5_SPI_CS</td><td>67.6</td><td>43.7</td><td>2</td></tr>
+      <tr><td>C5_EN</td><td>47.5</td><td>42.9</td><td>3 (was 2)</td></tr>
+      <tr><td>C5_HANDSHAKE / DATA_READY / UART_RX / UART_TX</td><td>21.8 / 21.4 / 23.9 / 25.6</td><td>21.2 / 21.1 / 23.2 / 24.4</td><td>2 each</td></tr>
+    </tbody></table></div>
+  <div class="pair">
+  <figure><img src="img/route/t61_kicad_before.png" alt="KiCad plot before" width="2400" height="1984" loading="lazy"><figcaption><b>KiCad plot, BEFORE</b> (board at <code>8ebbd10</code>): the SPI lines go round the east side of U801.</figcaption></figure>
+  <figure><img src="img/route/t61_kicad.png" alt="KiCad plot after with notes" width="2400" height="2230" loading="lazy"><figcaption><b>KiCad plot, AFTER</b> (main, <code>1859306</code>). Notes 1–6: the owner’s routing. Notes 7–9: the fixes.</figcaption></figure>
+  </div>
+  <div class="pair">
+  <figure><img src="img/route/t61_nets_before.png" alt="Routed copper by net before" width="4400" height="1794" loading="lazy"><figcaption><b>Routed copper by net, BEFORE.</b> Zones are not drawn.</figcaption></figure>
+  <figure><img src="img/route/t61_nets.png" alt="Routed copper by net after" width="4400" height="1794" loading="lazy"><figcaption><b>Routed copper by net, AFTER.</b> Zones are not drawn.</figcaption></figure>
+  </div>
+  <div class="pair">
+  <figure><img src="img/route/t61_inner_before.png" alt="Inner layers before" width="3512" height="1388" loading="lazy"><figcaption><b>Inner layers, BEFORE</b>, coloured by net.</figcaption></figure>
+  <figure><img src="img/route/t61_inner.png" alt="Inner layers after" width="3512" height="1388" loading="lazy"><figcaption><b>Inner layers, AFTER.</b> On In2 the SPI lanes and EN cross the 5 V plane under the module.</figcaption></figure>
+  <figure><img src="img/inner/kicad/t61_before.png" alt="KiCad inner plot before" width="2652" height="1074" loading="lazy"><figcaption><b>KiCad plot of In1/In2, BEFORE.</b></figcaption></figure>
+  <figure><img src="img/inner/kicad/t61_after.png" alt="KiCad inner plot after" width="2652" height="1074" loading="lazy"><figcaption><b>KiCad plot of In1/In2, AFTER.</b></figcaption></figure>
+  </div>
+  <figure><img src="img/route/t61_all.png" alt="Whole board KiCad plot" width="4681" height="3691" loading="lazy"><figcaption><b>Whole board</b> (KiCad plot), main.</figcaption></figure>
+  <div class="pair">
+  <figure><img src="img/route/t61_3d_top_zoom_before.jpg" alt="3D top close-up before" width="1992" height="1432" loading="lazy"><figcaption><b>3D, top close-up, BEFORE.</b></figcaption></figure>
+  <figure><img src="img/route/t61_3d_top_zoom_after.jpg" alt="3D top close-up after" width="1992" height="1432" loading="lazy"><figcaption><b>3D, top close-up, AFTER.</b></figcaption></figure>
+  <figure><img src="img/route/t61_3d_bottom_zoom_before.jpg" alt="3D bottom close-up before" width="1992" height="1432" loading="lazy"><figcaption><b>3D, bottom close-up, BEFORE</b> (seen from below, mirrored).</figcaption></figure>
+  <figure><img src="img/route/t61_3d_bottom_zoom_after.jpg" alt="3D bottom close-up after" width="1992" height="1432" loading="lazy"><figcaption><b>3D, bottom close-up, AFTER</b>: the four SPI lanes and EN straight across under the module.</figcaption></figure>
+  <figure><img src="img/route/t61_3d_top.jpg" alt="3D whole board top" width="1936" height="1512" loading="lazy"><figcaption><b>3D, whole board, top.</b></figcaption></figure>
+  <figure><img src="img/route/t61_3d_bottom.jpg" alt="3D whole board bottom" width="1936" height="1512" loading="lazy"><figcaption><b>3D, whole board, bottom</b> (mirrored).</figcaption></figure>
+  </div>
+</section>
+
+<section id="route3k" class="current">
+  <div class="shead"><span class="pill wait">for review</span><span class="num">Routing · Section 3j · RV1106 control lines to the power area</span>
+  <h2>Charger I²C, CHG_INT and the four radio/GPS enables, all routed (on a copy)</h2>
+  <p>Seven RV1106 lines:
+    <ul class="tight">
+      <li>to the BQ25798 (U2): I2C_SCL and I2C_SDA, with pull-ups R504/R505, and CHG_INT, with pull-up R10;</li>
+      <li>regulator enables: C5_PWR_EN (U10/R100), HALOW_PWR_EN (U11/R110) and GPS_PWR_EN (U21/R200);</li>
+      <li>HALOW_FEM_EN (Q8/R122).</li>
+    </ul>
+  The charger’s four pins (58, 60, 64, 65) sit at the RV1106’s south-east corner. On the top layer the C5 SPI drops and the FPC B audio lanes fence them off from U2; on the bottom the microSD bus does. These choices follow your decisions:
+    <ul class="tight">
+      <li>“I plan detours, you review”;</li>
+      <li>“Top inside the pin ring”;</li>
+      <li>“Move C624 and C626”: in the end these two caps did not need to move (see below).</li>
+    </ul>
+  The Rockchip HDG V1.1 has no rule on routing under the package. I searched for exposed/thermal pad, under the chip or package, QFN and fan-out; the only hits are the package table on p.10. <b>This is not on the main board yet.</b> The candidate is <code>hardware/kicad/backup/candidates/T63_copy.kicad_pcb</code>.</p></div>
+  <div class="tldr"><b>TL;DR</b><ul class="tight">
+    <li><b>CHG_INT and HALOW_FEM_EN</b> go inward on top, in two lanes inside the RV1106 pin ring: up the east side at x 146.8 / 146.5, then west along the north side at y 125.38 / 125.65. They drop through vias in the ring’s north-west corner to the free band under the chip on the bottom. FEM_EN then goes north to Q8. CHG_INT crosses the I²C pair through a via at (126.3, 125.38), then runs on top to R10/U2.</li>
+    <li><b>SCL and SDA</b> are a pair that keeps its order all the way, because U2’s SCL pin is west of its SDA pin.
+      <ul class="tight">
+        <li>They escape south into the small top pocket under pins 58–64, then through two vias to the bottom.</li>
+        <li>They go up a column under the RV1106: SDA at x 145.7, SCL at x 145.97.</li>
+        <li>They pass the thermal-pad via grid through separate one-lane gaps, at x 143.4 and x 144.6, into the bands y 129.1 and y 127.8.</li>
+        <li>They run west under the chip (y 126.6 / 126.3), then go south-west down U2’s west side.</li>
+        <li>SCL enters U2’s pin ring through a via between its bootstrap caps C11/C12. U2 (RQM package) has no thermal pad. SDA goes round U2’s east side on top to pin 15.</li>
+      </ul></li>
+    <li><b>Enables:</b>
+      <ul class="tight">
+        <li>C5_PWR_EN: one long bottom-layer diagonal to U10.</li>
+        <li>GPS_PWR_EN: between the HaLow module and the RV1106 on top (y 117.9), then east to U21.</li>
+        <li>HALOW_PWR_EN: pin 104 is boxed in, so it takes a single 45° step to a via at (146.72, 122.25) beside HALOW_BUSY’s diagonal, then the bottom to U11.</li>
+      </ul></li>
+    <li><b>What moved to make room</b> (all on the bottom unless noted):
+      <ul class="tight">
+        <li>R504 and R505 (the I²C 10 k pull-ups) now sit beside U2, at (124.6, 143.1) and (125.7, 143.1). On a ~50 mm 400 kHz bus, pull-up position does not matter.</li>
+        <li>R503 (the nPOR RC 1 k, still unrouted) moved 0.35 mm east and turned 90°, out of the SCL column.</li>
+        <li>The SD_PWREN via moved from (146.05, 136.81) to (144.93, 137.42), beside R405.</li>
+        <li>Pin 61’s VCC_3V3 fan-out via moved from (146.75, 134.75) to (147.3, 134.55).</li>
+        <li><b>Not moved:</b> C624 and C626. You approved moving them, but swapping the I²C pair’s order (SDA west, SCL east in the column) made room without touching any decap.</li>
+      </ul></li>
+    <li><b>Checks on the copy:</b>
+      <ul class="tight">
+        <li>DRC saved = refilled = only the 4 known library-mismatch warnings; parity 0.</li>
+        <li>All 7 nets connected and none newly left open; the unconnected count is 354, down from 360.</li>
+        <li>Every bend is 45°, and the jagged-route list is identical to the main board.</li>
+        <li>Copper changed only on these 7 nets plus SD_PWREN and pin 61’s VCC_3V3; zones are identical.</li>
+      </ul></li>
+    <li><b>Worth a look:</b>
+      <ul class="tight">
+        <li>One via sits under U2’s body (SCL’s). That is normal for a package with no thermal pad, if the via is tented.</li>
+        <li>CHG_INT and FEM_EN run under the RV1106 body on top, solder-masked.</li>
+        <li>The longest lines are SDA (55.8 mm) and GPS_PWR_EN (48.1 mm). Both are slow signals.</li>
+      </ul></li>
+  </ul></div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Net</th><th>From → to</th><th>Length</th><th>Vias</th></tr></thead>
+    <tbody>
+      <tr><td>I2C_SCL</td><td>U100.64 → U2.14, R504</td><td>48.6 mm</td><td>3</td></tr>
+      <tr><td>I2C_SDA</td><td>U100.65 → U2.15, R505</td><td>55.8 mm</td><td>3</td></tr>
+      <tr><td>CHG_INT</td><td>U100.60 → U2.21, R10</td><td>44.8 mm</td><td>4</td></tr>
+      <tr><td>HALOW_FEM_EN</td><td>U100.58 → Q8.1, R122</td><td>33.4 mm</td><td>3</td></tr>
+      <tr><td>C5_PWR_EN</td><td>U100.3 → U10.1, R100</td><td>35.9 mm</td><td>3</td></tr>
+      <tr><td>HALOW_PWR_EN</td><td>U100.104 → U11.1, R110</td><td>36.8 mm</td><td>4</td></tr>
+      <tr><td>GPS_PWR_EN</td><td>U100.4 → U21.3, R200</td><td>48.1 mm</td><td>3</td></tr>
+    </tbody></table></div>
+    <figure><img src="img/route/t63_i2c.png" alt="The I2C connection: RV1106 pins 64/65 to BQ25798 pins 14/15" width="2420" height="1078" loading="lazy"><figcaption><b>The I²C link being routed</b>: RV1106 (U100) pin 64 I2C1_SCL_M0 and pin 65 I2C1_SDA_M0 to BQ25798 (U2) pin 14 SCL and pin 15 SDA. Left: main board, not connected (dashed). Right: the routed copy; solid = top layer, dotted = bottom layer. The pins sit at opposite corners of the two chips, so the route goes under the RV1106 on the bottom layer.</figcaption></figure>
+  <div class="pair">
+  <figure><img src="img/route/t63_kicad_before.png" alt="KiCad plot before" width="2074" height="1800" loading="lazy"><figcaption><b>KiCad plot, BEFORE</b> (main): the section 3c lines are unrouted; old R504/R505 and SD_PWREN via positions marked.</figcaption></figure>
+  <figure><img src="img/route/t63_kicad.png" alt="KiCad plot after with notes" width="2074" height="2240" loading="lazy"><figcaption><b>KiCad plot, AFTER</b> (copy), with 14 numbered notes.</figcaption></figure>
+  </div>
+  <figure><img src="img/route/t63_nets.png" alt="Section 3c nets" width="2400" height="987" loading="lazy"><figcaption><b>The seven lines</b> by colour, top and bottom (copy).</figcaption></figure>
+  <div class="pair">
+  <figure><img src="img/inner/kicad/t63_before.png" alt="KiCad inner before" width="2142" height="984" loading="lazy"><figcaption><b>KiCad plot of In1/In2, BEFORE.</b></figcaption></figure>
+  <figure><img src="img/inner/kicad/t63_after.png" alt="KiCad inner after" width="2142" height="984" loading="lazy"><figcaption><b>KiCad plot of In1/In2, AFTER.</b></figcaption></figure>
+  </div>
+  <figure><img src="img/route/t63_inner.png" alt="Inner layers after" width="2832" height="1268" loading="lazy"><figcaption><b>Inner layers, AFTER</b>, coloured by net. The bottom-layer lines run over the VDD_0V9 island and the 5 V plane (In2); the top lanes inside the pin ring run over solid GND (In1).</figcaption></figure>
+  <figure><img src="img/route/t63_all.png" alt="Whole board" width="4681" height="3839" loading="lazy"><figcaption><b>Whole board</b> (KiCad plot, copy).</figcaption></figure>
+  <div class="pair">
+  <figure><img src="img/route/t63_3d_top_zoom_before.jpg" alt="3D top close-up before" width="1680" height="1320" loading="lazy"><figcaption><b>3D, top close-up, BEFORE.</b></figcaption></figure>
+  <figure><img src="img/route/t63_3d_top_zoom_after.jpg" alt="3D top close-up after" width="1680" height="1320" loading="lazy"><figcaption><b>3D, top close-up, AFTER</b>: the lanes inside the RV1106 pin ring, the SDA route round U2.</figcaption></figure>
+  <figure><img src="img/route/t63_3d_bottom_zoom_before.jpg" alt="3D bottom close-up before" width="1680" height="1320" loading="lazy"><figcaption><b>3D, bottom close-up, BEFORE</b> (mirrored).</figcaption></figure>
+  <figure><img src="img/route/t63_3d_bottom_zoom_after.jpg" alt="3D bottom close-up after" width="1680" height="1320" loading="lazy"><figcaption><b>3D, bottom close-up, AFTER</b>: the I²C pair under the RV1106, and R504/R505 beside U2.</figcaption></figure>
+  <figure><img src="img/route/t63_3d_top.jpg" alt="3D whole top" width="1936" height="1512" loading="lazy"><figcaption><b>3D, whole board, top.</b></figcaption></figure>
+  <figure><img src="img/route/t63_3d_bottom.jpg" alt="3D whole bottom" width="1936" height="1512" loading="lazy"><figcaption><b>3D, whole board, bottom</b> (mirrored).</figcaption></figure>
+  </div>
+</section>
+
 
 
 
@@ -1206,11 +1365,13 @@ figure img{cursor:zoom-in}
 <footer>Sources: datasheets in <code>hardware/datasheets/</code> and the Rockchip HDG in <code>resources/resource/</code> (pages as cited). Worklog: <code>docs/worklog/2026-11-23-t41-placement.md</code>.</footer>
 </main>
 <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
-  <div class="lb-bar"><span class="z" id="lbz">100%</span>
+  <div class="lb-bar"><span class="n" id="lbn"></span><span class="z" id="lbz">100%</span>
     <button type="button" id="lbout" aria-label="Zoom out">−</button><button type="button" id="lbin" aria-label="Zoom in">+</button>
     <button type="button" id="lbfit" aria-label="Fit to screen">Fit</button><button type="button" id="lb1" aria-label="Actual size">1:1</button>
     <button type="button" id="lbx" aria-label="Close">✕</button></div>
-  <div class="lb-stage" id="lbs"><img id="lbi" alt=""></div>
+  <div class="lb-stage" id="lbs"><img id="lbi" alt="">
+    <button type="button" class="lb-nav prev" id="lbprev" aria-label="Previous image (Left arrow)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button type="button" class="lb-nav next" id="lbnext" aria-label="Next image (Right arrow)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div>
   <div class="lb-cap" id="lbc"></div>
 </div>
 <script>
@@ -1220,8 +1381,12 @@ const apply=()=>{im.style.transform=`translate(${x}px,${y}px) scale(${s})`;zl.te
 const doFit=()=>{const r=st.getBoundingClientRect(),w=im.naturalWidth||1,h=im.naturalHeight||1;fit=Math.min(r.width/w,r.height/h)*0.96;s=fit;x=(r.width-w*s)/2;y=(r.height-h*s)/2;apply()};
 const zoomAt=(f,cx,cy)=>{const n=Math.min(Math.max(s*f,fit*0.5),8);x=cx-(cx-x)*n/s;y=cy-(cy-y)*n/s;s=n;apply()};
 const centre=()=>{const r=st.getBoundingClientRect();return[r.width/2,r.height/2]};
-const open=img=>{im.src=img.currentSrc||img.src;im.alt=img.alt;const fc=img.closest('figure')?.querySelector('figcaption');cap.innerHTML=fc?fc.innerHTML:'';lb.hidden=false;document.body.style.overflow='hidden';
-  if(im.complete&&im.naturalWidth)doFit();else im.onload=doFit;document.getElementById('lbx').focus()};
+const nl=document.getElementById('lbn'),bp=document.getElementById('lbprev'),bn=document.getElementById('lbnext');let group=[],cur=-1;
+const show=img=>{im.onload=doFit;im.src=img.currentSrc||img.src;im.alt=img.alt;const fc=img.closest('figure')?.querySelector('figcaption');cap.innerHTML=fc?fc.innerHTML:'';
+  if(im.complete&&im.naturalWidth)doFit();const many=group.length>1;nl.textContent=many?`${cur+1} / ${group.length}`:'';bp.hidden=bn.hidden=!many;bp.disabled=cur<=0;bn.disabled=cur>=group.length-1};
+const go=d=>{const n=cur+d;if(n<0||n>=group.length)return;cur=n;show(group[n])};
+const open=img=>{group=[...(img.closest('section')||document).querySelectorAll('figure img')];cur=Math.max(0,group.indexOf(img));lb.hidden=false;document.body.style.overflow='hidden';show(img);document.getElementById('lbx').focus()};
+bp.addEventListener('click',()=>go(-1));bn.addEventListener('click',()=>go(1));
 const close=()=>{lb.hidden=true;document.body.style.overflow='';im.removeAttribute('src')};
 document.querySelectorAll('main figure img').forEach(img=>{img.tabIndex=0;img.setAttribute('role','button');img.title='Click to enlarge';
   img.addEventListener('click',()=>open(img));img.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(img)}})});
@@ -1230,15 +1395,15 @@ document.getElementById('lb1').onclick=()=>{const[cx,cy]=centre();zoomAt(1/s,cx,
 document.getElementById('lbin').onclick=()=>{const[cx,cy]=centre();zoomAt(1.4,cx,cy)};
 document.getElementById('lbout').onclick=()=>{const[cx,cy]=centre();zoomAt(1/1.4,cx,cy)};
 st.addEventListener('wheel',e=>{e.preventDefault();const r=st.getBoundingClientRect();zoomAt(Math.exp(-e.deltaY*0.0015),e.clientX-r.left,e.clientY-r.top)},{passive:false});
-st.addEventListener('dblclick',e=>{const r=st.getBoundingClientRect();if(s>fit*1.05)doFit();else zoomAt(2.5,e.clientX-r.left,e.clientY-r.top)});
-st.addEventListener('pointerdown',e=>{st.setPointerCapture(e.pointerId);ptr.set(e.pointerId,[e.clientX,e.clientY]);st.classList.add('drag');last=[e.clientX,e.clientY];pinch=null});
+st.addEventListener('dblclick',e=>{if(e.target.closest('.lb-nav'))return;const r=st.getBoundingClientRect();if(s>fit*1.05)doFit();else zoomAt(2.5,e.clientX-r.left,e.clientY-r.top)});
+st.addEventListener('pointerdown',e=>{if(e.target.closest('.lb-nav'))return;st.setPointerCapture(e.pointerId);ptr.set(e.pointerId,[e.clientX,e.clientY]);st.classList.add('drag');last=[e.clientX,e.clientY];pinch=null});
 st.addEventListener('pointermove',e=>{if(!ptr.has(e.pointerId))return;ptr.set(e.pointerId,[e.clientX,e.clientY]);const r=st.getBoundingClientRect();
   if(ptr.size===2){const[a,b]=[...ptr.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]),cx=(a[0]+b[0])/2-r.left,cy=(a[1]+b[1])/2-r.top;if(pinch)zoomAt(d/pinch,cx,cy);pinch=d;return}
   if(last){x+=e.clientX-last[0];y+=e.clientY-last[1];last=[e.clientX,e.clientY];apply()}});
 const up=e=>{ptr.delete(e.pointerId);pinch=null;last=ptr.size===1?[...ptr.values()][0]:null;if(!ptr.size)st.classList.remove('drag')};
 st.addEventListener('pointerup',up);st.addEventListener('pointercancel',up);
 document.addEventListener('keydown',e=>{if(lb.hidden)return;const[cx,cy]=centre();
-  if(e.key==='Escape')close();else if(e.key==='+'||e.key==='=')zoomAt(1.4,cx,cy);else if(e.key==='-')zoomAt(1/1.4,cx,cy);else if(e.key==='0')doFit()});
+  if(e.key==='Escape')close();else if(e.key==='ArrowLeft'){e.preventDefault();go(-1)}else if(e.key==='ArrowRight'){e.preventDefault();go(1)}else if(e.key==='+'||e.key==='=')zoomAt(1.4,cx,cy);else if(e.key==='-')zoomAt(1/1.4,cx,cy);else if(e.key==='0')doFit()});
 window.addEventListener('resize',()=>{if(!lb.hidden)doFit()});})();
 </script>
 
