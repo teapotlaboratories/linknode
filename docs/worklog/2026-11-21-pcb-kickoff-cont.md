@@ -1,0 +1,380 @@
+# 2026-11-21 (continues docs/worklog/2026-11-20-pcb-kickoff.md)
+
+## T17a/c: BQ25798 defaults with no firmware
+- **(a) VAC_OVP: the POR default is 26 V.**
+  - Rev C (SLUSDV2C, revised Jun 2026, ti.com/lit/ds/symlink/bq25798.pdf), REG10 p.72: field reset 0h = 26 V (default), matching the 85h register reset. Setting 1h corrected from 22 V to 18 V (revision history p.142). A stale "POR: 11b" note is left in the field text.
+  - Rev B (our old copy) said 3h = 7 V.
+  - TI E2E on the BQ25790: "another datasheet typo... yes, the default is 26V" (e2e.ti.com thread 1206859).
+  - The EVM guide SLUUCB5 still says 7 V, so confirm on a board in T17d.
+  - Filed as `hardware/datasheets/TI_BQ25798_RevC_2026.pdf`. Rev B is kept for the old page citations.
+- **(c) Safety timers** (Rev C Table 7-9 p.41, §7.3.9.2 p.42, timer rules p.44): trickle 1 h, pre-charge 2 h at 120 mA, fast 12 h at 1 A; half rate in DPM.
+  - Fast charge is harmless: shorter than a day at half rate, and firmware takes over at the 3.63 V boot (new F-8).
+  - Pre-charge can expire for a long-self-discharged bank (EST 140–350 mAh to get from 2.5 to 3.0 V on 2 × 3.5 Ah). A flat bank loses the charger overnight, so the POR at dawn restarts it: at least 240–480 mAh a day, so it's slower but not stuck.
+  - Unconfirmed: dawn re-plug with a live battery → T17d.
+- **Rev C also confirms:**
+  - ILIM_HIZ to REGN sets the maximum input current (pin table p.5); our wiring is right.
+  - SDRV wants 1 nF to GND when there's no ship FET (p.5); C22 is 1 nF 50 V to GND. Rev C deleted the old "SDRV to BAT" option.
+  - Default charge current 1 A (p.41).
+  - Poor-source qualification retries every 7 min on a weak dawn panel (§7.3.4.2 p.26–27).
+- **New finding: ship mode needs an external ship FET.**
+  - Rev B §9.3.12.2 p.50 said ship mode turns off "BATFET and external ship FET". Rev C §7.3.12.2 p.50 says only "the external ship FET" (revision history: "Deleted that BATFET turns off in ship mode").
+  - Klepon has no ship FET, so ship mode, shutdown mode and the QON system power reset do nothing. F-4 is invalid and SW1 (PWR on QON) has nothing to switch.
+  - Requirements updated: F-4 revised (halt + hold-off until decided), F-7 revised, F-8 added, Q-16 added (recommend adding a ship FET).
+- **Owner decision Q-16: add the ship FET.** Opened T25.
+
+## T25 ship FET (owner Q-16, 2026-11-21)
+- **Placement:** Rev C Fig 7-15 (p.50): high-side N-FET with source to BQ25798 BAT, drain to the cell +, gate to SDRV, and BATP sensing the cell side through 100 Ω. The zoomed figure shows the body diode anode on BAT, so it conducts charge into the cell and blocks discharge.
+- **Drawn (scripting server + applywires; builders updated):**
+  - Battery sheet: Q13 AO3400A (C20917) at (38.1, 40.64) rot 90. Pin 3 D → VCELL (J3+, R11 DW01A supply), pin 2 S → VBAT, pin 1 G → SDRV hier label. VCELL power symbol and PWR_FLAG (the J3 pin is passive, so ERC needed it).
+  - USB and Charger sheet: C22 (1 nF on SDRV) removed; SDRV → hier label; R4 (BATP 100 Ω) power symbol VBAT → VCELL.
+  - Root: SDRV pins on the USB-box bottom and Battery-box top, one vertical wire beside TS.
+- **Part check:** AO3400A (`AOS_AO3400A.pdf` p.1): 30 V, VGS ±12 V (SDRV drives about 5 V gate-source, p.49), RDS(on) < 32 mΩ at 4.5 V, 5.7 A. Battery peak 2 A → 0.13 W.
+- **In ship mode:** only the cell side (J3, DW01A, BATP 2.5 MΩ input) stays on the cell. The charger, hold-off divider and GPS backup LDO are cut off.
+- **Cold start:** SDRV_CTRL = 00 at POR keeps the FET on with an adapter present (p.49). A 0 V cell charges through the body diode in any case.
+- **Verified:**
+  - Netlist diff vs pre-T25: only C22 removed, SDRV U2/24 ↔ Q13/1, VBAT split into VCELL {J3/1, Q13/3, R11/1, R4/2} and VBAT {U2/22, U2/23, C20, C21, Q13/2, R301, TP4, U22}.
+  - Full-design ERC: 0 items. Renders of both sheets checked.
+- **Requirements:** F-4 restored (SFET_PRESENT = 1, then SDRV_CTRL = 10); Q-16 closed.
+- **Bench:** SDRV voltage (100 nA pump vs AO3400A gate leakage), ship-mode entry/exit (QON, input plug), ship-mode battery drain.
+- **Cost:** +$0.09 (AO3400A) − C22 ≈ +$0.09.
+
+## T2 datasheet index (2026-11-21)
+- **Generator:** `hardware/tools/gen_datasheet_index.py <netlist.xml> <jlcpcb db> hardware/datasheets` writes `hardware/datasheets/README.md`.
+  - Groups the netlist by LCSC code and maps each to a file.
+  - Exits non-zero if a BOM line has no datasheet, or a file in the folder has no BOM line or stated reason.
+- **Filed (LCSC datasheet URLs from the JLCPCB parts DB; each checked with `file`):**
+  - Connectors and switch: HRO TYPE-C-31-M-12, XKB TS-1187A, Hirose U.FL, Kefa KF301.
+  - Inductors and ferrite: Murata BLM15PD121SN1, Fenghua VHF100505HQ 47 nH, Changjiang FHD4020S/FNR4030S, Xiangru XRIM252012S.
+  - Crystals and thermistor: Shiheng NTC, KYX 24 MHz, Epson FC-135.
+  - Resistors: UniOhm 4D02 array, UniRoyal 0402WGF/0603WAF, Yageo RC0402, Panasonic ERJ-2RK, RALEC RTT02, FOJAN FRC0402.
+  - Capacitors: Fenghua 0402B/0402CG, CCTC TCC0402, Samsung CL catalogue.
+- **Removed:**
+  - `TI_TPS61088.pdf`: a saved TI 404 HTML page; the part isn't on the BOM.
+  - Two extra copies of the Samsung catalogue: LCSC serves one 84-page catalogue for every CL part, so all three downloads were the same file.
+- **Kept:** `SMAJ_series.pdf` is byte-identical to `SMAJ24A_C19077541.pdf`, but older docs cite it.
+- **Gap:** five Samsung MLCCs aren't listed by MPN in that catalogue: C307331, C19702, C15850, C377773, C45783. That includes the 10 µF 0603 10 V used across the bucks, where DC bias matters. Flagged in the index; get Samsung per-part specs before the layout review relies on effective capacitance.
+- **Series sheets:** Fenghua, UniRoyal and FOJAN cover their parts through the part-number scheme rather than per-MPN lines. That's normal for generic passives.
+- **Not filed:** `TI_TPS6123x.pdf` (cited at worklog 2026-11-20 line 98) was an early boost candidate, dropped before T6.
+
+## T26 PCB layout: board decisions (owner, 2026-11-21)
+- Area estimate: 3215 mm² of courtyards (pcbnew `FootprintLoad`, script `scratch/fparea.py`). The biggest are U801 457, U701 326, J401 284, J2 186 and U100 179 mm².
+- Q-4: smallest single-sided board, about 80 × 90 mm, all parts on top, 4 mounting holes. User connectors on one edge; U.FL pigtails.
+- Q-5: cells off-board on wires (J3), count chosen per build.
+- T5 closed (done under T11–T15). T26 added to the backlog.
+
+## T26 PCB layout: setup and placement (2026-11-21)
+- **Stack-up (b):** JLC04161H-3313, from https://jlcpcb.com/impedance (fetched 2026-11-21).
+  - Layers: Cu 35 µm / 3313 0.0994 mm Er 4.1 / In1 15.2 µm / core 1.265 mm Er 4.6 / In2 / 3313 / Cu 35 µm, ENIG.
+  - Written as an s-expression `(stackup …)` block in the board `setup`, because the scripting server can only edit existing rows and SWIG lacks `BuildDefaultStackupList`. Verified with scripting server `get_stackup` (0 mismatches). Inner layers were added with scripting server `add_layer`.
+  - Plan: In1 solid GND, In2 power.
+- **Widths (`docs/calc/impedance.py`, closed-form, EST ±10 %):**
+  - RF50: 0.17 mm with 0.20 mm gap (CPWG).
+  - USB90: 0.155 mm with 0.127 mm gap.
+  - Confirm with JLC's calculator at order time.
+- **Rules (JLC multilayer capabilities page, fetched 2026-11-21: 0.09/0.09 mm, via 0.15/0.25 mm, BGA fan-out 3 mil):**
+  - Board minimums: track 0.09, clearance 0.09, via 0.25/0.15, annular 0.05, hole clearance 0.2, edge 0.3.
+  - Net classes: Default 0.15/0.15 (vias 0.45/0.25), Power 0.3, RF50, USB90; patterns updated to the current rail names.
+  - The scripting server's `set_design_rules` did not reach `.kicad_pro`, so the rules and patterns were edited in the JSON directly (project closed).
+- **Outline (a):** 90 × 80 mm at (100, 100), R 2 mm (scripting server). Four M3 holes at 4 mm insets.
+  - The scripting server hole used a bad library ID (`MountingHole_3.2mm`). Replaced with stock `MountingHole_3.2mm_M3` via pcbnew (board-only, excluded from BOM and position files).
+  - The stock courtyard is bigger, so C304, Q10 and R304 were re-placed.
+- **Sync (c):** scripting server `sync_schematic_to_board`: 296 footprints, 253 nets. The 27 pads without numbers are paste/mask apertures (U100, U4) or NPTH pegs. J1 shield pads are on GND, as in the schematic.
+- **Placement (d):**
+  - Anchors by hand:
+    - Bottom edge: J2 DC jack, J1 USB-C, SW1, J401 microSD.
+    - Centre: U100, with U701 above it (SDIO facing SDIO).
+    - Right: U801 (SPI side toward the SoC), U20 GPS below it.
+    - J3 on the left edge.
+    - Antennas in three corners: HaLow top-left, C5 top-right, GPS bottom-right.
+    - J501 debug header at the bottom-right edge.
+  - Everything else: `hardware/tools/placer.py`, a greedy near-pin placer (target = IC pad on the shared net, free-spot spiral search, best rotation). Plans are in `hardware/tools/placement/*.json`; all moves applied through scripting server `batch_move_components`.
+  - Scripting server `suggest_placement` was tried first. Its dry run stacked three capacitors on one spot, so it wasn't used.
+  - Charger per BQ25798 Rev C layout guide (p.139): U2 rotated 90° so the VBUS input faces the connectors; C10 and C19 (0.1 µF) on PMID/SYS; BAT capacitors C20/C21 at the BAT pins; L1 right beside the SW pins.
+  - Boost: L2 above U4's SW pin, VOUT capacitors on VOUT.
+  - Bucks: input cap, inductor, output cap.
+  - Antenna low-pass filter placed by hand on the U701 ANT line (y 113.5).
+- **Verified:** kicad-cli DRC with parity: 0 courtyard overlaps, parity 0, 499 unconnected (unrouted). Only silkscreen overlaps remain (tidy at the end).
+- **Open (owner):** TH1 (battery NTC on TS) is on the board, but the cells are now off-board (Q-5). It measures board temperature, not cell temperature. Options: wire the NTC to the pack through a 3-pin J3, or accept board temperature (Q-15).
+- **Next:** routing (e): GND plane on In1, power on In2, USB 90 Ω pair, SDIO/SD length matching, RF CPWG with a via fence.
+
+## T27 battery NTC at the pack (owner, 2026-11-21)
+- **Owner's choice:** "NTC at the pack".
+- **Why two 2-pin terminals, not one 3-pin:** I first offered a 3-pin J3. But TS is read against board GND, and the DW01A FETs sit between CELL_N and GND (60 mV at 2 A, a few °C of error, and meaningless when protection opens). So the NTC needs its own return to GND.
+- **Part:** LCSC has no KF301-4P, so the NTC gets a second KF301-5.0-2P: J4 (C474881, same BOM line as J3), pin 1 TS, pin 2 GND.
+- **Schematic (scripting server):** TH1 deleted; J4 placed with pin 1 on the existing TS wire end (175.26, 72.39); pin 2 wired to the existing GND symbol (applywires + fixjunctions). Fields moved clear.
+  - Netlist diff: only TS (−TH1/1 +J4/1) and GND (−TH1/2 +J4/2).
+  - Full ERC: 0. Layout lint: 0 overlaps, 0 crossings.
+- **Board:**
+  - Scripting server sync added J4 but left TH1 (now netless), so TH1 was deleted with scripting server `delete_component`.
+  - J4 fixed at (105.6, 148) rot 270, wire entry on the left edge. C31, TP5, TP7, C29 and D3 re-placed (placer, plans H/I).
+  - DRC: 0 courtyard overlaps, parity 0, unconnected 499.
+- **Pack NTC:** the old TH1 (C2889048) is an 0603 SMD chip, which can't be taped to a pack.
+  - Replacement: MF52A103F3435 (C84036, Shiheng, $0.048, 27 680 in stock), leaded bead, B25/85 3435 K / B25/50 3380 K (`Shiheng_MF52A103F3435_NTC.pdf` p.2-3).
+  - Its R-T table matches the CMFA table within 0.3 % from −20 to 60 °C (same maker and curve), so TS divider R7 5.23k / R8 30.1k is unchanged.
+- **Cost:** +J4 $0.10, −TH1 $0.04 on the board; the NTC ($0.05) moves to the pack wiring.
+
+## T26e routing, pass 1 (2026-11-21)
+- **Freerouting:** the owner approved downloading it. `freerouting-2.1.0.jar` via `gh release download` from freerouting/freerouting v2.1.0, into the scratch.
+  - Size 66 978 394 B matches the release asset. SHA-256 2c07d58f75dac03782664081e7a58b41c25400d871a9fcf166a2ea6fe60d5def (the release publishes no digest).
+  - Class-file major version 65 = Java 21. Releases 2.2.x and later want JRE 25 (2.2.4 notes).
+  - Run through scripting server `autoroute`.
+- **Planes (scripting server `add_copper_pour`):**
+  - In1 GND, whole board, solid.
+  - In2 VCC5V0_SYS (whole board minus the SoC column x 136–161, y 130–180; reshaped with pcbnew so it doesn't overlap the next zone).
+  - In2 VDD_0V9 island (136.5–160.5, 130.5–155.5), priority 1.
+  - B.Cu GND, thermal reliefs.
+  - KiCad's DSN export passes all of them to Freerouting as planes (checked in test.dsn).
+- **Charger pads:** the power pins are 0.2 mm wide at 0.4 mm pitch (SYS/SW/PMID 0.2 × 1.0). Heavy nets therefore go into the 0.3 mm Power class (0.15 mm clearance to the neighbouring pin), get routed, and are widened afterwards with same-net pours. New Power patterns: Q2-D, PMID, SW1/SW2, Q11-D, D4-A, D5-A, U4-SW, J3-Pin_2, Q5-D, and the buck SW nodes.
+- **Hand-routed:** HaLow RF, J901 → C904 → L902 → C903 → L901 → C902 → C901 → U701 ANT, 0.17 mm on F.Cu along y 113.5 (scripting server `route_pad_to_pad`).
+- **Autoroute:** F.Cu, In2 (cost 8) and B.Cu; In1 vias only; 30 passes.
+- **Scripting server autoroute timed out** (900 s, no result). Freerouting is now run directly; the SES is imported through the scripting server.
+  - The DSN comes from the scripting server export. In it, In1 is set to `(type power)`, In2 to `(type power)`, and the B.Cu GND plane is removed (it made B.Cu solid for other nets; pour GND after routing).
+- **Run 1/2 stalled at about 440 of 712 unrouted.** 300 of the connections are plane-net pads (GND 246, VCC5V0_SYS 26, VDD_0V9 28). Freerouting 2.1.0 ships with `router.fanout.enabled = false`, so no plane vias were placed.
+- **Privacy:** Freerouting 2.1.0 also ships with `profile.allow_telemetry = true` (settings in /tmp/freerouting/freerouting.json), and it checked online for a new version. Runs 1–2 may have sent anonymous usage statistics; the profile email was empty, so no owner data. Telemetry and contact are now off in the settings file and on the CLI (`--profile.allow_telemetry=false`) for every later run.
+- **Run 3:** fanout on, 12 passes.
+- **Runs 3–4 (fanout on):**
+  - Unrouted fell from 467 to 196 after pass 1, then went back and forth between 85 and 140 over 77 passes (best 85 at pass 68/73).
+  - Freerouting 2.1.0 ignored both `-mp` and `--router.max_passes` (and the settings-file value), never finished, and wrote no SES. Stopped by hand. **Nothing has been imported; the board has only the hand-routed HaLow RF tracks.**
+- **Conclusion:** with this placement about 85–100 connections don't route on 2 signal layers plus 2 planes. Next:
+  1. Get a result out (`router.job_timeout`, or Freerouting's own stop-on-no-improvement setting), import it, and find where the failures cluster.
+  2. Spread the dense blocks into the empty right half (x 160–190 has free area) and/or let In2 carry signals outside the plane islands.
+  3. Rerun.
+
+## T26d placement rework for routability (owner, 2026-11-21: "rearrange the crowded area")
+- **Density map** (5 mm cells, courtyard fill): the SoC ring (x 140–160, y 135–150) and the left power column (x 100–130, y 120–180) were at 60–99 %. The top-right (x 160–190, y 100–120), top centre, the C5–GPS gap and the strip below the SoC were 0–10 %.
+- **Placer changes:** plan-level escape lanes and a per-part gap.
+  - Lanes are keep-outs that no part may cover unless its entry has `lanes_ok`.
+  - Lanes are computed from U100's pads: 2.5 mm deep in front of SD 11–18, USB 25–27, SPI 38–46, I²C/CHG_INT 59–64, 65–66, GPIO/UART 72–80 and 83–91, SDIO 104–114.
+  - Default gap 0.3 mm (room for a via); decoupling and FB/COMP parts keep 0.15 mm.
+- **Moves** (plan R1, `hardware/tools/placement/build_R1.py`; 153 parts moved through scripting server `batch_move_components`):
+  - Hold-off comparator block to the top-right around U30 (178, 108). Q9 and its gate network stay at the boost.
+  - Battery protection (U3, Q5, Q6, Q13) up next to J3.
+  - SoC bucks: U5 and U6 left of the SoC, U7 and U8 below it.
+  - SoC decoupling re-placed outside the lanes, small caps first, 10 µF after.
+  - Series resistors R508, R509, R511, R512, R513 inside their lanes.
+- **Result:**
+  - SoC decoupling median 3.6 mm pad to pin (2.5 mm before). That's the cost of the lanes, because U100's bottom side holds most of its supply pins plus two signal lanes on a one-sided board. Each cap gets its own plane via.
+  - Bucks: L/C 1.5–3 mm from their pins. Boost: C_out/C_in 1.5–2.5 mm; FB/COMP 4–5 mm on the quiet side.
+  - DRC: 0 courtyard overlaps, parity 0, 499 unconnected.
+- **Routability test (run5):** fresh DSN, same plane edits, Freerouting job timeout 20 min (`--router.job_timeout`).
+- **Run5 (2.1.0, new placement):** stuck in pass 1 for 15 min with repeated NullPointerExceptions in `maze_search_algo.find_connection`. Stopped.
+- **Owner chose "newest Freerouting".**
+  - v2.5.0 ships a native Linux CLI, so no Java 25 or JRE image is needed: `freerouting-cli-2.5.0-linux-x64.tar.gz` via `gh release download`. SHA-256 64a957a9ef2a2fbde6ab2001bb32800f5ba34f9fd15575e363512934b870d63a matches the release's `freerouting-cli-2.5.0-checksums.txt`.
+  - Runs inside the official `debian:bookworm-slim` image (116 MB, pulled from Docker Hub) with `--network none`.
+  - Even `--help` tries to POST analytics to api.freerouting.app (`/v1/analytics/identify`); the network isolation blocks it. `unshare -rn` is not permitted on this host, hence Docker.
+- **Run6:** v2.5.0, `-mp 30 -mt 3`, fanout on, telemetry off, 30-min outer timeout.
+- **Run6 (native CLI):** crashed at job start. GraalVM native-image packaging bug: `UnsupportedFeatureError: SerializationConstructorAccessor class not found … ComponentOutline`. The thread died and the container sat idle. Stopped.
+- **Run7:** v2.5.0 JAR (`freerouting-2.5.0.jar`, 64 599 107 B = release asset size, SHA-256 f6f51bb02245e8e717f9359bd260cc9c5c0b1bc0acc8b7cb2cd5b8ffeb5de3c7; manifest build revision b647a2f8, built 2026-10-05).
+  - Runs on official `eclipse-temurin:25-jre` (503 MB) with `--network none`.
+  - `--router.autorouter.max_passes=30` (the new name; `-mp` is deprecated in 2.5.0), `-mt 3`, fanout on, telemetry off.
+- **Run7 result:**
+  - Fanout escaped 653/934 SMD pins. Routing went from 683 unrouted to 146 at pass 1; 2.5.0 restores the best board every few passes and stopped itself after 18 passes (no improvement since pass 8). Optimizer skipped (it only runs on fully routed boards).
+  - SES imported via scripting server `import_ses` (2157 tracks, 164 vias). Board backup before import: `scratch/backup/pcb_pre_ses7.kicad_pcb`.
+  - kicad-cli DRC (refilled zones): 141 unconnected, parity 0. Plane pads with no via: GND 43, VCC5V0_SYS 13, VDD_0V9 11. SoC escapes reach a via but go no further: SD bus, C5 SPI, GPS UART, HaLow control, I²C, USB_DP (35 dangling vias). Also 2 isolated In2 islands and 2 tiny Q10-G stubs.
+  - Clusters: around U100 (x 140–160, y 130–150) and the bucks left of it.
+- **Diagnosis:** two routing layers can't fan out a 0.35 mm QFN on a top-only board while In1 and In2 are both full planes.
+- **Run8:** In1 stays the solid GND plane (project rules: solid reference under RF, USB and SDIO). In2 becomes a signal layer (VCC5V0_SYS and VDD_0V9 planes removed from the DSN); those rails route as 0.3 mm tracks and get In2/F.Cu pours afterwards. 40 passes.
+- **Run8 (In2 as a signal layer):** fanout 659/934; best 131 unrouted (pass 1); stopped itself at pass 18. Imported over the pre-run7 board (run7 board kept at `scratch/backup/pcb_with_ses7.kicad_pcb`). DRC: 127 unconnected (GND 57).
+- **GND completion:**
+  - F.Cu GND pour (scripting server `add_copper_pour`, thermal).
+  - 197 stitching vias (scripting server `add_gnd_stitching_vias`, in_zones + around RF, 5 mm grid, 0.45/0.25, edge margin 1 mm).
+  - Scripting server refill. Unconnected 127 → 90 (GND 20).
+- **Bad stitching vias:** the scripting server tool placed 3 vias that break DRC — one outside the rounded corner at (100.95, 100.95), and two 0.12 mm from U701 pad 22 and C603 pad 1. Its collision check missed them; removed with pcbnew.
+- **Run9:** DSN from the current board (2050 wires, 398 vias kept); only the In1 GND plane passed as a plane; 25 passes; routes what's left.
+- **Run9 result:** fanout 753/934 (80.6 %). Freerouting reports 118 unrouted and 25 violations, but that's measured without the F.Cu/B.Cu/In2 pours, which were taken out of its DSN.
+  - Imported into a trial copy (scripting server `open_board` + `import_ses` with boardPath). Compared with kicad-cli DRC, zones refilled:
+    - current board: 91 unconnected, 27 dangling vias;
+    - trial: 67 unconnected, 18 dangling vias, 4 dangling tracks, no clearance errors.
+  - Adopted the trial (backup `scratch/backup/pcb_pre_adopt9.kicad_pcb`). Parity 0.
+- **Left (67):** GND 21, VCC_3V3 7, VDD_0V9 6, VCC5V0_SYS 3, VCC_1V8 3, VSYS 2, and about 25 single signals. These include the SD D1/D3, C5 SPI CLK/MOSI/MISO, USB DP/DM, I²C SDA, nPOR, crystal (C501), boost FB/ILIM and charger PMID/ILIM.
+- **Next:** hand-route these through the scripting server, starting with the critical ones (USB, crystal, SD, SPI, FB).
+- **Rules for the last 67:** the SoC rail pads failed because the 0.3 mm Power class can't enter 0.18 mm pads at 0.35 mm pitch.
+  - New net class SoCPower (VDD_0V9, VDD_ARM, VCC_DDR, VCC_1V8, VCC_3V3): 0.2 mm, 0.12 clearance, via 0.4/0.2. That leaves 0.16 mm to the neighbouring pad.
+  - Default class: 0.12/0.12, via 0.4/0.2. Within JLC multilayer limits (0.09/0.09; 0.2 mm is JLC's preferred minimum hole).
+  - pcbnew confirms the rails resolve to SoCPower. The scripting server DSN export still labelled them "Power,SoCPower" at 300/150, so that class block was patched in the DSN.
+  - kicad-cli DRC with the new rules: 67 unconnected, only the dangling items.
+- **Run10:** routes the remaining 67 on the current board with the finer rules.
+- **Run10 result:** fanout 758/934; best 113 by Freerouting's count. Trial import and kicad-cli DRC: 51 unconnected (vs 67), parity 0, no clearance errors. Adopted (backup `pcb_pre_adopt10`).
+- **`hardware/tools/viadrop.py`** (pcbnew; pre-check with `SHAPE.Collide` on all four copper layers, then kicad-cli DRC):
+  - Pad mode: GND via plus F.Cu stub for R12, C629, Y501 pad 4, C624, C611. No legal spot within 3 mm for C6 pad 2 or U100 pin 57.
+  - `--islands GND`: a via inside every F.Cu GND fill piece that has no via or PTH GND pad.
+  - First version placed nothing: `SHAPE_POLY_SET.SquaredDistance()` returns 0 for points inside, so the edge-distance check now runs per segment.
+  - Result: 51 → 37 unconnected (GND 21 → 5), no new violations, parity 0. Adopted (backup `pcb_pre_viadrop`).
+- **Run11** hit the 50-minute outer timeout (fanout alone took 9 min) and wrote no SES. Board unchanged (37). The autorouter has stopped improving.
+- **`hardware/tools/mazeroute.py`:** A* on a 0.05 mm grid per unconnected pair, windowed (endpoints ± 6 mm), on F.Cu, In2 and B.Cu; In1 is vias only.
+  - Obstacles: other-net pads, tracks and vias via `TransformShapeToPolygon`, inflated by the larger of the two nets' clearances + w/2 + 0.04 mm (grid rounding). Vias are blocked on all four layers, and by hole-to-hole spacing (0.25 mm) to every drilled hole of any net. Board-edge keep-out from the rules.
+  - Fixes found by DRC while developing:
+    - Clearance must be the max of the two classes (KiCad's rule).
+    - Same-net vias still obey hole-to-hole spacing.
+    - Short middle runs between two layer changes are merged.
+  - Result on a trial copy: 37 → 24 unconnected, no clearance or hole errors, parity 0. Adopted (backup `pcb_pre_maze1`).
+- **Rip-up + reroute** (`hardware/tools/ripup.py` plus a driver; trial copy; HaLow RF protected).
+  - 6 rounds at radii 0.8–2.8 mm, each one worse than 24: 107, 144, 158, 169, 171, 176 unconnected. Ripping tracks splits other nets into more pieces than a single maze pass rejoins. All rounds reverted; the board stays at 24.
+- **The 24 left:**
+  - VCC_3V3/VCC_1V8/VDD_0V9 pads and AVDD1V8 on U100.
+  - USB_DP and U100 pin 57 GND.
+  - U4 FB and ILIM, boxed in by a VCC5V0_SYS via.
+  - GND at C6 and U7.
+  - VSYS at C16/C19; VBUS at U2 pin 9.
+  - Missing layer-change vias on ILIM_HIZ and PMID.
+  - SD_D1 and SD_D3 (about 26 mm).
+- **These need targeted local edits** (move one via, nudge a cap, re-route one neighbour), not more automatic passes. Asked the owner how to finish.
+- **Owner's choice (2026-11-21):** "I finish in KiCad". Worklist with coordinates and hints for the 24 is in `docs/reports/t26-unrouted.md`. The scripting server project is closed, so the GUI edits won't conflict.
+- **When the owner is done:**
+  1. kicad-cli DRC with parity.
+  2. Quality pass: USB90 pair, SDMMC0/SDIO length match, power widths, sweep 14 dangling vias and 5 dangling tracks, silkscreen.
+  3. Exports (production/), then report v19.
+- **Tool notes for later:**
+  - Freerouting 2.5.0 JAR runs in `eclipse-temurin:25-jre` with `--network none` (it tries analytics otherwise). The native CLI crashes.
+  - The scripting server DSN export labels the SoC rails "Power,SoCPower" at 300/150; patch the DSN class block.
+  - Remove F.Cu, B.Cu and In2 planes from the DSN before routing; only the In1 GND plane stays.
+- **Reports (2026-11-21):**
+  - New "Klepon Routing Worklist" page (`docs/reports/t26-worklist/`; source `docs/reports/t26-worklist/`): 24 gap cards with board crops (copper-only render of a zone-free copy), endpoints, coordinates and hints, an overview map, and per-browser done ticks.
+  - Design report v19: section 10 rewritten with routing status, the routed board, the current placement with blocks, layer use and rules, and a link to the worklist.
+- Report v20: 3D renders (kicad-cli pcb render, angled and top) added to section 10. No 3D model yet, so bare pads: U100, U701, U801, U20, U2, J1, J401, SW1.
+- **3D models (owner request):**
+  - The stock footprints for U20, U2, J1 and SW1 name models that kicad-packages3d 10.0.8 doesn't ship. GitLab raw returned an HTML bot-check page, so nothing was downloaded.
+  - `hardware/tools/gen_3d_boxes.py` writes VRML box models into `library/3dmodels/` (KiCad VRML unit is 0.1 in).
+    - From datasheets: RV1106 12.3 × 12.3 × 0.85 (Fig 2-7 p.19); HT-HC01 18.5 × 14 × 2.6 (p.10); C5-WROOM-1U 18 × 19.6 × 3.3 (Fig 10-2 p.51); ATGM336H 10.1 × 9.7 × 2.1 (p.9).
+    - EST (drawings without a text layer): BQ25798 4 × 4 × 0.9, HRO TYPE-C-31-M-12 8.94 × 7.3 × 3.26, TS-1187A 5.1 × 5.1 × 1.5, TF-PUSH 14.9 × 13.9 × 1.85.
+  - Attached to the 4 klepon.pretty footprints with scripting server `add_footprint_3d_model`. The 8 placed footprints were set with pcbnew; scripting server `add_component_3d_model` needs a running KiCad (IPC).
+- **Designators:** all 300 references hidden on the silkscreen (fab-layer `${REFERENCE}` kept), by pcbnew. DRC: silk_overlap/silk_over_copper 199/199 → 0; 24 unconnected, parity 0, otherwise unchanged. Backup `pcb_pre_3d`.
+- **Report v21:** new 3D renders.
+- **Real 3D models (owner: use easyeda2kicad):**
+  - Installed easyeda2kicad 1.0.1 (github.com/uPesy/easyeda2kicad.py) in the scratch venv. Fetched footprint + 3D (STEP and WRL) for C5328706, C54951857, C49233943, C2876593 (the model is named BQ25792RQMR, same RQM package), C165948, C393941, C318884. Only LCSC ids were sent.
+  - `hardware/tools/align_easyeda_3d.py` fits EasyEDA's pads to ours and carries the model offset/rotation through the same transform.
+    - The shape-only fit chose the wrong rotation for the symmetric U100 (270, should be 0) and U20 (0, should be 180). Caught by checking numbered pads (pin 1 on pin 1); added a forced `@deg` with a numbered-pad translation.
+    - Final residuals 0.017–0.116 mm. Alignment saved in `library/3dmodels/easyeda_alignment.json`.
+  - STEP files copied to `library/3dmodels/`. Board instances set with pcbnew. klepon.pretty U100/U801/J401: placeholder model entries removed (text edit), STEP attached with scripting server `add_footprint_3d_model` (offset/rotate).
+  - Unused placeholder WRLs deleted; only `HT-HC01_V2.wrl` remains (U701 isn't sold on LCSC).
+  - Renders checked: pin-1 marks, C5 U.FL top-right, USB-C and microSD openings at the board edge. DRC unchanged (24 unconnected, parity 0). Report v22.
+- **3D offsets, U801 and J1 (owner spotted them):** both EasyEDA models came with their own model offset wrong, so the pad-fit transform carried the error over. Measured on a 3200 px top render (30.4 px/mm) and corrected (KiCad model +Y is up; checked against the measured shift):
+  - J1: the shell sat at y 169.94–177.22, against the fab body's 172.50–179.90 (2.62 mm back over the pad row). Offset y 1.575 → −1.045; now 172.58–179.84.
+  - U801: I first aligned the 19.6 mm part to the pin end, but 19.6 is the shield. The WROOM-1U module is 21.2 mm, the same as WROOM-1 (Fig 10-2 p.51): shield 1.1 mm from the U.FL end and 0.5 mm from the bottom. Offset y 1.362 → −0.798 → −0.278; shield now 126.48–146.06 (target 126.5–146.1), and the top pads 30–32 are under the module edge.
+  - Library footprint updated through the scripting server (replace); alignment json updated. DRC unchanged (24, parity 0). Report v24.
+
+## Review: RV1106 placement against the Rockchip HDG (owner question, 2026-11-21)
+- **Source:** `resources/resource/Rockchip-RV1103G-RV1106G-Hardware-Design-Guide-en-V1-1-20221221.pdf`:
+  - §2.1.1 p.14 crystal;
+  - §2.1.2 p.15 "place the resistor and capacitor [nPOR] close to the RV1106G";
+  - §1.8.2 p.19 / §2.2.3.4 p.23: one 100 nF per GPIO supply pin, close;
+  - §2.2.3.1 p.21 VDD_ARM, close;
+  - §2.2.3.2 p.22 VDD_0V9: two 10 µF, on the near and far supply sides, plus at least one 100 nF per pin close to the pin;
+  - §2.2.3.3 p.23 DDR, close;
+  - p.41 series resistor near the transmitter, a GND via at each GND pad;
+  - p.54 SoC in the board centre.
+- **Measured** (pcbnew, nearest same-net cap pad to pin):
+  - VDD_0V9: pins 10/51/103/115 at 1.5–1.6 mm; 54/55/116 at 1.9–2.7 mm; 67/71/82 at 3.5–4.0 mm (right side). The two 10 µF (C608 bottom, C609 top) aren't placed near/far relative to the supply entry.
+  - VCC_3V3: 2.4–4.6 mm (8 pins, 8 caps).
+  - VCC_1V8: 2.4–5.5 mm.
+  - VCC_DDR: 3.6–4.3 mm.
+  - RTC/SARADC AVDD: 3.6–4.0 mm.
+  - TSADC, VCCIO7, VDD_ARM: about 1.5 mm.
+  - Crystal Y501 3.2 mm from pins 68/69 (4-pin, both GND pads grounded) — fine.
+  - nPOR: R503 6.7 mm, C505 6.1 mm — **not close**.
+  - Series R: SD/SDIO clock 1.75 mm, SPI clock 2.8 mm (driver side) — fine. USB R508/R509 4.6–5.2 mm.
+  - U100 3 mm from the board centre — fine.
+- **Verdict:** cap counts follow the reference schematic, but "close to the pin" is only partly met. Half the supply pins have their cap 2.5–5.5 mm away, and the nPOR R/C are 6 mm away. The cause is the escape lanes plus top-only placement (T26d).
+- **Options given to the owner:**
+  - (a) Pull the caps and nPOR R/C to 1–2 mm, keeping the lanes by using the space between lanes.
+  - (b) Put the U100 decoupling on the bottom under the chip (two-sided assembly).
+  - (c) Accept, with each cap given its own via to the plane.
+- **Owner decision (2026-11-21):** allow bottom-side assembly; do a proper RV1106 placement with the decoupling on the bottom (option b). Q-4 amended; project rules, requirements and TODO (T28) updated. The routing worklist is superseded until T28 is done.
+- **T28 placement (`hardware/tools/soc_bottom_decap.py`):**
+  - Run 1 (SHAPE objects created per candidate) leaked to 3 GB and was stopped by a memory guard. Run 2 was killed by my own 3 GB watchdog.
+  - Rewritten: every obstacle's outline is read from KiCad once, and candidates are checked in plain Python (point/segment/polygon distances). Peak under 1.5 GB.
+  - Also fixed:
+    - removed tracks are kept referenced (they segfaulted);
+    - a part with no legal spot goes back to the top;
+    - two passes (first cap of each pin before the extras);
+    - the dense pin 49–56 run is ordered so 54/55 get a via; pin 52 (ZQ, a signal) last.
+- **Result:**
+  - 1128 tracks/vias ripped up in the SoC window.
+  - GND pins 37/57 stubbed into the EP.
+  - 29 supply-pin vias in the ring between the pin row and the EP, 0.55–0.96 mm from the pins.
+  - 35 parts on B.Cu, the first cap of each pin 0.53–0.77 mm from its via: C601–C607, C610–C618, C620, C623–C637 and C505/R503 (nPOR), plus C613/C619/C628 extras at 2.9–4.2 mm.
+  - Bulks: C608 left (near, by the U5 supply entry) and C609 right (far), as §2.2.3.2 asks; C605 (ARM) and C621 (DDR) next to their pins. C622 (second DDR bulk) and R604 (ZQ) found no bottom spot and stay on top.
+  - DRC: no clearance, courtyard or short errors; parity 0; 115 unconnected (the cleared area, to re-route).
+  - Adopted (backup `pcb_pre_t28`).
+- **T28 re-route, Freerouting run 12** (2.5.0 JAR, offline, `-Xmx4g`, container `--memory 5g`, 30 passes):
+  - 26 min, peak heap 807 MB. Freerouting's own count: 142 unrouted (it does not see the GND fills).
+  - Imported into a trial copy (`scratch/trial12`, scripting server `import_ses`). kicad-cli DRC: **48 unconnected**, 0 clearance or short errors, parity 0.
+  - The pre-T28 board had 24. Next on the trial: viadrop `--islands GND`, then mazeroute.
+- **T28 clean-up on the trial copy, then adopted:**
+  - viadrop `--islands GND`: +1 via.
+  - mazeroute: 48 → 33 → 28 → 27. Fixed a crash first: DRC text writes `/` where the board net name has `{slash}`.
+  - New `hardware/tools/gapvia.py`: finds points where same-net track ends on 2+ layers meet with no via, adds a via, and uses kicad-cli DRC to reject bad ones.
+    - It added 13; DRC flagged 10. Those track ends already touch a nearby via's annular ring, so they weren't real gaps, and the 10 were removed with `--remove`. Result 25.
+  - One more mazeroute (margin 16, grid 0.025) gives **24**.
+- **Adopted into `hardware/kicad/klepon.kicad_pcb`:** kicad-cli DRC (refilled, parity) shows 24 unconnected, 0 clearance/short/hole errors, parity 0, silk_edge 5, track_dangling 19, via_dangling 21.
+  - Backups: `pcb_pre_t28` (before placement), `pcb_t28_placed_unrouted`.
+  - Pin → via → first cap pad 1.08–1.49 mm (max at pin 56/C624). T28 done.
+- **Tools used:**
+  - pcbnew Python for placement, viadrop, mazeroute and gapvia.
+  - Scripting server for DSN export, SES import, refill and save on the trial.
+  - kicad-cli for DRC and renders.
+- **Next:**
+  - Regenerate the worklist for the new 24 gaps (they differ from the old list).
+  - Update the design report with before/after SoC crops.
+- **RV1106 placement report** (owner asked: HTML report comparing the placement with the reference guide and designs; no routing).
+  - Source: `docs/reports/t28-rv1106/` (`measure.py`, `plot_svg.py`, `gen.py`, `template.html`).
+  - Published: `docs/reports/t28-rv1106/`
+  - Reference images: HDG Fig 2-1, 2-3, 2-8, 2-10, 2-12, 3-6; RV1106 EVB1 user guide Fig 1-4 p.10, the board's back side with the decoupling cluster under the SoC.
+- **Findings while measuring** (pad centre metric):
+  - Pin → via → cap 1.48–1.89 mm; 18/29 within 1.5 mm. From the pad inner end, all are within 1.5 mm.
+  - nPOR: 1k/10nF matches AI-IPC V13 p.8 (R1110/C1114). The HDG figure shows 10k/100nF.
+- **Open, not fixed (owner: no routing now):**
+  - Pin 53 DDR_PLL_AVDD1V8 has 100n + 100n (C626, C628); HDG Fig 2-12 asks 1 µF + 100 nF.
+  - 14 nets routed under Y501 and 10 under Y502 (HDG p.41 item 11).
+  - Y501 GND pads 1.65/4.35 mm from the nearest via.
+  - R604 and C622 still on top.
+  - 23 vias in SMD pads board-wide (13 non-GND). 4 are in bottom cap pads under U100 (C608, C625, C633 from gapvia, C634): move them in the routing pass.
+- **T29 started.** Owner: tidy the bottom decoupling into EVB-style rows; C628 → 1 µF (C52923); placement only, no routing.
+  - Plan:
+    - Rip up the SoC window.
+    - Re-place the ring vias.
+    - Slot-based rows per side: inner row with the power pad at r 4.04 mm and the GND pad at r 3.08 mm, inside the vias at r 4.67–5.08; outer row with the power pad at r 5.75 mm, outside the vias.
+    - Bulks in a third row.
+    - Rule-area keepouts under the crystals.
+    - Y501 GND vias.
+- **T29 done** (`hardware/tools/soc_tidy_decap.py`, pcbnew Python; the scripting server has no tool for slot placement). C628 value changed with scripting server `edit_schematic_component`.
+  - Iterations:
+    - a fixed 1.05 mm slot grid left 8 parts without a spot (links clipped neighbour vias);
+    - then free positions along fixed rows (0.05 mm steps), hardest first;
+    - a no-link fallback for parts with no legal link;
+    - courtyard boxes for the bulks;
+    - C624 placed first;
+    - Y501 vias kept outside the crystal keepout;
+    - the fallback now stops instead of restoring a part onto the new rows.
+  - Result:
+    - pin → via → cap 1.60–2.22 mm (T28 1.48–1.89);
+    - linkless: R503 3.6 mm, R604 3.4 mm, C613/C619/C628;
+    - DRC on main: 117 unconnected (SoC area left unrouted, owner), parity 0, only silk_edge/dangling;
+    - ERC 0.
+  - Backup `pcb_pre_t29`.
+  - Report updated (v2): `docs/reports/t28-rv1106/`
+- **Next (owner holds routing):** route the SoC area with the keepouts. Connect the linkless parts. No vias in SMD pads (13 non-GND elsewhere on the board).
+- **Installed a third-party KiCad checker 4.21.4** (owner's choice of version; released 2026-11-21).
+  - Location: uv 0.13.7 (sha256 checked) plus a uv-managed Python 3.13.18 venv in `.tools/`. No uv dirs under `~/`.
+  - Health check: ok; kicad-cli found; default profile, read-only.
+  - Remove it by deleting its folder under `.tools/`.
+- **Tool rule changed** (owner, 2026-11-21): no preferred tool; use whichever does the job best (scripting server, kicad-cli, pcbnew Python or a minimal text edit). Updated in the project rules. Kept: one writer per file at a time, verification, and logging which tool did what.
+- **Third-party checker review**, driven from a script (`scratch/kmp/client.py`), with profile `full` and mode read-only. Project files were byte-identical before and after.
+  - Output dir must be inside the workspace (its reports are not kept in the repo).
+  - Results:
+    - ERC 0.
+    - Transfer 929/929 pad nets.
+    - Power flags OK.
+    - MH1–4 "missing in schematic": expected.
+    - Placement-gate overlaps are all top/bottom pairs (the tool ignores side): false positives.
+    - Edge-connector flags are by design.
+    - VDD_0V9 PDN estimate 27.7 mV at 1.6 A (assumed 1 mm × 35 mm path).
+  - **Real finding: stale zone fills.** `soc_tidy_decap.py` saved without refilling; my DRC used `--refill-zones` and hid it. The saved board showed 305 violations and 128 unconnected.
+    - Fixed: scripting server `refill_zones` + `save_board`.
+    - kicad-cli DRC on the saved fills now: 117 unconnected, only silk_edge and dangling, parity 0.
+    - Footgun: after any pcbnew-script save, refill and save, and run DRC without `--refill-zones` as well.
+  - **Schematic text issues** (cosmetic):
+    - SoC sheet crystal/nPOR corner: C503/C504 text on wires, Y501 pin numbers on junctions, VCC_3V3 text into R503, C505.
+    - SoC Power: first cap of each row printed twice in the PDF; cause not found.
+  - Report v3: `docs/reports/t28-rv1106/`
+- **T30 started (2026-11-22):** re-route U100 from scratch (owner).

@@ -1,0 +1,266 @@
+<title>Klepon Solar Panels</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; a gallery of panel cards, then three to-scale drawings (size, energy, open-circuit voltage).
+   Palette shared with the Klepon Rev 1 design report: solder-mask green ink, copper highlight, silkscreen-white paper. */
+:root{
+  --bg:#f4f6f3; --paper:#ffffff; --fg:#17201b; --muted:#56635b; --line:#d5ddd6;
+  --mask:#1d6a46; --mask-soft:#e3efe7; --copper:#b4692c; --copper-soft:#f6e9dc;
+  --ok:#2c7a4b; --warn:#a86a12; --crit:#b23a2e; --cell:#26324a; --photo:#ffffff;
+  --f-display:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#101614; --paper:#17201c; --fg:#e4ebe6; --muted:#9aa89f; --line:#2b3732;
+  --mask:#5fc08c; --mask-soft:#1c3328; --copper:#e09a5c; --copper-soft:#3a2a1c;
+  --ok:#6cc690; --warn:#e3a94b; --crit:#ef7b6e; --cell:#7d93c4; --photo:#f4f4f1; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#101614; --paper:#17201c; --fg:#e4ebe6; --muted:#9aa89f; --line:#2b3732;
+  --mask:#5fc08c; --mask-soft:#1c3328; --copper:#e09a5c; --copper-soft:#3a2a1c;
+  --ok:#6cc690; --warn:#e3a94b; --crit:#ef7b6e; --cell:#7d93c4; --photo:#f4f4f1; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15.5px;line-height:1.6}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 4rem}
+header.top{border-bottom:1px solid var(--line);background:var(--paper)}
+header.top .wrap{padding-block:2.2rem 1.6rem;display:grid;gap:.6rem}
+.eyebrow{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--copper)}
+h1{font-family:var(--f-display);font-size:clamp(2rem,5vw,2.8rem);line-height:1.05;margin:0;letter-spacing:-.02em}
+h2{font-family:var(--f-display);font-size:1.5rem;margin:0;letter-spacing:-.01em;text-wrap:balance}
+h3{font-family:var(--f-display);font-size:1.05rem;margin:0;text-wrap:balance}
+p{margin:0;max-width:68ch}
+.lede{color:var(--muted);font-size:1.05rem;max-width:72ch}
+.meta{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;font-family:var(--f-mono);font-size:.8rem;color:var(--muted)}
+section{display:grid;gap:1.1rem;padding-top:2.6rem}
+.sec-head{display:grid;gap:.35rem}
+.num{font-family:var(--f-mono);font-size:.8rem;color:var(--copper)}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:1.2rem;min-width:0}
+.callout{border-left:3px solid var(--copper);background:var(--copper-soft);padding:.9rem 1.1rem;border-radius:0 6px 6px 0;display:grid;gap:.45rem}
+.callout p{max-width:none}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:1rem}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:6px;overflow:hidden;display:grid;grid-template-rows:auto 1fr;min-width:0}
+.card .photo{background:var(--photo);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--line)}
+.card .photo img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.card .body{padding:.9rem 1rem 1rem;display:grid;gap:.55rem;align-content:start}
+.card .row{display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+.price{font-family:var(--f-display);font-size:1.35rem;font-weight:600;font-variant-numeric:tabular-nums}
+dl.spec{display:grid;grid-template-columns:auto 1fr;gap:.15rem .9rem;margin:0;font-size:.88rem}
+dl.spec dt{color:var(--muted)}dl.spec dd{margin:0;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;font-family:var(--f-mono);font-size:.72rem;padding:.1rem .5rem;border-radius:99px;border:1px solid currentColor;white-space:nowrap}
+.pill.ok{color:var(--ok)}.pill.warn{color:var(--warn)}.pill.crit{color:var(--crit)}
+.card .note{font-size:.84rem;color:var(--muted)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:.45rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.pick td{background:var(--mask-soft)}
+code,.mono{font-family:var(--f-mono);font-size:.86em}
+.caption{font-size:.85rem;color:var(--muted)}
+svg text{font-family:var(--f-mono)}
+.paperframe{background:#ffffff;border:1px solid var(--line);border-radius:6px;padding:.5rem;overflow-x:auto}
+.paperframe img{display:block;width:100%;min-width:640px;max-width:none}
+ol.steps{margin:0;padding-left:1.3rem;display:grid;gap:.4rem}
+a{color:var(--mask)}
+:focus-visible{outline:2px solid var(--copper);outline-offset:2px}
+</style>
+
+<header class="top"><div class="wrap">
+  <div class="eyebrow">Teapot Laboratories · Klepon · requirement P-11</div>
+  <h1>Handheld solar panels</h1>
+  <p class="lede">Options for the panel that charges a Klepon node, found on AliExpress and DigiKey on 2026-11-20. The AliExpress panels are 3–10× cheaper, but only DigiKey's Voltaic panels come with a datasheet.</p>
+  <div class="meta"><span>Prices: qty 1, USD, shown to a US visitor</span><span>AliExpress: regular price, not the new-shopper coupon</span><span>LCSC sells no panels</span></div>
+</div></header>
+
+<main class="wrap">
+
+<section>
+  <div class="callout">
+    <h3>What to do next</h3>
+    <p>Buy three cheap samples and measure them: the 6&nbsp;V 3&nbsp;W 145&nbsp;×&nbsp;145&nbsp;mm ($5.99), the 5.5&nbsp;V 1.3&nbsp;W 147&nbsp;×&nbsp;90&nbsp;mm ($4.02) and the TZT 6&nbsp;V 1.92&nbsp;W 140&nbsp;×&nbsp;104&nbsp;mm ($3.19). That costs about $13 plus shipping. Sellers' wattage figures are optimistic: one buyer measured the "1.92&nbsp;W" TZT panel at about 0.85&nbsp;W.</p>
+    <p>Choosing between a 5&nbsp;V and a 6&nbsp;V panel waits on one charger question (section 4). A 6&nbsp;V panel's open-circuit voltage sits right at the BQ25798's possible 7&nbsp;V start-up limit.</p>
+  </div>
+</section>
+
+<section id="prices">
+  <div class="sec-head"><span class="num">Summary</span><h2>Price and distributor</h2>
+  <p>Cheapest first. Qty 1, US dollars, as listed on 2026-11-20 for a US visitor. Shipping and import tax are not included.</p></div>
+  <div class="panel scroll"><table>
+    <thead><tr><th>Panel</th><th>Distributor</th><th>Seller / maker</th><th class="n">Price</th><th class="n">$ per rated W</th><th>Size (mm)</th><th class="n">Rated W</th><th>Figures</th><th>Link</th></tr></thead>
+    <tbody id="pricerows"></tbody>
+  </table></div>
+  <p class="caption">Highlighted rows are the three suggested samples. AliExpress prices are the regular price; new shoppers are shown $1.09 on the SunMoonMall sizes. DigiKey Marketplace items ship from the maker (Voltaic Systems), not from DigiKey's own stock.</p>
+</section>
+
+<section id="options">
+  <div class="sec-head"><span class="num">1 · Photos</span><h2>Seven panels, 101 to 222 mm wide</h2>
+  <p>Photos are from the listings. The AliExpress store shows one generic photo for all of its sizes. AliExpress started asking for a robot check partway through the search, so per-size photos weren't collected.</p></div>
+  <div class="cards" id="cards"></div>
+</section>
+
+<section id="sunmoon">
+  <div class="sec-head"><span class="num">2 · The cheap listing</span><h2>One AliExpress store, many sizes</h2>
+  <p>SunMoonMall store, 5,000+ sold. Watts are the seller's voltage × current. The highlighted row is the largest handheld size.</p></div>
+  <div class="panel scroll"><table>
+    <thead><tr><th>Size option (seller's name)</th><th class="n">Rated W</th><th>Size (mm)</th><th class="n">Price</th><th>Note</th></tr></thead>
+    <tbody id="smrows"></tbody>
+  </table></div>
+  <p class="caption">Source: <a href="https://www.aliexpress.us/item/3256809207132616.html" target="_blank" rel="noopener">aliexpress.us/item/3256809207132616</a>. Every size shows $1.09 to new shoppers; the table lists the regular price.</p>
+</section>
+
+<section id="size">
+  <div class="sec-head"><span class="num">3 · Size</span><h2>Drawn to scale against a phone</h2>
+  <p>Each outline is the panel's listed size, in millimetres, on one scale. The grey outline is a 147&nbsp;×&nbsp;72&nbsp;mm phone for reference.</p></div>
+  <div class="panel scroll"><svg id="sizesvg" role="img" aria-label="Panel outlines drawn to scale next to a phone outline"></svg></div>
+</section>
+
+<section id="energy">
+  <div class="sec-head"><span class="num">4 · Energy and voltage</span><h2>How much the node can run on</h2>
+  <p>Average power the panel can sustain = rated W × 4 peak-sun hours × 75&nbsp;% harvest ÷ 24&nbsp;h, using the same estimates as <code>docs/power-budget.md</code>. With every radio listening, the node draws about 1.8&nbsp;W (estimate), shown as the dashed line.</p></div>
+  <div class="panel scroll"><svg id="energysvg" role="img" aria-label="Bar chart of sustainable average power per panel against the 1.8 watt always-listening load"></svg></div>
+  <p class="caption">Even the 5&nbsp;W Voltaic panel sustains about a third of the always-listening load. Any handheld panel means the node sleeps most of the time (open question Q-13).</p>
+
+  <h3>Open-circuit voltage against the charger's start-up limit</h3>
+  <p>The BQ25798 cuts off an input above its VAC_OVP threshold. The datasheet is self-contradictory on the power-on default: 7&nbsp;V in the field table, 26&nbsp;V by the register reset value (p.72). If it is 7&nbsp;V (6.7–7.3&nbsp;V, p.10), a dead node can't charge from a panel above it. Only panels with a published or measured Voc are shown. Voc also rises in the cold.</p>
+  <div class="panel scroll"><svg id="vocsvg" role="img" aria-label="Open-circuit voltage of each panel against the 6.7 to 7.3 volt band of the possible 7 volt input limit"></svg></div>
+  <p class="caption">The SS34 reverse-protection diode drops about 0.4–0.55&nbsp;V before the charger input, which helps slightly. The P105 bar shows its ±10&nbsp;% tolerance from the Voltaic drawing.</p>
+</section>
+
+<section id="voltaic">
+  <div class="sec-head"><span class="num">5 · Datasheet example</span><h2>Voltaic P105 drawing</h2>
+  <p>The datasheet-backed reference: 223&nbsp;×&nbsp;148&nbsp;mm, SunPower Maxeon Gen&nbsp;III cells, Voc 7.28&nbsp;V nominal (7.07&nbsp;V expected), 5.89&nbsp;W nominal (4.98&nbsp;W expected), ±10&nbsp;%. Revision R9C, 2025-09-03. It gives no temperature coefficient.</p></div>
+  <div class="paperframe"><img src="img/p105_drawing.png" alt="Voltaic P105 mechanical drawing with dimensions and the power specification table"></div>
+  <p class="caption">Saved as <code>hardware/datasheets/Voltaic_P105_dwg.pdf</code>. Source: <a href="https://voltaicsystems.com/content/P105_dwg.pdf" target="_blank" rel="noopener">voltaicsystems.com/content/P105_dwg.pdf</a>.</p>
+</section>
+
+<section id="jack">
+  <div class="sec-head"><span class="num">6 · On the node</span><h2>Any DC source plugs into a 24 V barrel jack</h2>
+  <p>The panel, or any other DC source from 3.6 to 24 V, connects from outside the enclosure through a DC-005G jack on the board edge: a 5.5&nbsp;×&nbsp;2.1&nbsp;mm plug, centre pin positive. LCSC C692446, $0.16, rated 24&nbsp;V 2.5&nbsp;A; firmware caps the input at 2.4&nbsp;A. A P-FET blocks a reversed plug, an SMAJ24A clamps surges, and a 2&nbsp;Ω + 2.2&nbsp;µF snubber handles hot plugging. Every panel needs a 5.5&nbsp;×&nbsp;2.1&nbsp;mm plug on its cable; the AliExpress "Cable" sizes come with bare wires.</p></div>
+  <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))">
+    <figure class="card" style="margin:0"><div class="photo" style="aspect-ratio:auto;padding:.5rem"><img src="img/jack_schematic.png" alt="USB and Charger sheet: J2 DC-005 jack, pin 1 to the SS34 diode, pins 2 and 3 to GND"></div><div class="body"><h3>Schematic, USB and Charger sheet</h3><p class="note">J2 pin 1 (centre) goes through Q11, the reverse-polarity P-FET, to VDCIN. The sleeve (2) and switch (3) go to GND. Then come the TVS (D1), the snubber (R3, C2), C3 and TP2.</p></div></figure>
+    <figure class="card" style="margin:0"><div class="photo" style="aspect-ratio:auto;padding:.5rem"><img src="img/dc005g_drawing.png" alt="XKB DC-005G-2.5A-2.0 datasheet drawing with dimensions and PCB layout"></div><div class="body"><h3>DC-005G datasheet drawing</h3><p class="note">The project footprint follows this PCB layout: middle slot 6.2&nbsp;mm and side slot 2.9&nbsp;mm in front of the rear pin, side slot 4.6&nbsp;mm off-axis, plus two 1.5&nbsp;mm locating pegs.</p></div></figure>
+  </div>
+</section>
+
+<section id="next">
+  <div class="sec-head"><span class="num">7 · Decisions waiting</span><h2>What this depends on</h2></div>
+  <div class="panel"><ol class="steps">
+    <li><strong>T17a:</strong> settle the BQ25798 VAC_OVP power-on default with TI or on a board. 26&nbsp;V allows any of these panels; 7&nbsp;V points to a 5&nbsp;V panel.</li>
+    <li><strong>Q-13:</strong> accept a node that sleeps most of the time, or choose a bigger panel.</li>
+    <li><strong>Samples:</strong> measure Voc, Isc and the power curve of the three cheap panels in sun before choosing.</li>
+    <li><strong>T20:</strong> rework the solar input for a 6&nbsp;V panel (no snubber needed; weigh the SS34 drop), and add ESD/TVS protection at the external jack.</li>
+  </ol></div>
+</section>
+</main>
+
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg';
+  function el(svg,n,a,t){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;svg.appendChild(e);return e}
+
+  // Panels: name, store, size [w,h] mm, rated W, Voc (V) or null, price $, image, link, datasheet?, note
+  var P=[
+    {n:'6V 500mA 145×145',dist:'AliExpress',seller:'SunMoonMall store',s:'AliExpress · SunMoonMall',d:[145,145],w:3.0,voc:null,p:5.99,img:'img/sunmoon_00.webp',url:'https://www.aliexpress.us/item/3256809207132616.html',ds:false,note:'Largest handheld size in the cheap listing. Photo is the store\'s generic one.',pick:true},
+    {n:'5.5V 240mA 147×90',dist:'AliExpress',seller:'SunMoonMall store',s:'AliExpress · SunMoonMall',d:[147,90],w:1.32,voc:null,p:4.02,img:'img/sunmoon_00.webp',url:'https://www.aliexpress.us/item/3256809207132616.html',ds:false,note:'Lower voltage, so more margin under a 7 V input limit.',pick:true},
+    {n:'TZT 6V 1.92W 140×104',dist:'AliExpress',seller:'TZT (All-Electronics-Five-Stars store)',s:'AliExpress · TZT',d:[140,104],w:1.92,voc:null,p:3.19,img:'img/tzt_00.webp',url:'https://www.aliexpress.us/item/3256807713324066.html',ds:false,note:'A buyer measured 170 mA at 5.03 V (about 0.85 W) in bright sun. On sale for $2.93.',pick:true},
+    {n:'5V 230mA 101×83',dist:'AliExpress',seller:'SunMoonMall store',s:'AliExpress · SunMoonMall',d:[101,83],w:1.15,voc:6.10,vocsrc:'buyer measured',p:3.08,img:'img/sunmoon_00.webp',url:'https://www.aliexpress.us/item/3256809207132616.html',ds:false,note:'A buyer measured Voc 6.10 V and Isc 252 mA.'},
+    {n:'Voltaic P124',dist:'DigiKey (Marketplace)',seller:'Voltaic Systems',s:'DigiKey · Voltaic Systems',d:[113,66],w:1.22,voc:7.09,p:14.00,img:'img/p124_00.png',url:'https://www.digikey.com/en/products/detail/voltaic-systems/P124/12352797',ds:true,note:'ETFE, monocrystalline. Vmp 6.07 V, Isc 220 mA.'},
+    {n:'Adafruit 5366',dist:'DigiKey',seller:'Adafruit (Voltaic ETFE panel)',s:'DigiKey · Adafruit (Voltaic ETFE)',d:[136,112],w:2.37,voc:8.51,p:26.19,img:'img/ada5366_00.jpg',url:'https://www.digikey.com/en/products/detail/adafruit-industries-llc/5366/15998627',ds:true,note:'Vmp 7.28 V. Its Voc is the highest here.'},
+    {n:'Voltaic P105',dist:'DigiKey (Marketplace)',seller:'Voltaic Systems',s:'DigiKey · Voltaic Systems',d:[222,137],w:5.75,voc:7.13,vocTol:[6.55,8.01],p:35.00,img:'img/p105_00.jpg',url:'https://www.digikey.com/en/products/detail/voltaic-systems/P105/12154975',ds:true,note:'4.98 W expected per the drawing. Vmp 6.12 V, Isc 0.99 A (DigiKey).'}
+  ];
+
+  // Cards
+  var C=document.getElementById('cards');
+  P.forEach(function(x){
+    var c=document.createElement('article');c.className='card';
+    var vocTxt=x.voc==null?'not published':x.voc.toFixed(2)+' V'+(x.vocsrc?' ('+x.vocsrc+')':'');
+    var tag=x.ds?'<span class="pill ok">datasheet</span>':'<span class="pill warn">seller rating</span>';
+    c.innerHTML='<div class="photo"><img loading="lazy"></div><div class="body">'+
+      '<div class="row"><h3></h3><span class="price"></span></div>'+
+      '<div class="row"><span class="caption src"></span>'+tag+'</div>'+
+      '<dl class="spec"><dt>Distributor</dt><dd class="di"></dd><dt>Seller</dt><dd class="se"></dd><dt>Size</dt><dd class="sz"></dd><dt>Rated power</dt><dd class="pw"></dd><dt>Voc</dt><dd class="vc"></dd></dl>'+
+      '<p class="note"></p><a target="_blank" rel="noopener">Open listing</a></div>';
+    var im=c.querySelector('img');im.src=x.img;im.alt=x.n+' solar panel';
+    c.querySelector('h3').textContent=x.n;
+    c.querySelector('.price').textContent='$'+x.p.toFixed(2);
+    c.querySelector('.src').textContent=x.s;
+    c.querySelector('.di').textContent=x.dist;
+    c.querySelector('.se').textContent=x.seller;
+    c.querySelector('.sz').textContent=x.d[0]+' × '+x.d[1]+' mm';
+    c.querySelector('.pw').textContent=x.w.toFixed(2)+' W';
+    c.querySelector('.vc').textContent=vocTxt;
+    c.querySelector('.note').textContent=x.note;
+    c.querySelector('a').href=x.url;
+    C.appendChild(c);
+  });
+
+  // Price and distributor table, cheapest first
+  var pr=document.getElementById('pricerows');
+  P.slice().sort(function(a,b){return a.p-b.p}).forEach(function(x){
+    var tr=document.createElement('tr'); if(x.pick) tr.className='pick';
+    var cells=[x.n,x.dist,x.seller,'$'+x.p.toFixed(2),'$'+(x.p/x.w).toFixed(2),x.d[0]+' × '+x.d[1],x.w.toFixed(2)];
+    cells.forEach(function(v,k){var td=document.createElement('td');td.textContent=v;if(k==3||k==4||k==6)td.className='n';tr.appendChild(td)});
+    var td=document.createElement('td');td.innerHTML=x.ds?'<span class="pill ok">datasheet</span>':'<span class="pill warn">seller rating</span>';tr.appendChild(td);
+    td=document.createElement('td');var a=document.createElement('a');a.href=x.url;a.target='_blank';a.rel='noopener';a.textContent=x.dist.split(' ')[0];td.appendChild(a);tr.appendChild(td);
+    pr.appendChild(tr);
+  });
+
+  // SunMoonMall table (regular prices)
+  var SM=[['6V500mA 145x145 Cable',3.0,'145 × 145',5.99,'largest'],['6V250mA 165x65 Cable',1.5,'165 × 65',4.88,''],['6V 220mA 120x90 Cable',1.32,'120 × 90',3.68,''],['6V 183mA 133x72 Cable',1.10,'133 × 72',4.04,''],['5.5V240mA147x90 Cable',1.32,'147 × 90',4.02,''],['5V230mA100.8X82.5',1.15,'101 × 83',3.08,'buyer: Voc 6.10 V, Isc 252 mA'],['7V120mA 110x110 Cable',0.84,'110 × 110',4.14,''],['6V 150mA 80x80',0.9,'80 × 80',2.82,'']];
+  var tb=document.getElementById('smrows');
+  SM.forEach(function(r,i){var tr=document.createElement('tr');if(i==0)tr.className='pick';
+    [r[0],r[1].toFixed(2),r[2],'$'+r[3].toFixed(2),r[4]].forEach(function(v,k){var td=document.createElement('td');td.textContent=v;if(k==1||k==3)td.className='n';tr.appendChild(td)});tb.appendChild(tr)});
+
+  // Size drawing: one scale (px per mm) for every outline
+  (function(){
+    var svg=document.getElementById('sizesvg'), k=0.7, gap=18, x=20, base=260, maxH=0;
+    var items=P.map(function(p){return {n:p.n,w:p.d[0],h:p.d[1],phone:false}}).concat([{n:'phone 147×72',w:72,h:147,phone:true}]);
+    items.sort(function(a,b){return (a.w*a.h)-(b.w*b.h)});
+    items.forEach(function(it){maxH=Math.max(maxH,it.h)});
+    var H=maxH*k+80; var W=items.reduce(function(s,it){return s+it.w*k+gap},20);
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);svg.setAttribute('width',W);svg.style.maxWidth='none';
+    base=maxH*k+20;
+    items.forEach(function(it){
+      var w=it.w*k,h=it.h*k,y=base-h;
+      el(svg,'rect',{x:x,y:y,width:w,height:h,rx:3,fill:it.phone?'none':'var(--cell)','fill-opacity':it.phone?0:0.85,stroke:it.phone?'var(--muted)':'var(--fg)','stroke-width':1.2,'stroke-dasharray':it.phone?'5 4':'none'});
+      el(svg,'text',{x:x+w/2,y:base+16,'text-anchor':'middle','font-size':10.5,fill:'var(--fg)'},it.n);
+      el(svg,'text',{x:x+w/2,y:base+30,'text-anchor':'middle','font-size':10,fill:'var(--muted)'},it.w+' × '+it.h+' mm');
+      x+=w+gap;
+    });
+    // 50 mm scale bar
+    el(svg,'line',{x1:20,x2:20+50*k,y1:12,y2:12,stroke:'var(--copper)','stroke-width':3});
+    el(svg,'text',{x:20+50*k+8,y:16,'font-size':11,fill:'var(--copper)'},'50 mm');
+  })();
+
+  // Energy bars: sustainable average W = rated W × 4 h × 0.75 / 24
+  (function(){
+    var svg=document.getElementById('energysvg'), L=170, R=640, top=16, bh=22, gap=10, max=2.0;
+    var rows=P.map(function(p){return {n:p.n,v:p.w*4*0.75/24}}).sort(function(a,b){return b.v-a.v});
+    var H=top+rows.length*(bh+gap)+36; svg.setAttribute('viewBox','0 0 700 '+H); svg.setAttribute('width','100%'); svg.style.minWidth='560px';
+    var X=function(v){return L+(R-L)*v/max};
+    [0,0.5,1.0,1.5,2.0].forEach(function(t){el(svg,'line',{x1:X(t),x2:X(t),y1:top-4,y2:H-28,stroke:'var(--line)'});el(svg,'text',{x:X(t),y:H-12,'text-anchor':'middle','font-size':11,fill:'var(--muted)'},t.toFixed(1)+' W')});
+    rows.forEach(function(r,i){var y=top+i*(bh+gap);
+      el(svg,'text',{x:L-8,y:y+bh/2+4,'text-anchor':'end','font-size':11,fill:'var(--fg)'},r.n);
+      el(svg,'rect',{x:L,y:y,width:Math.max(1,X(r.v)-L),height:bh,rx:2,fill:'var(--mask)'});
+      el(svg,'text',{x:X(r.v)+6,y:y+bh/2+4,'font-size':11,fill:'var(--fg)'},r.v.toFixed(2)+' W');});
+    el(svg,'line',{x1:X(1.8),x2:X(1.8),y1:top-6,y2:H-28,stroke:'var(--crit)','stroke-width':2,'stroke-dasharray':'6 4'});
+    el(svg,'text',{x:X(1.8)-4,y:top+6,'text-anchor':'end','font-size':11,fill:'var(--crit)'},'always listening ≈ 1.8 W');
+  })();
+
+  // Voc vs 7 V VAC_OVP band (6.7–7.3 V)
+  (function(){
+    var svg=document.getElementById('vocsvg'), L=170, R=640, top=26, bh=20, gap=12, lo=5.5, hi=9.0;
+    var rows=P.filter(function(p){return p.voc!=null}).sort(function(a,b){return a.voc-b.voc});
+    var H=top+rows.length*(bh+gap)+36; svg.setAttribute('viewBox','0 0 700 '+H); svg.setAttribute('width','100%'); svg.style.minWidth='560px';
+    var X=function(v){return L+(R-L)*(v-lo)/(hi-lo)};
+    el(svg,'rect',{x:X(6.7),y:top-14,width:X(7.3)-X(6.7),height:H-top-26,fill:'var(--crit)','fill-opacity':0.13});
+    el(svg,'text',{x:(X(6.7)+X(7.3))/2,y:top-18,'text-anchor':'middle','font-size':10.5,fill:'var(--crit)'},'7 V limit band (6.7–7.3 V)');
+    [6,7,8,9].forEach(function(t){el(svg,'line',{x1:X(t),x2:X(t),y1:top-6,y2:H-28,stroke:'var(--line)'});el(svg,'text',{x:X(t),y:H-12,'text-anchor':'middle','font-size':11,fill:'var(--muted)'},t+' V')});
+    rows.forEach(function(r,i){var y=top+i*(bh+gap), cx=X(r.voc), col=r.voc>=7.3?'var(--crit)':(r.voc>=6.7?'var(--warn)':'var(--ok)');
+      el(svg,'text',{x:L-8,y:y+bh/2+4,'text-anchor':'end','font-size':11,fill:'var(--fg)'},r.n);
+      if(r.vocTol){el(svg,'line',{x1:X(r.vocTol[0]),x2:X(r.vocTol[1]),y1:y+bh/2,y2:y+bh/2,stroke:col,'stroke-width':2});
+        [r.vocTol[0],r.vocTol[1]].forEach(function(v){el(svg,'line',{x1:X(v),x2:X(v),y1:y+4,y2:y+bh-4,stroke:col,'stroke-width':2})})}
+      el(svg,'circle',{cx:cx,cy:y+bh/2,r:6,fill:col});
+      el(svg,'text',{x:cx+(r.vocTol?X(r.vocTol[1])-cx+8:10),y:y+bh/2+4,'font-size':11,fill:'var(--fg)'},r.voc.toFixed(2)+' V'+(r.vocsrc?' ('+r.vocsrc+')':''));});
+  })();
+})();
+</script>

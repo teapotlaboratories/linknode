@@ -1,0 +1,186 @@
+{
+ "moved": {
+  "Y502": {
+   "val": "32.768kHz",
+   "from": [
+    139.75,
+    148.0
+   ],
+   "to": [
+    136.75,
+    142.5
+   ]
+  },
+  "C503": {
+   "val": "18pF C0G",
+   "from": [
+    137.75,
+    146.25
+   ],
+   "to": [
+    136.0,
+    140.75
+   ]
+  },
+  "C504": {
+   "val": "18pF C0G",
+   "from": [
+    140.25,
+    151.0
+   ],
+   "to": [
+    136.5,
+    139.0
+   ]
+  },
+  "R510": {
+   "val": "10k",
+   "from": [
+    137.25,
+    149.75
+   ],
+   "to": [
+    133.5,
+    143.5
+   ]
+  },
+  "C507": {
+   "val": "1nF",
+   "from": [
+    135.75,
+    140.5
+   ],
+   "to": [
+    132.75,
+    142.0
+   ]
+  },
+  "TP501": {
+   "val": "RECOVERY",
+   "from": [
+    134.25,
+    144.25
+   ],
+   "to": [
+    131.0,
+    142.5
+   ]
+  },
+  "R506": {
+   "val": "10k",
+   "from": [
+    136.25,
+    146.25
+   ],
+   "to": [
+    133.5,
+    149.25
+   ]
+  },
+  "R507": {
+   "val": "15k",
+   "from": [
+    135.75,
+    142.0
+   ],
+   "to": [
+    133.25,
+    140.0
+   ]
+  },
+  "C506": {
+   "val": "100nF",
+   "from": [
+    136.5,
+    144.0
+   ],
+   "to": [
+    131.75,
+    140.5
+   ]
+  },
+  "R508": {
+   "val": "2.2R",
+   "from": [
+    144.75,
+    149.75
+   ],
+   "to": [
+    138.2,
+    146.35
+   ]
+  },
+  "R509": {
+   "val": "2.2R",
+   "from": [
+    137.25,
+    148.25
+   ],
+   "to": [
+    138.2,
+    145.3
+   ]
+  },
+  "R511": {
+   "val": "22R",
+   "from": [
+    140.25,
+    141.0
+   ],
+   "to": [
+    136.4,
+    137.7
+   ]
+  }
+ },
+ "usb": {
+  "/SoC/USB_DP": 30.24,
+  "/SoC/USB_DM": 30.4,
+  "Net-(U100System-USB_DP)": 3.46,
+  "Net-(U100System-USB_DM)": 3.3
+ },
+ "usb_vias": {
+  "Net-(U100Power-SARADC_USB_AVDD1V8)": 2,
+  "Net-(U100System-USB_VBUSDET)": 4,
+  "/SoC/USB_DP": 2
+ },
+ "sd": {
+  "/SoC/SD_CLK": 49.5182,
+  "/SoC/SD_CMD": 43.5131,
+  "/SoC/SD_D0": 49.0183,
+  "/SoC/SD_D1": 42.698,
+  "/SoC/SD_D2": 38.9172,
+  "/SoC/SD_D3": 49.0183
+ },
+ "sdio": {
+  "/HaLow/HALOW_SDIO_CLK": 22.2175,
+  "/HaLow/HALOW_SDIO_CMD": 15.4118,
+  "/HaLow/HALOW_SDIO_D0": 25.0231,
+  "/HaLow/HALOW_SDIO_D2": 17.2645,
+  "/HaLow/HALOW_SDIO_D1": 25.8454,
+  "/HaLow/HALOW_SDIO_D3": 14.9881
+ },
+ "check": {
+  "unconnected_rv1106": 0,
+  "unconnected_rest_of_board": 309,
+  "parity": 0,
+  "violations": {
+   "silk_edge_clearance": 5,
+   "via_dangling": 2,
+   "isolated_copper": 6
+  },
+  "tracks_under_crystals": {
+   "Y501": [],
+   "Y502": [
+    [
+     "Net-(U100System-SARADC_IN0{slash}GPIO4_C0)",
+     "F.Cu"
+    ]
+   ]
+  }
+ },
+ "vias_in_signal_pads": [],
+ "r511_to_pin15": 6.34,
+ "tracks": 1845,
+ "vias": 348
+}

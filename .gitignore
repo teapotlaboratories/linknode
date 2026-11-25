@@ -1,0 +1,19 @@
+# Local tool environments and caches (Python venvs, uv cache): rebuilt per machine
+.tools/
+__pycache__/
+*.pyc
+
+# Third-party reference material (Rockchip / Luckfox / TI documents): kept local, not redistributed
+resources/
+
+# KiCad per-user and generated files
+*.kicad_prl
+*.lck
+fp-info-cache
+*-backups/
+~*.kicad_*
+
+# Vendor datasheets: kept local, not redistributed (the index README.md stays)
+hardware/datasheets/*
+!hardware/datasheets/README.md
+

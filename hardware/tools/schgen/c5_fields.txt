@@ -1,0 +1,9 @@
+#PWR1401:Value:107.95:102.87:0:left
+#PWR1403:Value:107.95:120.65:0:left
+#PWR1404:Value:115.57:60.96:90:left
+U801:Reference:124.46:135.89:0:left
+U801:Value:124.46:138.43:0:left
+R801:Reference:105.41:105.92:0:right
+R801:Value:105.41:107.44:0:right
+R802:Reference:105.41:123.7:0:right
+R802:Value:105.41:125.22:0:right

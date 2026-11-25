@@ -1,0 +1,277 @@
+(footprint "Kefa_KF2EDGR-3.81-2P_Horizontal"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Kefa KF2EDGR-3.81-2P pluggable terminal block header, 2 poles, 3.81 mm, right angle, 300 V 8 A (Kefa KF2EDGR-3.81 drawing: holes 1.40 mm, body 8.42 wide x 9.20 deep, 7.0 tall). Mates with the KF2EDGK-3.81-2P screw plug (C440858). Geometry and 3D model from KiCad PhoenixContact_MC_1,5_2-G-3.81 (same body); holes and courtyard per Kefa (T38).")
+	(tags "terminal block pluggable 3.81 KF2EDGR DC input")
+	(property "Reference" "REF**"
+		(at 1.9 -3 0)
+		(layer "F.SilkS")
+		(uuid "d222bf89-e479-42ba-a451-ab034dc68c67")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "PhoenixContact_MC_1,5_2-G-3.81_1x02_P3.81mm_Horizontal"
+		(at 1.9 9.2 0)
+		(layer "F.Fab")
+		(uuid "04e896a2-6d6c-45c8-a7aa-fcf8f06c999d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "3c594de7-c2b7-45cb-a12d-aa0ca413f396")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "8d4b469d-e431-45bf-a598-ce92a5d3082a")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "KiLib_Generator" "connector/PhoenixContact"
+		(at 0 0 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "2aaf9d34-1eea-48ec-ae00-f1fc28585b61")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -2.71 -1.31)
+		(end -2.71 8.11)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "396bb875-4f8a-46e7-80e1-930fc3a42c88")
+	)
+	(fp_line
+		(start -2.71 -1.31)
+		(end -1.05 -1.31)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "a67209be-e665-46fa-b922-37d1714c879a")
+	)
+	(fp_line
+		(start -2.71 4.8)
+		(end 6.52 4.8)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "10df7ff4-f47a-476b-a710-d8d771af6dcd")
+	)
+	(fp_line
+		(start -2.71 8.11)
+		(end 6.52 8.11)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "a29bd4a5-1fe5-4264-a033-77f4c2a29879")
+	)
+	(fp_line
+		(start -0.3 -2.6)
+		(end 0.3 -2.6)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "22ae3ee3-3c36-4f82-a661-c808ed1fd244")
+	)
+	(fp_line
+		(start 0 -2)
+		(end -0.3 -2.6)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "f11951c8-3bc1-47d9-9d3e-79d7d59057df")
+	)
+	(fp_line
+		(start 0.3 -2.6)
+		(end 0 -2)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "a06ca049-912d-4a44-a8b7-58ded299896a")
+	)
+	(fp_line
+		(start 1.05 -1.31)
+		(end 2.76 -1.31)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "9ec5b7ab-494e-4f52-a1d6-dd3c5ce7a332")
+	)
+	(fp_line
+		(start 6.52 -1.31)
+		(end 4.86 -1.31)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "773c1d65-83ac-4e7b-b3a9-ce7e06bb6860")
+	)
+	(fp_line
+		(start 6.52 8.11)
+		(end 6.52 -1.31)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "d5d90b60-146b-4ea3-bcc5-6491c3be3f62")
+	)
+	(fp_line
+		(start -2.554999 -1.55)
+		(end 6.365 -1.55)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "aeee2a83-f94d-44ce-ae17-993d38632074")
+	)
+	(fp_line
+		(start -2.554999 8.149999)
+		(end -2.554999 -1.55)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "67554a85-3f8a-4062-babb-125a80beb8c3")
+	)
+	(fp_line
+		(start 6.365 -1.55)
+		(end 6.365 8.149999)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "08931b92-b136-4914-a8b1-a9f7f3b2105c")
+	)
+	(fp_line
+		(start 6.365 8.149999)
+		(end -2.554999 8.149999)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(layer "F.CrtYd")
+		(uuid "c20f6eec-12e1-4eae-a3bf-51af77ec6b07")
+	)
+	(fp_line
+		(start 0 0)
+		(end -0.8 -1.2)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "a4322424-de81-473f-963e-ad06be221823")
+	)
+	(fp_line
+		(start 0.8 -1.2)
+		(end 0 0)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "33ca4ce9-2e2c-4990-ad6a-34b009e93bd1")
+	)
+	(fp_rect
+		(start -2.6 -1.2)
+		(end 6.41 8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "ac89b75e-f1ef-4eca-bc92-568ec4b869bf")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 1.9 -0.5 0)
+		(layer "F.Fab")
+		(uuid "5d3a294f-904e-4a55-ab13-78e504bbd2d1")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" thru_hole roundrect
+		(at 0 0)
+		(size 2.2 2.2)
+		(drill 1.4)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(roundrect_rratio 0.138889)
+		(uuid "212f3399-eaf7-49e9-b32d-13f894b61498")
+	)
+	(pad "2" thru_hole oval
+		(at 3.81 0)
+		(size 2.2 2.2)
+		(drill 1.4)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "faf7876a-5099-4f28-948e-6136bccb33c2")
+	)
+	(embedded_fonts no)
+	(model "${KICAD10_3DMODEL_DIR}/Connector_Phoenix_MC.3dshapes/PhoenixContact_MC_1,5_2-G-3.81_1x02_P3.81mm_Horizontal.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

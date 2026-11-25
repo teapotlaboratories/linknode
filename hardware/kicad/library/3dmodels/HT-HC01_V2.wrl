@@ -1,0 +1,4 @@
+#VRML V2.0 utf8
+# LinkNode placeholder model, see hardware/tools/gen_3d_boxes.py
+Transform { translation 0.0000 0.0000 0.1575 children Shape { appearance Appearance { material Material { diffuseColor 0.060 0.280 0.170 specularColor 0.25 0.25 0.25 shininess 0.20 } } geometry Box { size 7.2835 5.5118 0.3150 } } }
+Transform { translation 0.0000 0.0000 0.6693 children Shape { appearance Appearance { material Material { diffuseColor 0.550 0.560 0.590 specularColor 0.25 0.25 0.25 shininess 0.25 } } geometry Box { size 6.8110 5.0394 0.7087 } } }

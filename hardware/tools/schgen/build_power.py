@@ -1,0 +1,16 @@
+import sys,json; sys.path.insert(0,sys.argv[1])
+from blocks import *
+import wires
+S=Sheet()
+boost(S,63.5,60.96)
+tlv(S,190.5,35.56,5,'VDD_0V9','47k','C25792','rc',ren='100k',ren_c='C25741',cen='10nF',cen_c='C15195',tp='TP15')
+tlv(S,190.5,82.55,6,'VCC_DDR','124k','C36777','rc',ren='100k',ren_c='C25741',cen='100nF',cen_c='C1525',tp='TP16')
+tlv(S,190.5,129.54,7,'VCC_1V8','200k','C25764','rc',ren='100k',ren_c='C25741',cen='100nF',cen_c='C1525',tp='TP17')
+tlv(S,78.74,129.54,8,'VCC_3V3','453k','C27009','rc',ren='200k',ren_c='C25764',cen='100nF',cen_c='C1525',tp='TP18')
+# VDD_ARM from VDD_0V9 through 0R (rail of block 5 ends at x+53.34 = 243.84, y-2.54 = 33.02)
+S.w((243.84,33.02),(246.38,33.02))
+S.part('R19','Device:R_Small','0R',R,248.92,33.02,90,'C17168')
+S.w((251.46,33.02),(256.54,33.02)); S.pwr('VDD_ARM',256.54,33.02); S.pwr('FLAG',254.0,33.02,0)
+plain,mir=S.payload(200)
+json.dump(dict(plain=plain,mir=mir,hier=S.hier,lcsc={r:{'properties':{'LCSC':c}} for r,c in S.lcsc.items()},wires=S.wires,pins=wires.pinpoints(S.parts,S.pw)),open(sys.argv[1]+'/power_w.json','w'))
+print(len(plain),'items',len(S.wires),'polylines; refs',sorted(p['reference'] for p in plain if not p['reference'].startswith('#')))

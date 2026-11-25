@@ -1,0 +1,58 @@
+<svg class="fp" viewBox="-2 -2 74 70" role="img" aria-label="First-cut floorplan, 70 by 64 mm">
+<rect x="0" y="0" width="70" height="64" fill="none" stroke="currentColor" stroke-width="0.35"/>
+<rect x="10.5" y="16.5" width="34.5" height="37.5" rx="1" fill="none" stroke="#8a5cb8" stroke-width="0.4" stroke-dasharray="1.2 0.8"/>
+<text x="11.1" y="53.4" font-size="1.7" font-weight="600" fill="#8a5cb8">Power</text>
+<rect x="6.5" y="-0.5" width="60.2" height="24" rx="1" fill="none" stroke="#3b6fc0" stroke-width="0.4" stroke-dasharray="1.2 0.8"/>
+<text x="7.1" y="22.9" font-size="1.7" font-weight="600" fill="#3b6fc0">Radios</text>
+<rect x="0" y="0" width="7" height="7" rx="0.6" fill="#9aa29b" fill-opacity="0.22" stroke="#9aa29b" stroke-width="0.25"/>
+<text x="3.5" y="4" font-size="1.1" text-anchor="middle" fill="currentColor">MH1</text>
+<rect x="63" y="0" width="7" height="7" rx="0.6" fill="#9aa29b" fill-opacity="0.22" stroke="#9aa29b" stroke-width="0.25"/>
+<text x="66.5" y="4" font-size="1.1" text-anchor="middle" fill="currentColor">MH2</text>
+<rect x="0" y="17" width="7" height="7" rx="0.6" fill="#9aa29b" fill-opacity="0.22" stroke="#9aa29b" stroke-width="0.25"/>
+<text x="3.5" y="21" font-size="1.1" text-anchor="middle" fill="currentColor">MH3</text>
+<rect x="63" y="57" width="7" height="7" rx="0.6" fill="#9aa29b" fill-opacity="0.22" stroke="#9aa29b" stroke-width="0.25"/>
+<text x="66.5" y="61" font-size="1.1" text-anchor="middle" fill="currentColor">MH4</text>
+<rect x="1" y="48" width="11.6" height="16" rx="0.6" fill="#b4692c" fill-opacity="0.22" stroke="#b4692c" stroke-width="0.25"/>
+<text x="6.8" y="56.5" font-size="1.5" text-anchor="middle" fill="currentColor">J2 DC jack</text>
+<rect x="14" y="54.5" width="10.7" height="9.5" rx="0.6" fill="#b4692c" fill-opacity="0.22" stroke="#b4692c" stroke-width="0.25"/>
+<text x="19.35" y="59.75" font-size="1.5" text-anchor="middle" fill="currentColor">J1 USB-C</text>
+<rect x="26" y="58.3" width="7.6" height="5.7" rx="0.6" fill="#b4692c" fill-opacity="0.22" stroke="#b4692c" stroke-width="0.25"/>
+<text x="29.8" y="61.65" font-size="1.1" text-anchor="middle" fill="currentColor">SW1 PWR</text>
+<rect x="45" y="48" width="17.8" height="16" rx="0.6" fill="#b4692c" fill-opacity="0.22" stroke="#b4692c" stroke-width="0.25"/>
+<text x="53.9" y="56.5" font-size="1.5" text-anchor="middle" fill="currentColor">J401 microSD</text>
+<rect x="0" y="25" width="10.9" height="11.1" rx="0.6" fill="#b4692c" fill-opacity="0.22" stroke="#b4692c" stroke-width="0.25"/>
+<text x="5.45" y="31.05" font-size="1.5" text-anchor="middle" fill="currentColor">J3 battery</text>
+<rect x="0" y="36.5" width="10.9" height="11.1" rx="0.6" fill="#b4692c" fill-opacity="0.22" stroke="#b4692c" stroke-width="0.25"/>
+<text x="5.45" y="42.55" font-size="1.5" text-anchor="middle" fill="currentColor">J4 NTC</text>
+<rect x="7" y="0" width="20.5" height="15.9" rx="0.6" fill="#3b6fc0" fill-opacity="0.22" stroke="#3b6fc0" stroke-width="0.25"/>
+<text x="17.25" y="8.45" font-size="1.5" text-anchor="middle" fill="currentColor">U701 HaLow</text>
+<rect x="28" y="0" width="4.8" height="4.7" rx="0.6" fill="#b4692c" fill-opacity="0.22" stroke="#b4692c" stroke-width="0.25"/>
+<text x="30.4" y="2.85" font-size="1.1" text-anchor="middle" fill="currentColor">J901</text>
+<rect x="33" y="0" width="19.8" height="23" rx="0.6" fill="#3b6fc0" fill-opacity="0.22" stroke="#3b6fc0" stroke-width="0.25"/>
+<text x="42.9" y="12" font-size="1.5" text-anchor="middle" fill="currentColor">U801 ESP32-C5</text>
+<rect x="54" y="8" width="11.9" height="10.7" rx="0.6" fill="#3b6fc0" fill-opacity="0.22" stroke="#3b6fc0" stroke-width="0.25"/>
+<text x="59.95" y="13.85" font-size="1.5" text-anchor="middle" fill="currentColor">U20 GPS</text>
+<rect x="54" y="0" width="5" height="4.7" rx="0.6" fill="#b4692c" fill-opacity="0.22" stroke="#b4692c" stroke-width="0.25"/>
+<text x="56.5" y="2.85" font-size="1.1" text-anchor="middle" fill="currentColor">J20</text>
+<rect x="60" y="19" width="6" height="4.5" rx="0.6" fill="#3b6fc0" fill-opacity="0.22" stroke="#3b6fc0" stroke-width="0.25"/>
+<text x="63" y="21.75" font-size="1.1" text-anchor="middle" fill="currentColor">GPS</text>
+<rect x="45" y="24" width="22" height="21" rx="0.6" fill="#1d6a46" fill-opacity="0.22" stroke="#1d6a46" stroke-width="0.25"/>
+<text x="56" y="35" font-size="1.5" text-anchor="middle" fill="currentColor">U100 RV1106 + crystals</text>
+<rect x="11" y="17" width="9" height="7" rx="0.6" fill="#8a5cb8" fill-opacity="0.22" stroke="#8a5cb8" stroke-width="0.25"/>
+<text x="15.5" y="21" font-size="1.1" text-anchor="middle" fill="currentColor">Radio power</text>
+<rect x="39.5" y="34" width="5" height="19.5" rx="0.6" fill="#8a5cb8" fill-opacity="0.22" stroke="#8a5cb8" stroke-width="0.25"/>
+<text x="42" y="44.25" font-size="1.1" text-anchor="middle" fill="currentColor">Radio</text>
+<rect x="11" y="25" width="9" height="15" rx="0.6" fill="#8a5cb8" fill-opacity="0.22" stroke="#8a5cb8" stroke-width="0.25"/>
+<text x="15.5" y="33" font-size="1.1" text-anchor="middle" fill="currentColor">Battery protect</text>
+<rect x="13" y="40" width="7" height="8" rx="0.6" fill="#8a5cb8" fill-opacity="0.22" stroke="#8a5cb8" stroke-width="0.25"/>
+<text x="16.5" y="44.5" font-size="1.1" text-anchor="middle" fill="currentColor">Hold-off</text>
+<rect x="20" y="17" width="13" height="13" rx="0.6" fill="#8a5cb8" fill-opacity="0.22" stroke="#8a5cb8" stroke-width="0.25"/>
+<text x="26.5" y="24" font-size="1.5" text-anchor="middle" fill="currentColor">Bucks, boost</text>
+<rect x="20" y="30" width="13" height="4" rx="0.6" fill="#8a5cb8" fill-opacity="0.22" stroke="#8a5cb8" stroke-width="0.25"/>
+<text x="26.5" y="32.5" font-size="1.5" text-anchor="middle" fill="currentColor">Hold-off (2)</text>
+<rect x="33" y="24" width="11.5" height="10" rx="0.6" fill="#8a5cb8" fill-opacity="0.22" stroke="#8a5cb8" stroke-width="0.25"/>
+<text x="38.75" y="29.5" font-size="1.5" text-anchor="middle" fill="currentColor">Bucks (2)</text>
+<rect x="20" y="34" width="19" height="19.5" rx="0.6" fill="#8a5cb8" fill-opacity="0.22" stroke="#8a5cb8" stroke-width="0.25"/>
+<text x="29.5" y="44.25" font-size="1.5" text-anchor="middle" fill="currentColor">Charger, input, ESD</text>
+<text x="35" y="67.2" font-size="1.6" text-anchor="middle" fill="currentColor">connector edge (USB-C, DC jack, PWR, microSD)</text>
+</svg>

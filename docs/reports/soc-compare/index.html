@@ -1,0 +1,177 @@
+<title>Klepon SoC Choice</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@500;600&display=swap">
+<style>
+/* Layout: one reading column; a cost chart and comparison tables carry the decision, then the evidence. */
+:root{
+  --bg:#f6f7f5; --panel:#ffffff; --fg:#1d2420; --muted:#5d6862; --line:#d9ded9;
+  --accent:#2f6f5e; --rv:#2f6f5e; --rk:#b0623a; --rk-soft:#d79a76; --warn:#a2541e; --ok:#2f6f5e; --crit:#a33b3b;
+  --display:"Space Grotesk",system-ui,sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141917; --panel:#1b2220; --fg:#e4e9e5; --muted:#9aa59f; --line:#2f3935;
+  --accent:#6fc2a8; --rv:#6fc2a8; --rk:#e39a6f; --rk-soft:#a8694a; --warn:#e3a06a; --ok:#6fc2a8; --crit:#e07c7c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141917; --panel:#1b2220; --fg:#e4e9e5; --muted:#9aa59f; --line:#2f3935;
+  --accent:#6fc2a8; --rv:#6fc2a8; --rk:#e39a6f; --rk-soft:#a8694a; --warn:#e3a06a; --ok:#6fc2a8; --crit:#e07c7c; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:15px/1.6 var(--body)}
+.wrap{max-width:980px;margin:0 auto;padding-block:32px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.2}
+h1{font-size:2rem} h2{font-size:1.3rem} h3{font-size:1.02rem}
+p{margin:0;max-width:70ch} .muted{color:var(--muted)}
+.eyebrow{font:500 .75rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+header{display:flex;flex-direction:column;gap:10px}
+.verdict{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:6px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.verdict ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
+section{display:flex;flex-direction:column;gap:12px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px 18px;min-width:0}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 .75rem/1.3 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tag{display:inline-block;font:500 .7rem/1 var(--mono);padding:3px 6px;border-radius:3px;border:1px solid currentColor;white-space:nowrap}
+.tag.warn{color:var(--warn)} .tag.ok{color:var(--ok)} .tag.crit{color:var(--crit)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.grid2 .panel{display:flex;flex-direction:column;gap:8px}
+.grid2 ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:5px}
+.src{font-size:.8rem;color:var(--muted)} .src a{color:var(--muted)}
+a{color:var(--accent)}
+svg text{font-family:var(--mono)}
+.note{font-size:.85rem;color:var(--muted)}
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Klepon Rev 1 · T24 · 2026-11-20</span>
+  <h1>RV1106G3 or RK3566?</h1>
+  <p class="muted">Should Klepon switch from the RV1106G3 to a chip-down RK3566 with 512 MB or 1 GB of external DRAM, given the routing references available for it? All prices are live from LCSC, 2026-11-20.</p>
+</header>
+
+<div class="verdict">
+  <span class="eyebrow">Recommendation</span>
+  <h2>Stay with the RV1106. The RK3566 costs more at every memory size and makes the board harder.</h2>
+  <ul>
+    <li><strong>The RK3566 chip is $10.7 cheaper, but it needs external DRAM, a PMIC and a CPU regulator.</strong> Counting those, it costs <strong>$3 to $22 more per board</strong> than the RV1106G3 (qty 30), before any extra PCB layers.</li>
+    <li><strong>The cheapest RK3566 option relies on a 16-bit memory mode with no proven RK3566 design.</strong> Rockchip's guide allows a 16-bit bus only "with the template provided by RK". Every RK3566 board found uses a 32-bit LPDDR4 chip.</li>
+    <li><strong>The routing advantage is small for us.</strong> The RV1106 has its DRAM inside the package, so it needs no DDR routing at all. That is the hard part the RK3566 references help with. None of those references is in KiCad, and none uses a 16-bit bus.</li>
+    <li><strong>What the RK3566 really offers:</strong> mainline Linux support, 3 SD/SDIO controllers, 4 cores, 1 GB+ of RAM, and a documented 14 mW suspend mode. Those are reasons to switch if they matter more than cost.</li>
+    <li><strong>A cheaper option on the RV1106 side:</strong> the RV1106G2 (128 MB) is $9.25 cheaper than the G3 at qty 30. 128 MB is the usual size for an OpenWrt-class router running batman-adv, but we haven't checked it against our software stack.</li>
+  </ul>
+</div>
+
+<section>
+  <h2>Cost of the SoC, memory and SoC power</h2>
+  <p class="muted">Only the parts that differ between the options. Shared parts (charger, 5 V boost, radios, connectors) are left out. Qty 30, per board, before the PCB.</p>
+  <div class="panel scroll">
+    <svg viewBox="0 0 760 300" width="100%" role="img" aria-label="Bar chart of cost per board at qty 30: RV1106G2 12.37, RV1106G3 21.62, RK3566 512 MB single DDR3L 24.83, RK3566 512 MB two DDR3L 29.49, RK3566 1 GB two DDR3L 35.25, RK3566 1 GB LPDDR4 43.53 US dollars">
+      <g stroke="var(--line)" stroke-width="1">
+        <line x1="250" y1="20" x2="250" y2="262"/><line x1="350" y1="20" x2="350" y2="262"/><line x1="450" y1="20" x2="450" y2="262"/><line x1="550" y1="20" x2="550" y2="262"/><line x1="650" y1="20" x2="650" y2="262"/>
+      </g>
+      <g font-size="11" fill="var(--muted)" text-anchor="middle">
+        <text x="250" y="282">$0</text><text x="350" y="282">$10</text><text x="450" y="282">$20</text><text x="550" y="282">$30</text><text x="650" y="282">$40</text>
+      </g>
+      <g font-size="12" fill="var(--fg)" text-anchor="end">
+        <text x="240" y="44">RV1106G2 · 128 MB</text>
+        <text x="240" y="84">RV1106G3 · 256 MB (now)</text>
+        <text x="240" y="124">RK3566 · 512 MB, 1× DDR3L*</text>
+        <text x="240" y="164">RK3566 · 512 MB, 2× DDR3L</text>
+        <text x="240" y="204">RK3566 · 1 GB, 2× DDR3L</text>
+        <text x="240" y="244">RK3566 · 1 GB, LPDDR4</text>
+      </g>
+      <rect x="250" y="30" width="123.7" height="22" fill="var(--rv)" opacity=".55"/>
+      <rect x="250" y="70" width="216.2" height="22" fill="var(--rv)"/>
+      <rect x="250" y="110" width="248.3" height="22" fill="var(--rk-soft)"/>
+      <rect x="250" y="150" width="294.9" height="22" fill="var(--rk)"/>
+      <rect x="250" y="190" width="352.5" height="22" fill="var(--rk)"/>
+      <rect x="250" y="230" width="435.3" height="22" fill="var(--rk)"/>
+      <g font-size="12" fill="var(--fg)">
+        <text x="380" y="46">$12.37</text>
+        <text x="472" y="86">$21.62</text>
+        <text x="504" y="126">$24.83  +3.21</text>
+        <text x="551" y="166">$29.49  +7.87</text>
+        <text x="609" y="206">$35.25  +13.63</text>
+        <text x="691" y="246">$43.53</text>
+      </g>
+    </svg>
+    <p class="note">* The single-chip 16-bit option is unproven on the RK3566 (see Memory). The LPDDR4 option is the configuration used by Radxa ZERO 3, Quartz64 and Rockchip's EVB2, and is +$21.91 over the RV1106G3.</p>
+  </div>
+
+  <div class="panel scroll">
+    <table>
+      <thead><tr><th>Option</th><th>SoC</th><th>Memory</th><th>SoC power</th><th class="n">Qty 1</th><th class="n">Qty 30</th></tr></thead>
+      <tbody>
+        <tr><td>RV1106G2, 128 MB in package</td><td>C5272606 $13.68 / $11.89</td><td>in package</td><td>TLV62569 + EA3036C + 4 L ≈ $0.48</td><td class="n">$14.16</td><td class="n">$12.37</td></tr>
+        <tr><td><strong>RV1106G3, 256 MB in package (current)</strong></td><td>C5328706 $23.87 / $21.14</td><td>in package</td><td>≈ $0.48</td><td class="n">$24.35</td><td class="n">$21.62</td></tr>
+        <tr><td>RK3566 + 512 MB, 1× DDR3L 4 Gb ×16 <span class="tag warn">16-bit unproven</span></td><td>C2943786 $14.23 / $10.44</td><td>K4B4G1646E-BYMA C500275 $12.53 / $10.42</td><td>RK809-5A $2.27 / $1.69 + TCS4525 $1.48 + passives ≈ $0.80</td><td class="n">$31.31</td><td class="n">$24.83</td></tr>
+        <tr><td>RK3566 + 512 MB, 2× DDR3L 2 Gb ×16 (32-bit)</td><td>same</td><td>W632GU6NB-09 C2641275 2× $8.87 / $7.54 <span class="tag crit">9 in stock</span></td><td>same</td><td class="n">$36.52</td><td class="n">$29.49</td></tr>
+        <tr><td>RK3566 + 1 GB, 2× DDR3L 4 Gb ×16 (32-bit)</td><td>same</td><td>C500275 2× $12.53 / $10.42</td><td>same</td><td class="n">$43.84</td><td class="n">$35.25</td></tr>
+        <tr><td>RK3566 + 1 GB, 1× LPDDR4 8 Gb ×32</td><td>same</td><td>K4F8E3S4HD-MGCL C2920231 $30.71 / $29.12</td><td>same</td><td class="n">$49.49</td><td class="n">$43.53</td></tr>
+      </tbody>
+    </table>
+    <p class="src">Prices from lcsc.com product pages on 2026-11-20 (qty 1 / qty 30). The TCS4525 (C54829545, $1.48, 0 in stock) is the external VDD_CPU buck used next to an RK809 on the 4-layer oshwhub RK3566 board. "Passives ≈ $0.80" (inductors and about 40 capacitors for the PMIC) and the RV1106 regulator figure are estimates. DDR4 alternatives cost more: 4 Gb ×16 K4A4G165WF C2803249 $17.82, 8 Gb ×16 Rayson C41356073 $36.07.</p>
+  </div>
+
+  <div class="panel">
+    <h3>PCB</h3>
+    <p>JLCPCB quote for an 80 × 60 mm board, 5 pcs: <strong>4-layer $8.00</strong>, <strong>6-layer $32.00</strong> (before shipping; jlcpcb.com/quote, 2026-11-20). Rockchip recommends 6 layers for RK3566 + DRAM. A 4-layer board is possible, but only by copying Rockchip's template rules: 3.5 mil traces, 0.2/0.4 mm vias, and ground-guarded DDR signals routed through the power plane. The RK3566's outer ball rows are 0.4 mm pitch. I could not get a volume quote, so the per-board cost of 6 layers at qty 30+ is not in the totals above.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Side by side</h2>
+  <div class="panel scroll">
+    <table>
+      <thead><tr><th></th><th>RV1106G3 (current)</th><th>RK3566 + DRAM</th></tr></thead>
+      <tbody>
+        <tr><td>CPU</td><td>1× Cortex-A7 + MCU</td><td>4× Cortex-A55, 1.8 GHz</td></tr>
+        <tr><td>RAM</td><td>256 MB DDR3L in the package</td><td>External: DDR3/3L/4 or LPDDR3/4/4X, 32-bit (16-bit only with an RK template), up to 8 GB</td></tr>
+        <tr><td>Package</td><td>QFN-128, 12.3 mm, 0.35 mm pitch</td><td>BGA-565, 15.5 × 14.4 mm; 0.65 mm inner grid, 0.4 mm staggered outer rows</td></tr>
+        <tr><td>PCB</td><td>4 layers, no DDR routing</td><td>6 recommended; 4 possible with Rockchip's DDR template rules; length-matched DDR routing</td></tr>
+        <tr><td>Power</td><td>Discrete: 2 TLV62569 + EA3036C (drawn)</td><td>RK809/RK817 PMIC + ≥ 4 A VDD_CPU buck, or a discrete design (Rockchip: "low requirements of standby power")</td></tr>
+        <tr><td>Measured power</td><td>Rockchip gives only 732 mW in a heavy camera + NPU test. About 0.3 W asleep is a forum report, unverified.</td><td>Rockchip tablet at 3.8 V: 534 mW idle (screen removed), 272 mW standby with the system running, <strong>14.2 mW suspend</strong> (RK817, vendor firmware). Quartz64 B: under 2 W idle.</td></tr>
+        <tr><td>SD / SDIO</td><td>One SDIO (HaLow) + SDMMC0 (boot card)</td><td>Three controllers: HaLow, boot card, and one spare</td></tr>
+        <tr><td>Boot</td><td>microSD (no flash)</td><td>microSD works; SDMMC0_DET must read low at reset</td></tr>
+        <tr><td>Linux</td><td>Rockchip/Luckfox vendor 5.10 kernel; mainline series at v3 (Jul 2026), not merged</td><td>Mainline, about 50 board device trees; NPU and ISP missing (not needed)</td></tr>
+        <tr><td>batman-adv</td><td>In the Luckfox 5.10 kernel tree</td><td>Mainline</td></tr>
+        <tr><td>Temperature</td><td>−20 to 85 °C (datasheet V2.2, 2026; V1.3 said 0 to 80 °C)</td><td>0 to 80 °C; no industrial RK3566 (the RK3568J is a different package)</td></tr>
+        <tr><td>Open references</td><td>Luckfox Pico boards (RV1106 chip-down schematics), Rockchip RV1106G-AI-IPC</td><td>Taishanpi (RK3566 + LPDDR4, GPL-3.0, EasyEDA), a 4-layer oshwhub board (works, but its author lists faults), and Rockchip's RK3568 4-layer DDR4 template (unlicensed re-upload). No proven KiCad design.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>Why the memory choice decides the cost</h2>
+  <div class="grid2">
+    <div class="panel"><h3>512 MB</h3><ul>
+      <li>The cheapest RK3566 route is <strong>one 16-bit DDR3L chip</strong> ($10.42). Rockchip's design guides mention 16-bit DDR3/DDR3L/DDR4 only with "the template provided by RK", and that template wasn't found for the RK3566. Rockchip's DDR init tool shows no bus-width option, and no shipping RK3566 board uses it.</li>
+      <li>The safe 32-bit way to get 512 MB is two 2 Gb chips. LCSC has only 9 of the one found in stock.</li>
+      <li>512 MB LPDDR4 parts (K4F4E3S4HF) are out of stock at LCSC.</li>
+    </ul></div>
+    <div class="panel"><h3>1 GB</h3><ul>
+      <li>The proven configuration, one 32-bit LPDDR4 chip, is the most expensive at $29.12.</li>
+      <li>Two 4 Gb DDR3L chips give 1 GB for $20.84, but need two-chip routing (fly-by or T topology).</li>
+      <li>DRAM prices are high right now. In 2026 a 4 Gb chip costs about as much as the RV1106G2 itself.</li>
+    </ul></div>
+  </div>
+</section>
+
+<section>
+  <h2>What switching would mean for the work done</h2>
+  <div class="panel"><ul style="margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:5px">
+    <li>The Power sheet (TLV62569 for 0.9 V, EA3036C) would be replaced by an RK809 + TCS4525 tree with a new sequence. The 5 V boost, charger, battery, hold-off and radio power stay.</li>
+    <li>The SoC symbol, footprint and SoC sheet (T11a/b and the drawn part of T11d) would be redone, plus a new DRAM sheet with length-matched routing at layout.</li>
+    <li>The pin map, power budget (P-, F- requirements), and the cost and duty-cycle figures would change. The RK3566 also needs a PMIC sleep scheme to reach its 14 mW suspend.</li>
+  </ul></div>
+</section>
+
+<section>
+  <h2>Decision for you</h2>
+  <div class="panel"><ul style="margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:5px">
+    <li><strong>A. Keep the RV1106G3</strong> (recommended if 256 MB is the target). The work already done stands.</li>
+    <li><strong>B. Switch to the RV1106G2</strong> to save about $9 per board, if 128 MB is enough. This means a footprint-compatible part swap and a memory check against the Linux build.</li>
+    <li><strong>C. Switch to the RK3566 + 1 GB LPDDR4</strong> if mainline Linux, more RAM and the low suspend power are worth about $22 more per board plus a 6-layer PCB.</li>
+  </ul></div>
+  <p class="src">Sources: RK3566 Datasheet V1.0 (files.pine64.org); Rockchip RK3566 Hardware Design Guide V1.1 p.20 and RK3568 HDG V1.2 p.33 (16-bit template rule); Rockchip RK3568 DDR4 template DDR4P216SD4 (4 layers); Rockchip PWR356X power report (tablet figures); wiki.pine64.org/wiki/Quartz64; oshwhub.com/mizewei/rk3566-zui-xiao-xi-tong; oshwlab.com/lckfb-team/taishanpi; Rockchip RV1106 Datasheet V1.3 p.21 and V2.2 p.27. The full list with page numbers is in docs/reports/soc-compare/research.md.</p>
+</section>
+</div>

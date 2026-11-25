@@ -1,0 +1,11 @@
+U30@1:Reference:81.28:63.5:0:center
+U30@1:Value:81.28:78.74:0:center
+U30@2:Reference:81.28:106.68:0:center
+U30@2:Value:81.28:106.68:0:hide
+U30@3:Reference:137.16:102.87:0:left
+U30@3:Value:137.16:105.41:0:hide
+U31:Reference:115.57:87.63:90:right
+U31:Value:115.57:90.17:90:right
+C304:Reference:122.56:103.38:0:right
+C304:Value:122.56:104.9:0:right
+#PWR613:Value:135.89:84.33:0:right

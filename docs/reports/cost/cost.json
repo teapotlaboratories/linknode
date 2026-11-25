@@ -1,0 +1,5117 @@
+{
+ "generated": "2026-11-23",
+ "currency": "USD",
+ "board": "LinkNode Rev 1, linknode.kicad_pcb",
+ "bom_lines": [
+  {
+   "refs": [
+    "U100"
+   ],
+   "value": "RV1106G3",
+   "footprint": "linknode:Rockchip_QFN-128-1EP_12.3x12.3mm_P0.35mm_EP7x7mm",
+   "lcsc": "C5328706",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 23.867,
+   "unit_price_100": 21.1402,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "RV1106G3",
+   "brand": "Rockchip",
+   "lcsc_stock": 428,
+   "lcsc_price_ladder": [
+    [
+     1,
+     23.867
+    ],
+    [
+     30,
+     21.1402
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 613,
+   "source_url": "https://www.lcsc.com/product-detail/C5328706.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C5328706",
+   "note": "",
+   "ext_per_board_10": 23.867,
+   "ext_per_board_100": 21.1402,
+   "ext_per_board_10_with_moq": 23.867
+  },
+  {
+   "refs": [
+    "U701"
+   ],
+   "value": "HT-HC01_V2",
+   "footprint": "linknode:HT-HC01_V2",
+   "lcsc": "",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 11.9,
+   "unit_price_100": 11.9,
+   "mpn": "HT-HC01 V2 (MM6108 + FEM, 27 dBm)",
+   "brand": "Heltec",
+   "jlc_library": "not at LCSC/JLCPCB",
+   "source_url": "https://heltec.org/project/ht-hc01",
+   "note": "No LCSC number. Heltec store price $11.90 (single-unit listing, no quantity tiers published); PCBWay turnkey cannot buy it from LCSC: expect to consign it (Combo) or have PCBWay source it from Heltec at an unknown markup. Shipping from Heltec not included.",
+   "ext_per_board_10": 11.9,
+   "ext_per_board_100": 11.9,
+   "ext_per_board_10_with_moq": 11.9
+  },
+  {
+   "refs": [
+    "U801"
+   ],
+   "value": "ESP32-C5-WROOM-1U-N16R8",
+   "footprint": "linknode:ESP32-C5-WROOM-1U",
+   "lcsc": "C54951857",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 5.0885,
+   "unit_price_100": 4.1693,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "ESP32-C5-WROOM-1U-N16R8-V1.2",
+   "brand": "ESPRESSIF",
+   "lcsc_stock": 494,
+   "lcsc_price_ladder": [
+    [
+     1,
+     5.9085
+    ],
+    [
+     10,
+     5.0885
+    ],
+    [
+     30,
+     4.5876
+    ],
+    [
+     100,
+     4.1693
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 494,
+   "source_url": "https://www.lcsc.com/product-detail/C54951857.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C54951857",
+   "note": "",
+   "ext_per_board_10": 5.0885,
+   "ext_per_board_100": 4.1693,
+   "ext_per_board_10_with_moq": 5.0885
+  },
+  {
+   "refs": [
+    "U2"
+   ],
+   "value": "BQ25798RQMR",
+   "footprint": "Package_DFN_QFN:Texas_RQM0029A_VQFN-29_4x4mm_P0.4mm",
+   "lcsc": "C2876593",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 2.581,
+   "unit_price_100": 2.0407,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "BQ25798RQMR",
+   "brand": "TI",
+   "lcsc_stock": 7235,
+   "lcsc_price_ladder": [
+    [
+     1,
+     3.0089
+    ],
+    [
+     10,
+     2.581
+    ],
+    [
+     30,
+     2.315
+    ],
+    [
+     100,
+     2.0407
+    ],
+    [
+     500,
+     1.9167
+    ],
+    [
+     1000,
+     1.8639
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 7265,
+   "source_url": "https://www.lcsc.com/product-detail/C2876593.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C2876593",
+   "note": "",
+   "ext_per_board_10": 2.581,
+   "ext_per_board_100": 2.0407,
+   "ext_per_board_10_with_moq": 2.581
+  },
+  {
+   "refs": [
+    "U20"
+   ],
+   "value": "ATGM336H-5NR32-G",
+   "footprint": "RF_GPS:ublox_MAX",
+   "lcsc": "C49233943",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 1.6751,
+   "unit_price_100": 1.2967,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "ATGM336H-5NR32-G",
+   "brand": "ZHONGKEWEI",
+   "lcsc_stock": 950,
+   "lcsc_price_ladder": [
+    [
+     1,
+     1.9729
+    ],
+    [
+     10,
+     1.6751
+    ],
+    [
+     30,
+     1.4875
+    ],
+    [
+     100,
+     1.2967
+    ],
+    [
+     500,
+     1.2095
+    ],
+    [
+     1000,
+     1.1733
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 1031,
+   "source_url": "https://www.lcsc.com/product-detail/C49233943.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C49233943",
+   "note": "",
+   "ext_per_board_10": 1.6751,
+   "ext_per_board_100": 1.2967,
+   "ext_per_board_10_with_moq": 1.6751
+  },
+  {
+   "refs": [
+    "U4"
+   ],
+   "value": "TPS61089RNRR",
+   "footprint": "Package_DFN_QFN:Texas_VQFN-RNR0011A-11",
+   "lcsc": "C165129",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.7368,
+   "unit_price_100": 0.5617,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "TPS61089RNRR",
+   "brand": "TI",
+   "lcsc_stock": 17721,
+   "lcsc_price_ladder": [
+    [
+     1,
+     0.9135
+    ],
+    [
+     10,
+     0.7368
+    ],
+    [
+     30,
+     0.6492
+    ],
+    [
+     100,
+     0.5617
+    ],
+    [
+     500,
+     0.5088
+    ],
+    [
+     1000,
+     0.4824
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 18155,
+   "source_url": "https://www.lcsc.com/product-detail/C165129.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C165129",
+   "note": "",
+   "ext_per_board_10": 0.7368,
+   "ext_per_board_100": 0.5617,
+   "ext_per_board_10_with_moq": 0.7368
+  },
+  {
+   "refs": [
+    "C30",
+    "C31",
+    "C32",
+    "C121"
+   ],
+   "value": "22uF 25V",
+   "footprint": "Capacitor_SMD:C_0805_2012Metric",
+   "lcsc": "C45783",
+   "qty_per_board": 4,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.1094,
+   "unit_price_100": 0.0881,
+   "buy_qty_10": 40,
+   "buy_qty_100": 400,
+   "mpn": "CL21A226MAQNNNE",
+   "brand": "Samsung Electro-Mechanics",
+   "lcsc_stock": 626820,
+   "lcsc_price_ladder": [
+    [
+     20,
+     0.1094
+    ],
+    [
+     200,
+     0.0881
+    ],
+    [
+     600,
+     0.0771
+    ],
+    [
+     2000,
+     0.0681
+    ],
+    [
+     10000,
+     0.065
+    ],
+    [
+     20000,
+     0.0628
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 4740204,
+   "source_url": "https://www.lcsc.com/product-detail/C45783.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C45783",
+   "note": "",
+   "ext_per_board_10": 0.4376,
+   "ext_per_board_100": 0.3524,
+   "ext_per_board_10_with_moq": 0.4376
+  },
+  {
+   "refs": [
+    "C14",
+    "C15",
+    "C16",
+    "C17",
+    "C18",
+    "C20",
+    "C21",
+    "C53",
+    "C63",
+    "C73",
+    "C83",
+    "C102",
+    "C103",
+    "C112",
+    "C113",
+    "C202",
+    "C605",
+    "C608",
+    "C609",
+    "C621",
+    "C622",
+    "C702",
+    "C704",
+    "C706"
+   ],
+   "value": "10uF 10V / 10uF",
+   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "lcsc": "C19702",
+   "qty_per_board": 24,
+   "side": [
+    "bottom",
+    "top"
+   ],
+   "unit_price_10": 0.0135,
+   "unit_price_100": 0.0119,
+   "buy_qty_10": 240,
+   "buy_qty_100": 2400,
+   "mpn": "CL10A106KP8NNNC",
+   "brand": "Samsung Electro-Mechanics",
+   "lcsc_stock": 0,
+   "lcsc_price_ladder": [
+    [
+     20,
+     0.0169
+    ],
+    [
+     200,
+     0.0135
+    ],
+    [
+     600,
+     0.0119
+    ],
+    [
+     4000,
+     0.0107
+    ],
+    [
+     8000,
+     0.0103
+    ],
+    [
+     20000,
+     0.01
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 9666547,
+   "source_url": "https://www.lcsc.com/product-detail/C19702.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C19702",
+   "note": "LCSC stock 0 on 2026-11-23 (JLCPCB shows 9666547 in stock); LCSC stock 0 < 2400 needed for 100 boards",
+   "ext_per_board_10": 0.324,
+   "ext_per_board_100": 0.2856,
+   "ext_per_board_10_with_moq": 0.324
+  },
+  {
+   "refs": [
+    "U5",
+    "U6",
+    "U7",
+    "U8",
+    "U10",
+    "U11"
+   ],
+   "value": "TLV62569DBVR",
+   "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+   "lcsc": "C141836",
+   "qty_per_board": 6,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0528,
+   "unit_price_100": 0.0393,
+   "buy_qty_10": 60,
+   "buy_qty_100": 600,
+   "mpn": "TLV62569DBVR",
+   "brand": "TI",
+   "lcsc_stock": 529695,
+   "lcsc_price_ladder": [
+    [
+     5,
+     0.0671
+    ],
+    [
+     50,
+     0.0528
+    ],
+    [
+     150,
+     0.0454
+    ],
+    [
+     500,
+     0.0393
+    ],
+    [
+     3000,
+     0.0376
+    ],
+    [
+     6000,
+     0.0361
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 535270,
+   "source_url": "https://www.lcsc.com/product-detail/C141836.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C141836",
+   "note": "",
+   "ext_per_board_10": 0.3168,
+   "ext_per_board_100": 0.2358,
+   "ext_per_board_10_with_moq": 0.3168
+  },
+  {
+   "refs": [
+    "Q7",
+    "Q9",
+    "Q401"
+   ],
+   "value": "AO3401A",
+   "footprint": "Package_TO_SOT_SMD:SOT-23",
+   "lcsc": "C15127",
+   "qty_per_board": 3,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0827,
+   "unit_price_100": 0.0563,
+   "buy_qty_10": 30,
+   "buy_qty_100": 300,
+   "mpn": "AO3401A",
+   "brand": "AOS",
+   "lcsc_stock": 594050,
+   "lcsc_price_ladder": [
+    [
+     5,
+     0.0827
+    ],
+    [
+     50,
+     0.0653
+    ],
+    [
+     150,
+     0.0563
+    ],
+    [
+     500,
+     0.0489
+    ],
+    [
+     3000,
+     0.0464
+    ],
+    [
+     6000,
+     0.0446
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 1145705,
+   "source_url": "https://www.lcsc.com/product-detail/C15127.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C15127",
+   "note": "",
+   "ext_per_board_10": 0.2481,
+   "ext_per_board_100": 0.1689,
+   "ext_per_board_10_with_moq": 0.2481
+  },
+  {
+   "refs": [
+    "Q1",
+    "Q2",
+    "Q13"
+   ],
+   "value": "AO3400A",
+   "footprint": "Package_TO_SOT_SMD:SOT-23",
+   "lcsc": "C20917",
+   "qty_per_board": 3,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0792,
+   "unit_price_100": 0.054,
+   "buy_qty_10": 30,
+   "buy_qty_100": 300,
+   "mpn": "AO3400A",
+   "brand": "AOS",
+   "lcsc_stock": 852790,
+   "lcsc_price_ladder": [
+    [
+     5,
+     0.0792
+    ],
+    [
+     50,
+     0.0626
+    ],
+    [
+     150,
+     0.054
+    ],
+    [
+     500,
+     0.047
+    ],
+    [
+     3000,
+     0.0445
+    ],
+    [
+     6000,
+     0.0429
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 1463203,
+   "source_url": "https://www.lcsc.com/product-detail/C20917.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C20917",
+   "note": "",
+   "ext_per_board_10": 0.2376,
+   "ext_per_board_100": 0.162,
+   "ext_per_board_10_with_moq": 0.2376
+  },
+  {
+   "refs": [
+    "J20",
+    "J901"
+   ],
+   "value": "U.FL GPS / U.FL HaLow",
+   "footprint": "Connector_Coaxial:U.FL_Hirose_U.FL-R-SMT-1_Vertical",
+   "lcsc": "C88374",
+   "qty_per_board": 2,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.1087,
+   "unit_price_100": 0.078,
+   "buy_qty_10": 20,
+   "buy_qty_100": 200,
+   "mpn": "U.FL-R-SMT-1(80)",
+   "brand": "HRS",
+   "lcsc_stock": 261540,
+   "lcsc_price_ladder": [
+    [
+     5,
+     0.1087
+    ],
+    [
+     50,
+     0.0884
+    ],
+    [
+     150,
+     0.078
+    ],
+    [
+     500,
+     0.0693
+    ],
+    [
+     2500,
+     0.0664
+    ],
+    [
+     5000,
+     0.0643
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 267236,
+   "source_url": "https://www.lcsc.com/product-detail/C88374.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C88374",
+   "note": "",
+   "ext_per_board_10": 0.2174,
+   "ext_per_board_100": 0.156,
+   "ext_per_board_10_with_moq": 0.2174
+  },
+  {
+   "refs": [
+    "J1"
+   ],
+   "value": "TYPE-C-31-M-12",
+   "footprint": "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12",
+   "lcsc": "C165948",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.1888,
+   "unit_price_100": 0.149,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "TYPE-C-31-M-12",
+   "brand": "Korean Hroparts Elec",
+   "lcsc_stock": 447620,
+   "lcsc_price_ladder": [
+    [
+     5,
+     0.1888
+    ],
+    [
+     50,
+     0.149
+    ],
+    [
+     150,
+     0.1296
+    ],
+    [
+     1000,
+     0.1051
+    ],
+    [
+     2000,
+     0.1004
+    ],
+    [
+     5000,
+     0.0975
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 466544,
+   "source_url": "https://www.lcsc.com/product-detail/C165948.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C165948",
+   "note": "",
+   "ext_per_board_10": 0.1888,
+   "ext_per_board_100": 0.149,
+   "ext_per_board_10_with_moq": 0.1888
+  },
+  {
+   "refs": [
+    "U401",
+    "U402",
+    "U1001",
+    "U1002",
+    "U1003",
+    "U1004",
+    "U1005",
+    "U1006"
+   ],
+   "value": "TPD4E05U06DQAR",
+   "footprint": "Package_SON:USON-10_2.5x1.0mm_P0.5mm",
+   "lcsc": "C22390021",
+   "qty_per_board": 8,
+   "side": [
+    "bottom",
+    "top"
+   ],
+   "unit_price_10": 0.0289,
+   "unit_price_100": 0.0186,
+   "buy_qty_10": 80,
+   "buy_qty_100": 800,
+   "mpn": "TPD4E05U06DQAR",
+   "brand": "DOWO",
+   "lcsc_stock": 70880,
+   "lcsc_price_ladder": [
+    [
+     20,
+     0.0289
+    ],
+    [
+     200,
+     0.0223
+    ],
+    [
+     600,
+     0.0186
+    ],
+    [
+     3000,
+     0.0174
+    ],
+    [
+     9000,
+     0.0155
+    ],
+    [
+     21000,
+     0.0144
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 70894,
+   "source_url": "https://www.lcsc.com/product-detail/C22390021.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C22390021",
+   "note": "",
+   "ext_per_board_10": 0.2312,
+   "ext_per_board_100": 0.1488,
+   "ext_per_board_10_with_moq": 0.2312
+  },
+  {
+   "refs": [
+    "L5",
+    "L6",
+    "L7",
+    "L8",
+    "L10",
+    "L11"
+   ],
+   "value": "2.2uH 3A",
+   "footprint": "Inductor_SMD:L_1008_2520Metric",
+   "lcsc": "C22471111",
+   "qty_per_board": 6,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0312,
+   "unit_price_100": 0.0207,
+   "buy_qty_10": 60,
+   "buy_qty_100": 600,
+   "mpn": "XRIM252012S2R2MBCA",
+   "brand": "XR",
+   "lcsc_stock": 57600,
+   "lcsc_price_ladder": [
+    [
+     20,
+     0.0312
+    ],
+    [
+     200,
+     0.0245
+    ],
+    [
+     600,
+     0.0207
+    ],
+    [
+     3000,
+     0.0185
+    ],
+    [
+     9000,
+     0.0165
+    ],
+    [
+     21000,
+     0.0155
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 57618,
+   "source_url": "https://www.lcsc.com/product-detail/C22471111.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C22471111",
+   "note": "",
+   "ext_per_board_10": 0.1872,
+   "ext_per_board_100": 0.1242,
+   "ext_per_board_10_with_moq": 0.1872
+  },
+  {
+   "refs": [
+    "C4",
+    "C5",
+    "C7",
+    "C8",
+    "C9",
+    "C24"
+   ],
+   "value": "10uF 25V",
+   "footprint": "Capacitor_SMD:C_0805_2012Metric",
+   "lcsc": "C15850",
+   "qty_per_board": 6,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0314,
+   "unit_price_100": 0.0202,
+   "buy_qty_10": 60,
+   "buy_qty_100": 600,
+   "mpn": "CL21A106KAYNNNE",
+   "brand": "Samsung Electro-Mechanics",
+   "lcsc_stock": 1890020,
+   "lcsc_price_ladder": [
+    [
+     20,
+     0.0314
+    ],
+    [
+     200,
+     0.0236
+    ],
+    [
+     600,
+     0.0202
+    ],
+    [
+     2000,
+     0.0176
+    ],
+    [
+     10000,
+     0.0166
+    ],
+    [
+     20000,
+     0.0159
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 9452105,
+   "source_url": "https://www.lcsc.com/product-detail/C15850.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C15850",
+   "note": "",
+   "ext_per_board_10": 0.1884,
+   "ext_per_board_100": 0.1212,
+   "ext_per_board_10_with_moq": 0.1884
+  },
+  {
+   "refs": [
+    "Q5",
+    "Q6"
+   ],
+   "value": "FS8205A",
+   "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+   "lcsc": "C908265",
+   "qty_per_board": 2,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0723,
+   "unit_price_100": 0.0589,
+   "buy_qty_10": 20,
+   "buy_qty_100": 200,
+   "mpn": "FS8205A",
+   "brand": "FUXINSEMI",
+   "lcsc_stock": 29300,
+   "lcsc_price_ladder": [
+    [
+     10,
+     0.0723
+    ],
+    [
+     100,
+     0.0589
+    ],
+    [
+     300,
+     0.0521
+    ],
+    [
+     3000,
+     0.0401
+    ],
+    [
+     6000,
+     0.0361
+    ],
+    [
+     9000,
+     0.0341
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 29698,
+   "source_url": "https://www.lcsc.com/product-detail/C908265.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C908265",
+   "note": "",
+   "ext_per_board_10": 0.1446,
+   "ext_per_board_100": 0.1178,
+   "ext_per_board_10_with_moq": 0.1446
+  },
+  {
+   "refs": [
+    "Y502"
+   ],
+   "value": "32.768kHz",
+   "footprint": "Crystal:Crystal_SMD_3215-2Pin_3.2x1.5mm",
+   "lcsc": "C32346",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.1488,
+   "unit_price_100": 0.1132,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "Q13FC13500004",
+   "brand": "EPSON",
+   "lcsc_stock": 455475,
+   "lcsc_price_ladder": [
+    [
+     5,
+     0.1488
+    ],
+    [
+     50,
+     0.1132
+    ],
+    [
+     150,
+     0.0959
+    ],
+    [
+     500,
+     0.0804
+    ],
+    [
+     3000,
+     0.0761
+    ],
+    [
+     6000,
+     0.0736
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 603086,
+   "source_url": "https://www.lcsc.com/product-detail/C32346.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C32346",
+   "note": "",
+   "ext_per_board_10": 0.1488,
+   "ext_per_board_100": 0.1132,
+   "ext_per_board_10_with_moq": 0.1488
+  },
+  {
+   "refs": [
+    "U22"
+   ],
+   "value": "XC6206P332MR",
+   "footprint": "Package_TO_SOT_SMD:SOT-23",
+   "lcsc": "C5446",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.1366,
+   "unit_price_100": 0.1099,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "XC6206P332MR-G",
+   "brand": "TOREX",
+   "lcsc_stock": 208365,
+   "lcsc_price_ladder": [
+    [
+     5,
+     0.1366
+    ],
+    [
+     50,
+     0.1099
+    ],
+    [
+     150,
+     0.0962
+    ],
+    [
+     500,
+     0.0848
+    ],
+    [
+     3000,
+     0.0809
+    ],
+    [
+     6000,
+     0.0782
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 474360,
+   "source_url": "https://www.lcsc.com/product-detail/C5446.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C5446",
+   "note": "",
+   "ext_per_board_10": 0.1366,
+   "ext_per_board_100": 0.1099,
+   "ext_per_board_10_with_moq": 0.1366
+  },
+  {
+   "refs": [
+    "L901",
+    "L902"
+   ],
+   "value": "8.2nH",
+   "footprint": "Inductor_SMD:L_0402_1005Metric",
+   "lcsc": "C84404",
+   "qty_per_board": 2,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0623,
+   "unit_price_100": 0.0517,
+   "buy_qty_10": 20,
+   "buy_qty_100": 200,
+   "mpn": "LQW15AN8N2G00D",
+   "brand": "muRata",
+   "lcsc_stock": 37470,
+   "lcsc_price_ladder": [
+    [
+     10,
+     0.0623
+    ],
+    [
+     100,
+     0.0517
+    ],
+    [
+     300,
+     0.0465
+    ],
+    [
+     1000,
+     0.0425
+    ],
+    [
+     5000,
+     0.0394
+    ],
+    [
+     10000,
+     0.0362
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 40800,
+   "source_url": "https://www.lcsc.com/product-detail/C84404.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C84404",
+   "note": "",
+   "ext_per_board_10": 0.1246,
+   "ext_per_board_100": 0.1034,
+   "ext_per_board_10_with_moq": 0.1246
+  },
+  {
+   "refs": [
+    "L2"
+   ],
+   "value": "2.2uH 7.5A",
+   "footprint": "Inductor_SMD:L_Changjiang_FNR4020S",
+   "lcsc": "C602029",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.1102,
+   "unit_price_100": 0.086,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "FHD4020S-2R2MT",
+   "brand": "cjiang",
+   "lcsc_stock": 49270,
+   "lcsc_price_ladder": [
+    [
+     10,
+     0.1102
+    ],
+    [
+     100,
+     0.086
+    ],
+    [
+     300,
+     0.0726
+    ],
+    [
+     3000,
+     0.0645
+    ],
+    [
+     6000,
+     0.0575
+    ],
+    [
+     9000,
+     0.0538
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 49279,
+   "source_url": "https://www.lcsc.com/product-detail/C602029.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C602029",
+   "note": "",
+   "ext_per_board_10": 0.1102,
+   "ext_per_board_100": 0.086,
+   "ext_per_board_10_with_moq": 0.1102
+  },
+  {
+   "refs": [
+    "C19",
+    "C23",
+    "C25",
+    "C26",
+    "C33",
+    "C61",
+    "C71",
+    "C81",
+    "C122",
+    "C301",
+    "C304",
+    "C402",
+    "C403",
+    "C404",
+    "C506",
+    "C508",
+    "C601",
+    "C602",
+    "C603",
+    "C607",
+    "C612",
+    "C613",
+    "C614",
+    "C615",
+    "C616",
+    "C617",
+    "C618",
+    "C619",
+    "C620",
+    "C624",
+    "C625",
+    "C626",
+    "C629",
+    "C630",
+    "C631",
+    "C632",
+    "C633",
+    "C634",
+    "C635",
+    "C636",
+    "C701",
+    "C703",
+    "C705",
+    "C803"
+   ],
+   "value": "100nF 16V / 100nF",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "lcsc": "C1525",
+   "qty_per_board": 44,
+   "side": [
+    "bottom",
+    "top"
+   ],
+   "unit_price_10": 0.003,
+   "unit_price_100": 0.0019,
+   "buy_qty_10": 440,
+   "buy_qty_100": 4400,
+   "mpn": "CL05B104KO5NNNC",
+   "brand": "Samsung Electro-Mechanics",
+   "lcsc_stock": 2252100,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.003
+    ],
+    [
+     1000,
+     0.0023
+    ],
+    [
+     3000,
+     0.0019
+    ],
+    [
+     10000,
+     0.0018
+    ],
+    [
+     50000,
+     0.0016
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 33494261,
+   "source_url": "https://www.lcsc.com/product-detail/C1525.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C1525",
+   "note": "",
+   "ext_per_board_10": 0.132,
+   "ext_per_board_100": 0.0836,
+   "ext_per_board_10_with_moq": 0.132
+  },
+  {
+   "refs": [
+    "C13",
+    "C50",
+    "C60",
+    "C70",
+    "C80",
+    "C100",
+    "C110"
+   ],
+   "value": "4.7uF 16V",
+   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "lcsc": "C19666",
+   "qty_per_board": 7,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.017,
+   "unit_price_100": 0.0116,
+   "buy_qty_10": 70,
+   "buy_qty_100": 700,
+   "mpn": "CL10A475KO8NNNC",
+   "brand": "Samsung Electro-Mechanics",
+   "lcsc_stock": 0,
+   "lcsc_price_ladder": [
+    [
+     10,
+     0.017
+    ],
+    [
+     100,
+     0.0133
+    ],
+    [
+     300,
+     0.0116
+    ],
+    [
+     1000,
+     0.0104
+    ],
+    [
+     4000,
+     0.0099
+    ],
+    [
+     8000,
+     0.0095
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 3057768,
+   "source_url": "https://www.lcsc.com/product-detail/C19666.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C19666",
+   "note": "LCSC stock 0 on 2026-11-23 (JLCPCB shows 3057768 in stock); LCSC stock 0 < 700 needed for 100 boards",
+   "ext_per_board_10": 0.119,
+   "ext_per_board_100": 0.0812,
+   "ext_per_board_10_with_moq": 0.119
+  },
+  {
+   "refs": [
+    "Q3",
+    "Q4"
+   ],
+   "value": "SI2318A",
+   "footprint": "Package_TO_SOT_SMD:SOT-23",
+   "lcsc": "C2681218",
+   "qty_per_board": 2,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0494,
+   "unit_price_100": 0.0395,
+   "buy_qty_10": 20,
+   "buy_qty_100": 200,
+   "mpn": "SI2318A",
+   "brand": "UMW",
+   "lcsc_stock": 207490,
+   "lcsc_price_ladder": [
+    [
+     10,
+     0.0494
+    ],
+    [
+     100,
+     0.0395
+    ],
+    [
+     300,
+     0.0344
+    ],
+    [
+     3000,
+     0.0275
+    ],
+    [
+     6000,
+     0.0261
+    ],
+    [
+     9000,
+     0.0251
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 211714,
+   "source_url": "https://www.lcsc.com/product-detail/C2681218.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C2681218",
+   "note": "",
+   "ext_per_board_10": 0.0988,
+   "ext_per_board_100": 0.079,
+   "ext_per_board_10_with_moq": 0.0988
+  },
+  {
+   "refs": [
+    "C200",
+    "C201",
+    "C203",
+    "C204",
+    "C604",
+    "C606",
+    "C610",
+    "C611",
+    "C623",
+    "C627",
+    "C628",
+    "C801",
+    "C1001",
+    "C1002",
+    "C1003",
+    "C1004"
+   ],
+   "value": "1uF 25V / 1uF",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "lcsc": "C52923",
+   "qty_per_board": 16,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0056,
+   "unit_price_100": 0.0042,
+   "buy_qty_10": 160,
+   "buy_qty_100": 1600,
+   "mpn": "CL05A105KA5NQNC",
+   "brand": "Samsung Electro-Mechanics",
+   "lcsc_stock": 4335100,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0056
+    ],
+    [
+     1000,
+     0.0042
+    ],
+    [
+     3000,
+     0.0036
+    ],
+    [
+     10000,
+     0.0031
+    ],
+    [
+     50000,
+     0.0029
+    ],
+    [
+     100000,
+     0.0028
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 13032840,
+   "source_url": "https://www.lcsc.com/product-detail/C52923.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C52923",
+   "note": "",
+   "ext_per_board_10": 0.0896,
+   "ext_per_board_100": 0.0672,
+   "ext_per_board_10_with_moq": 0.0896
+  },
+  {
+   "refs": [
+    "L1"
+   ],
+   "value": "2.2uH 3.2A",
+   "footprint": "Inductor_SMD:L_Changjiang_FNR4030S",
+   "lcsc": "C167869",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0791,
+   "unit_price_100": 0.0618,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "FNR4030S2R2MT",
+   "brand": "cjiang",
+   "lcsc_stock": 41540,
+   "lcsc_price_ladder": [
+    [
+     10,
+     0.0791
+    ],
+    [
+     100,
+     0.0618
+    ],
+    [
+     300,
+     0.0521
+    ],
+    [
+     2000,
+     0.0463
+    ],
+    [
+     4000,
+     0.0413
+    ],
+    [
+     10000,
+     0.0386
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 41547,
+   "source_url": "https://www.lcsc.com/product-detail/C167869.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C167869",
+   "note": "",
+   "ext_per_board_10": 0.0791,
+   "ext_per_board_100": 0.0618,
+   "ext_per_board_10_with_moq": 0.0791
+  },
+  {
+   "refs": [
+    "Y501"
+   ],
+   "value": "24MHz",
+   "footprint": "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm",
+   "lcsc": "C368741",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0723,
+   "unit_price_100": 0.0581,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "K3A240001210",
+   "brand": "KYX",
+   "lcsc_stock": 27990,
+   "lcsc_price_ladder": [
+    [
+     10,
+     0.0723
+    ],
+    [
+     100,
+     0.0581
+    ],
+    [
+     300,
+     0.051
+    ],
+    [
+     3000,
+     0.0412
+    ],
+    [
+     6000,
+     0.037
+    ],
+    [
+     9000,
+     0.0348
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 27997,
+   "source_url": "https://www.lcsc.com/product-detail/C368741.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C368741",
+   "note": "",
+   "ext_per_board_10": 0.0723,
+   "ext_per_board_100": 0.0581,
+   "ext_per_board_10_with_moq": 0.0723
+  },
+  {
+   "refs": [
+    "J401"
+   ],
+   "value": "TF PUSH",
+   "footprint": "linknode:microSD_ShouHan_TF-PUSH",
+   "lcsc": "C393941",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0663,
+   "unit_price_100": 0.0538,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "TF PUSH",
+   "brand": "SHOU HAN",
+   "lcsc_stock": 291770,
+   "lcsc_price_ladder": [
+    [
+     10,
+     0.0663
+    ],
+    [
+     100,
+     0.0538
+    ],
+    [
+     300,
+     0.0474
+    ],
+    [
+     1000,
+     0.0409
+    ],
+    [
+     5000,
+     0.0391
+    ],
+    [
+     10000,
+     0.0378
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 300969,
+   "source_url": "https://www.lcsc.com/product-detail/C393941.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C393941",
+   "note": "",
+   "ext_per_board_10": 0.0663,
+   "ext_per_board_100": 0.0538,
+   "ext_per_board_10_with_moq": 0.0663
+  },
+  {
+   "refs": [
+    "J3"
+   ],
+   "value": "Battery 1S",
+   "footprint": "Connector_JST:JST_XH_S2B-XH-A_1x02_P2.50mm_Horizontal",
+   "lcsc": "C157931",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0663,
+   "unit_price_100": 0.0534,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "S2B-XH-A(LF)(SN)",
+   "brand": "JST",
+   "lcsc_stock": 145130,
+   "lcsc_price_ladder": [
+    [
+     10,
+     0.0663
+    ],
+    [
+     100,
+     0.0534
+    ],
+    [
+     300,
+     0.047
+    ],
+    [
+     1000,
+     0.0421
+    ],
+    [
+     5000,
+     0.0383
+    ],
+    [
+     10000,
+     0.0363
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 147953,
+   "source_url": "https://www.lcsc.com/product-detail/C157931.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C157931",
+   "note": "",
+   "ext_per_board_10": 0.0663,
+   "ext_per_board_100": 0.0534,
+   "ext_per_board_10_with_moq": 0.0663
+  },
+  {
+   "refs": [
+    "Q11"
+   ],
+   "value": "WST2319",
+   "footprint": "Package_TO_SOT_SMD:SOT-23",
+   "lcsc": "C2906299",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0635,
+   "unit_price_100": 0.052,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "WST2319",
+   "brand": "Winsok Semicon",
+   "lcsc_stock": 5590,
+   "lcsc_price_ladder": [
+    [
+     10,
+     0.0635
+    ],
+    [
+     100,
+     0.052
+    ],
+    [
+     300,
+     0.0463
+    ],
+    [
+     3000,
+     0.0352
+    ],
+    [
+     6000,
+     0.0317
+    ],
+    [
+     9000,
+     0.03
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 5594,
+   "source_url": "https://www.lcsc.com/product-detail/C2906299.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C2906299",
+   "note": "",
+   "ext_per_board_10": 0.0635,
+   "ext_per_board_100": 0.052,
+   "ext_per_board_10_with_moq": 0.0635
+  },
+  {
+   "refs": [
+    "Q8",
+    "Q10",
+    "Q12"
+   ],
+   "value": "2N7002",
+   "footprint": "Package_TO_SOT_SMD:SOT-23",
+   "lcsc": "C8545",
+   "qty_per_board": 3,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0157,
+   "unit_price_100": 0.0157,
+   "buy_qty_10": 50,
+   "buy_qty_100": 300,
+   "mpn": "2N7002",
+   "brand": "JSCJ",
+   "lcsc_stock": 5406900,
+   "lcsc_price_ladder": [
+    [
+     50,
+     0.0157
+    ],
+    [
+     500,
+     0.012
+    ],
+    [
+     3000,
+     0.0104
+    ],
+    [
+     6000,
+     0.0091
+    ],
+    [
+     24000,
+     0.0086
+    ],
+    [
+     51000,
+     0.0083
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 6064465,
+   "source_url": "https://www.lcsc.com/product-detail/C8545.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C8545",
+   "note": "qty-10 build must buy LCSC minimum 50",
+   "ext_per_board_10": 0.0471,
+   "ext_per_board_100": 0.0471,
+   "ext_per_board_10_with_moq": 0.0785
+  },
+  {
+   "refs": [
+    "U30"
+   ],
+   "value": "LM2903DR2G",
+   "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+   "lcsc": "C57474",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0576,
+   "unit_price_100": 0.0449,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "LM2903DR2G",
+   "brand": "onsemi",
+   "lcsc_stock": 235160,
+   "lcsc_price_ladder": [
+    [
+     10,
+     0.0576
+    ],
+    [
+     100,
+     0.0449
+    ],
+    [
+     300,
+     0.0386
+    ],
+    [
+     2500,
+     0.0338
+    ],
+    [
+     5000,
+     0.03
+    ],
+    [
+     10000,
+     0.0281
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 235164,
+   "source_url": "https://www.lcsc.com/product-detail/C57474.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C57474",
+   "note": "",
+   "ext_per_board_10": 0.0576,
+   "ext_per_board_100": 0.0449,
+   "ext_per_board_10_with_moq": 0.0576
+  },
+  {
+   "refs": [
+    "J2"
+   ],
+   "value": "DC IN 3.6-24V",
+   "footprint": "linknode:Kefa_KF2EDGR-3.81-2P_Horizontal",
+   "lcsc": "C441182",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0541,
+   "unit_price_100": 0.044,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "KF2EDGR-3.81-2P",
+   "brand": "Cixi Kefa Elec",
+   "lcsc_stock": 38710,
+   "lcsc_price_ladder": [
+    [
+     10,
+     0.0541
+    ],
+    [
+     100,
+     0.044
+    ],
+    [
+     500,
+     0.0341
+    ],
+    [
+     1000,
+     0.0303
+    ],
+    [
+     5000,
+     0.0272
+    ],
+    [
+     10000,
+     0.0257
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 38712,
+   "source_url": "https://www.lcsc.com/product-detail/C441182.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C441182",
+   "note": "",
+   "ext_per_board_10": 0.0541,
+   "ext_per_board_100": 0.044,
+   "ext_per_board_10_with_moq": 0.0541
+  },
+  {
+   "refs": [
+    "U21"
+   ],
+   "value": "ME6211C33M5G-N",
+   "footprint": "Package_TO_SOT_SMD:SOT-23-5",
+   "lcsc": "C82942",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0553,
+   "unit_price_100": 0.0434,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "ME6211C33M5G-N",
+   "brand": "MICRONE",
+   "lcsc_stock": 216800,
+   "lcsc_price_ladder": [
+    [
+     10,
+     0.0553
+    ],
+    [
+     100,
+     0.0434
+    ],
+    [
+     300,
+     0.0373
+    ],
+    [
+     3000,
+     0.0323
+    ],
+    [
+     6000,
+     0.0305
+    ],
+    [
+     9000,
+     0.0293
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 225792,
+   "source_url": "https://www.lcsc.com/product-detail/C82942.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C82942",
+   "note": "",
+   "ext_per_board_10": 0.0553,
+   "ext_per_board_100": 0.0434,
+   "ext_per_board_10_with_moq": 0.0553
+  },
+  {
+   "refs": [
+    "J4"
+   ],
+   "value": "Pack NTC",
+   "footprint": "Connector_JST:JST_PH_S2B-PH-K_1x02_P2.00mm_Horizontal",
+   "lcsc": "C173752",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.04,
+   "unit_price_100": 0.04,
+   "buy_qty_10": 20,
+   "buy_qty_100": 100,
+   "mpn": "S2B-PH-K-S(LF)(SN)",
+   "brand": "JST",
+   "lcsc_stock": 137860,
+   "lcsc_price_ladder": [
+    [
+     20,
+     0.04
+    ],
+    [
+     200,
+     0.032
+    ],
+    [
+     1000,
+     0.0275
+    ],
+    [
+     2000,
+     0.0249
+    ],
+    [
+     10000,
+     0.0226
+    ],
+    [
+     20000,
+     0.0213
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 137884,
+   "source_url": "https://www.lcsc.com/product-detail/C173752.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C173752",
+   "note": "qty-10 build must buy LCSC minimum 20",
+   "ext_per_board_10": 0.04,
+   "ext_per_board_100": 0.04,
+   "ext_per_board_10_with_moq": 0.08
+  },
+  {
+   "refs": [
+    "D1"
+   ],
+   "value": "SMAJ24A",
+   "footprint": "Diode_SMD:D_SMA",
+   "lcsc": "C19077541",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0382,
+   "unit_price_100": 0.0382,
+   "buy_qty_10": 20,
+   "buy_qty_100": 100,
+   "mpn": "SMAJ24A",
+   "brand": "R+O",
+   "lcsc_stock": 59840,
+   "lcsc_price_ladder": [
+    [
+     20,
+     0.0382
+    ],
+    [
+     200,
+     0.03
+    ],
+    [
+     600,
+     0.0255
+    ],
+    [
+     5000,
+     0.022
+    ],
+    [
+     10000,
+     0.0196
+    ],
+    [
+     20000,
+     0.0183
+    ]
+   ],
+   "jlc_library": "preferred extended",
+   "jlc_stock": 63653,
+   "source_url": "https://www.lcsc.com/product-detail/C19077541.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C19077541",
+   "note": "qty-10 build must buy LCSC minimum 20",
+   "ext_per_board_10": 0.0382,
+   "ext_per_board_100": 0.0382,
+   "ext_per_board_10_with_moq": 0.0764
+  },
+  {
+   "refs": [
+    "U31"
+   ],
+   "value": "TL432 0.5%",
+   "footprint": "Package_TO_SOT_SMD:SOT-23",
+   "lcsc": "C545558",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0465,
+   "unit_price_100": 0.0362,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "TL432 0.5%",
+   "brand": "UMW",
+   "lcsc_stock": 136150,
+   "lcsc_price_ladder": [
+    [
+     10,
+     0.0465
+    ],
+    [
+     100,
+     0.0362
+    ],
+    [
+     300,
+     0.031
+    ],
+    [
+     3000,
+     0.0271
+    ],
+    [
+     6000,
+     0.0241
+    ],
+    [
+     9000,
+     0.0225
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 136153,
+   "source_url": "https://www.lcsc.com/product-detail/C545558.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C545558",
+   "note": "",
+   "ext_per_board_10": 0.0465,
+   "ext_per_board_100": 0.0362,
+   "ext_per_board_10_with_moq": 0.0465
+  },
+  {
+   "refs": [
+    "U1"
+   ],
+   "value": "USBLC6-2SC6",
+   "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+   "lcsc": "C2827654",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0452,
+   "unit_price_100": 0.0361,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "USBLC6-2SC6",
+   "brand": "TECH PUBLIC",
+   "lcsc_stock": 184290,
+   "lcsc_price_ladder": [
+    [
+     10,
+     0.0452
+    ],
+    [
+     100,
+     0.0361
+    ],
+    [
+     300,
+     0.0313
+    ],
+    [
+     3000,
+     0.0275
+    ],
+    [
+     6000,
+     0.0261
+    ],
+    [
+     9000,
+     0.0252
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 191069,
+   "source_url": "https://www.lcsc.com/product-detail/C2827654.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C2827654",
+   "note": "",
+   "ext_per_board_10": 0.0452,
+   "ext_per_board_100": 0.0361,
+   "ext_per_board_10_with_moq": 0.0452
+  },
+  {
+   "refs": [
+    "C1",
+    "C3",
+    "C6",
+    "C10"
+   ],
+   "value": "100nF 50V",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "lcsc": "C307331",
+   "qty_per_board": 4,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0086,
+   "unit_price_100": 0.0086,
+   "buy_qty_10": 100,
+   "buy_qty_100": 400,
+   "mpn": "CL05B104KB54PNC",
+   "brand": "Samsung Electro-Mechanics",
+   "lcsc_stock": 0,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0086
+    ],
+    [
+     1000,
+     0.0064
+    ],
+    [
+     3000,
+     0.0054
+    ],
+    [
+     10000,
+     0.0047
+    ],
+    [
+     50000,
+     0.0044
+    ],
+    [
+     100000,
+     0.0042
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 19944922,
+   "source_url": "https://www.lcsc.com/product-detail/C307331.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C307331",
+   "note": "LCSC stock 0 on 2026-11-23 (JLCPCB shows 19944922 in stock); LCSC stock 0 < 400 needed for 100 boards; qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0344,
+   "ext_per_board_100": 0.0344,
+   "ext_per_board_10_with_moq": 0.086
+  },
+  {
+   "refs": [
+    "D4",
+    "D5"
+   ],
+   "value": "BZT52C10",
+   "footprint": "Diode_SMD:D_SOD-123",
+   "lcsc": "C173431",
+   "qty_per_board": 2,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0164,
+   "unit_price_100": 0.0164,
+   "buy_qty_10": 50,
+   "buy_qty_100": 200,
+   "mpn": "BZT52C10",
+   "brand": "MDD(Microdiode Semiconductor)",
+   "lcsc_stock": 235950,
+   "lcsc_price_ladder": [
+    [
+     50,
+     0.0164
+    ],
+    [
+     500,
+     0.0133
+    ],
+    [
+     3000,
+     0.0098
+    ],
+    [
+     6000,
+     0.0087
+    ],
+    [
+     24000,
+     0.0078
+    ],
+    [
+     51000,
+     0.0073
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 235971,
+   "source_url": "https://www.lcsc.com/product-detail/C173431.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C173431",
+   "note": "qty-10 build must buy LCSC minimum 50",
+   "ext_per_board_10": 0.0328,
+   "ext_per_board_100": 0.0328,
+   "ext_per_board_10_with_moq": 0.082
+  },
+  {
+   "refs": [
+    "C2"
+   ],
+   "value": "2.2uF 50V",
+   "footprint": "Capacitor_SMD:C_0805_2012Metric",
+   "lcsc": "C377773",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0345,
+   "unit_price_100": 0.0264,
+   "buy_qty_10": 10,
+   "buy_qty_100": 100,
+   "mpn": "CL21A225KBQNNNE",
+   "brand": "Samsung Electro-Mechanics",
+   "lcsc_stock": 37220,
+   "lcsc_price_ladder": [
+    [
+     10,
+     0.0345
+    ],
+    [
+     100,
+     0.0264
+    ],
+    [
+     300,
+     0.0227
+    ],
+    [
+     2000,
+     0.0187
+    ],
+    [
+     4000,
+     0.0176
+    ],
+    [
+     10000,
+     0.0168
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 916004,
+   "source_url": "https://www.lcsc.com/product-detail/C377773.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C377773",
+   "note": "",
+   "ext_per_board_10": 0.0345,
+   "ext_per_board_100": 0.0264,
+   "ext_per_board_10_with_moq": 0.0345
+  },
+  {
+   "refs": [
+    "RN701",
+    "RN702",
+    "RN703",
+    "RN704"
+   ],
+   "value": "4x10k",
+   "footprint": "Resistor_SMD:R_Array_Convex_4x0402",
+   "lcsc": "C25725",
+   "qty_per_board": 4,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0063,
+   "unit_price_100": 0.0063,
+   "buy_qty_10": 100,
+   "buy_qty_100": 400,
+   "mpn": "4D02WGJ0103TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 58500,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0063
+    ],
+    [
+     1000,
+     0.0051
+    ],
+    [
+     3000,
+     0.0045
+    ],
+    [
+     10000,
+     0.0039
+    ],
+    [
+     50000,
+     0.0036
+    ],
+    [
+     100000,
+     0.0034
+    ]
+   ],
+   "jlc_library": "preferred extended",
+   "jlc_stock": 83203,
+   "source_url": "https://www.lcsc.com/product-detail/C25725.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C25725",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0252,
+   "ext_per_board_100": 0.0252,
+   "ext_per_board_10_with_moq": 0.063
+  },
+  {
+   "refs": [
+    "U3"
+   ],
+   "value": "DW01A",
+   "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+   "lcsc": "C351410",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.025,
+   "unit_price_100": 0.025,
+   "buy_qty_10": 20,
+   "buy_qty_100": 100,
+   "mpn": "DW01A",
+   "brand": "PUOLOP",
+   "lcsc_stock": 82720,
+   "lcsc_price_ladder": [
+    [
+     20,
+     0.025
+    ],
+    [
+     200,
+     0.0196
+    ],
+    [
+     600,
+     0.0172
+    ],
+    [
+     3000,
+     0.0154
+    ],
+    [
+     9000,
+     0.0147
+    ],
+    [
+     21000,
+     0.0142
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 82721,
+   "source_url": "https://www.lcsc.com/product-detail/C351410.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C351410",
+   "note": "qty-10 build must buy LCSC minimum 20",
+   "ext_per_board_10": 0.025,
+   "ext_per_board_100": 0.025,
+   "ext_per_board_10_with_moq": 0.05
+  },
+  {
+   "refs": [
+    "C802"
+   ],
+   "value": "22uF",
+   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "lcsc": "C59461",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0224,
+   "unit_price_100": 0.0224,
+   "buy_qty_10": 20,
+   "buy_qty_100": 100,
+   "mpn": "CL10A226MQ8NRNC",
+   "brand": "Samsung Electro-Mechanics",
+   "lcsc_stock": 2386080,
+   "lcsc_price_ladder": [
+    [
+     20,
+     0.0224
+    ],
+    [
+     200,
+     0.0151
+    ],
+    [
+     600,
+     0.0118
+    ],
+    [
+     4000,
+     0.0094
+    ],
+    [
+     8000,
+     0.0084
+    ],
+    [
+     20000,
+     0.0077
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 5487452,
+   "source_url": "https://www.lcsc.com/product-detail/C59461.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C59461",
+   "note": "qty-10 build must buy LCSC minimum 20",
+   "ext_per_board_10": 0.0224,
+   "ext_per_board_100": 0.0224,
+   "ext_per_board_10_with_moq": 0.0448
+  },
+  {
+   "refs": [
+    "SW1"
+   ],
+   "value": "PWR",
+   "footprint": "Button_Switch_SMD:SW_Push_1P1T_XKB_TS-1187A",
+   "lcsc": "C318884",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0202,
+   "unit_price_100": 0.0202,
+   "buy_qty_10": 20,
+   "buy_qty_100": 100,
+   "mpn": "TS-1187A-B-A-B",
+   "brand": "XKB Connection",
+   "lcsc_stock": 357760,
+   "lcsc_price_ladder": [
+    [
+     20,
+     0.0202
+    ],
+    [
+     200,
+     0.0155
+    ],
+    [
+     600,
+     0.0134
+    ],
+    [
+     4000,
+     0.0116
+    ],
+    [
+     8000,
+     0.011
+    ],
+    [
+     20000,
+     0.0106
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 692333,
+   "source_url": "https://www.lcsc.com/product-detail/C318884.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C318884",
+   "note": "qty-10 build must buy LCSC minimum 20",
+   "ext_per_board_10": 0.0202,
+   "ext_per_board_100": 0.0202,
+   "ext_per_board_10_with_moq": 0.0404
+  },
+  {
+   "refs": [
+    "R16",
+    "R18",
+    "R22",
+    "R23",
+    "R24",
+    "R25",
+    "R50",
+    "R52",
+    "R60",
+    "R62",
+    "R70",
+    "R72",
+    "R82",
+    "R100",
+    "R102",
+    "R110",
+    "R112",
+    "R120",
+    "R122",
+    "R200",
+    "R302",
+    "R304",
+    "R305",
+    "R306",
+    "R308",
+    "R311",
+    "R404"
+   ],
+   "value": "100k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C25741",
+   "qty_per_board": 27,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0009,
+   "unit_price_100": 0.0007,
+   "buy_qty_10": 270,
+   "buy_qty_100": 2700,
+   "mpn": "0402WGF1003TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 4476200,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0009
+    ],
+    [
+     1000,
+     0.0007
+    ],
+    [
+     3000,
+     0.0006
+    ],
+    [
+     10000,
+     0.0005
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 12602223,
+   "source_url": "https://www.lcsc.com/product-detail/C25741.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C25741",
+   "note": "",
+   "ext_per_board_10": 0.0243,
+   "ext_per_board_100": 0.0189,
+   "ext_per_board_10_with_moq": 0.0243
+  },
+  {
+   "refs": [
+    "R5",
+    "R10",
+    "R121",
+    "R303",
+    "R307",
+    "R310",
+    "R405",
+    "R406",
+    "R504",
+    "R505",
+    "R506",
+    "R510",
+    "R701",
+    "R702",
+    "R703",
+    "R704",
+    "R705",
+    "R706",
+    "R707",
+    "R801",
+    "R802"
+   ],
+   "value": "10k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C25744",
+   "qty_per_board": 21,
+   "side": [
+    "bottom",
+    "top"
+   ],
+   "unit_price_10": 0.0011,
+   "unit_price_100": 0.0008,
+   "buy_qty_10": 210,
+   "buy_qty_100": 2100,
+   "mpn": "0402WGF1002TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 11639800,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0011
+    ],
+    [
+     1000,
+     0.0008
+    ],
+    [
+     3000,
+     0.0007
+    ],
+    [
+     10000,
+     0.0006
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 34277323,
+   "source_url": "https://www.lcsc.com/product-detail/C25744.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C25744",
+   "note": "",
+   "ext_per_board_10": 0.0231,
+   "ext_per_board_100": 0.0168,
+   "ext_per_board_10_with_moq": 0.0231
+  },
+  {
+   "refs": [
+    "C401",
+    "C637"
+   ],
+   "value": "4.7uF",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "lcsc": "C23733",
+   "qty_per_board": 2,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0078,
+   "unit_price_100": 0.0078,
+   "buy_qty_10": 50,
+   "buy_qty_100": 200,
+   "mpn": "CL05A475MP5NRNC",
+   "brand": "Samsung Electro-Mechanics",
+   "lcsc_stock": 0,
+   "lcsc_price_ladder": [
+    [
+     50,
+     0.0078
+    ],
+    [
+     500,
+     0.006
+    ],
+    [
+     1500,
+     0.0052
+    ],
+    [
+     10000,
+     0.0046
+    ],
+    [
+     20000,
+     0.0044
+    ],
+    [
+     50000,
+     0.0042
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 846683,
+   "source_url": "https://www.lcsc.com/product-detail/C23733.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C23733",
+   "note": "LCSC stock 0 on 2026-11-23 (JLCPCB shows 846683 in stock); LCSC stock 0 < 200 needed for 100 boards; qty-10 build must buy LCSC minimum 50",
+   "ext_per_board_10": 0.0156,
+   "ext_per_board_100": 0.0156,
+   "ext_per_board_10_with_moq": 0.039
+  },
+  {
+   "refs": [
+    "C51",
+    "C120",
+    "C302",
+    "C505"
+   ],
+   "value": "10nF",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "lcsc": "C15195",
+   "qty_per_board": 4,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0038,
+   "unit_price_100": 0.0038,
+   "buy_qty_10": 100,
+   "buy_qty_100": 400,
+   "mpn": "CL05B103KB5NNNC",
+   "brand": "Samsung Electro-Mechanics",
+   "lcsc_stock": 808400,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0038
+    ],
+    [
+     1000,
+     0.0028
+    ],
+    [
+     3000,
+     0.0023
+    ],
+    [
+     10000,
+     0.0021
+    ],
+    [
+     50000,
+     0.0019
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 5301509,
+   "source_url": "https://www.lcsc.com/product-detail/C15195.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C15195",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0152,
+   "ext_per_board_100": 0.0152,
+   "ext_per_board_10_with_moq": 0.038
+  },
+  {
+   "refs": [
+    "C52",
+    "C62",
+    "C72",
+    "C82",
+    "C101",
+    "C111"
+   ],
+   "value": "6.8pF",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "lcsc": "C1576",
+   "qty_per_board": 6,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0023,
+   "unit_price_100": 0.0023,
+   "buy_qty_10": 100,
+   "buy_qty_100": 600,
+   "mpn": "0402CG6R8C500NT",
+   "brand": "FH",
+   "lcsc_stock": 100100,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0023
+    ],
+    [
+     1000,
+     0.0018
+    ],
+    [
+     3000,
+     0.0015
+    ],
+    [
+     10000,
+     0.0013
+    ],
+    [
+     50000,
+     0.0011
+    ]
+   ],
+   "jlc_library": "preferred extended",
+   "jlc_stock": 197460,
+   "source_url": "https://www.lcsc.com/product-detail/C1576.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C1576",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0138,
+   "ext_per_board_100": 0.0138,
+   "ext_per_board_10_with_moq": 0.023
+  },
+  {
+   "refs": [
+    "D3"
+   ],
+   "value": "BZT52C12",
+   "footprint": "Diode_SMD:D_SOD-123",
+   "lcsc": "C2891780",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0113,
+   "unit_price_100": 0.0113,
+   "buy_qty_10": 50,
+   "buy_qty_100": 100,
+   "mpn": "BZT52C12",
+   "brand": "YONGYUTAI",
+   "lcsc_stock": 25850,
+   "lcsc_price_ladder": [
+    [
+     50,
+     0.0113
+    ],
+    [
+     500,
+     0.0088
+    ],
+    [
+     3000,
+     0.0076
+    ],
+    [
+     6000,
+     0.0068
+    ],
+    [
+     24000,
+     0.006
+    ],
+    [
+     51000,
+     0.0057
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 25861,
+   "source_url": "https://www.lcsc.com/product-detail/C2891780.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C2891780",
+   "note": "qty-10 build must buy LCSC minimum 50",
+   "ext_per_board_10": 0.0113,
+   "ext_per_board_100": 0.0113,
+   "ext_per_board_10_with_moq": 0.0565
+  },
+  {
+   "refs": [
+    "C27"
+   ],
+   "value": "2.2uF",
+   "footprint": "Capacitor_SMD:C_0603_1608Metric",
+   "lcsc": "C23630",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0098,
+   "unit_price_100": 0.0098,
+   "buy_qty_10": 50,
+   "buy_qty_100": 100,
+   "mpn": "CL10A225KO8NNNC",
+   "brand": "Samsung Electro-Mechanics",
+   "lcsc_stock": 237600,
+   "lcsc_price_ladder": [
+    [
+     50,
+     0.0098
+    ],
+    [
+     500,
+     0.0075
+    ],
+    [
+     1500,
+     0.0065
+    ],
+    [
+     4000,
+     0.0057
+    ],
+    [
+     24000,
+     0.0054
+    ],
+    [
+     48000,
+     0.0052
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 2505022,
+   "source_url": "https://www.lcsc.com/product-detail/C23630.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C23630",
+   "note": "qty-10 build must buy LCSC minimum 50",
+   "ext_per_board_10": 0.0098,
+   "ext_per_board_100": 0.0098,
+   "ext_per_board_10_with_moq": 0.049
+  },
+  {
+   "refs": [
+    "FB601"
+   ],
+   "value": "120R@100MHz",
+   "footprint": "Inductor_SMD:L_0402_1005Metric",
+   "lcsc": "C76891",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0097,
+   "unit_price_100": 0.0097,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "BLM15PD121SN1D",
+   "brand": "muRata",
+   "lcsc_stock": 959800,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0097
+    ],
+    [
+     1000,
+     0.0076
+    ],
+    [
+     3000,
+     0.0064
+    ],
+    [
+     10000,
+     0.0057
+    ],
+    [
+     50000,
+     0.0051
+    ],
+    [
+     100000,
+     0.0048
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 980283,
+   "source_url": "https://www.lcsc.com/product-detail/C76891.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C76891",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0097,
+   "ext_per_board_100": 0.0097,
+   "ext_per_board_10_with_moq": 0.097
+  },
+  {
+   "refs": [
+    "R6",
+    "R1005",
+    "R1006",
+    "R1007",
+    "R1008"
+   ],
+   "value": "4.7k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C25900",
+   "qty_per_board": 5,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0016,
+   "unit_price_100": 0.0016,
+   "buy_qty_10": 100,
+   "buy_qty_100": 500,
+   "mpn": "0402WGF4701TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 4486600,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0016
+    ],
+    [
+     1000,
+     0.0012
+    ],
+    [
+     3000,
+     0.001
+    ],
+    [
+     10000,
+     0.0009
+    ],
+    [
+     50000,
+     0.0008
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 12781348,
+   "source_url": "https://www.lcsc.com/product-detail/C25900.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C25900",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.008,
+   "ext_per_board_100": 0.008,
+   "ext_per_board_10_with_moq": 0.016
+  },
+  {
+   "refs": [
+    "D2"
+   ],
+   "value": "CHG",
+   "footprint": "LED_SMD:LED_0603_1608Metric",
+   "lcsc": "C2286",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0077,
+   "unit_price_100": 0.0077,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "KT-0603R",
+   "brand": "Hubei KENTO Elec",
+   "lcsc_stock": 5628800,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0077
+    ],
+    [
+     1000,
+     0.0059
+    ],
+    [
+     4000,
+     0.0046
+    ],
+    [
+     8000,
+     0.004
+    ],
+    [
+     48000,
+     0.0038
+    ],
+    [
+     100000,
+     0.0036
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 8332683,
+   "source_url": "https://www.lcsc.com/product-detail/C2286.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C2286",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0077,
+   "ext_per_board_100": 0.0077,
+   "ext_per_board_10_with_moq": 0.077
+  },
+  {
+   "refs": [
+    "C501",
+    "C502",
+    "C503",
+    "C504"
+   ],
+   "value": "18pF C0G",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "lcsc": "C1549",
+   "qty_per_board": 4,
+   "side": [
+    "bottom",
+    "top"
+   ],
+   "unit_price_10": 0.0017,
+   "unit_price_100": 0.0017,
+   "buy_qty_10": 100,
+   "buy_qty_100": 400,
+   "mpn": "0402CG180J500NT",
+   "brand": "FH",
+   "lcsc_stock": 378200,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0017
+    ],
+    [
+     1000,
+     0.0013
+    ],
+    [
+     3000,
+     0.0011
+    ],
+    [
+     10000,
+     0.0009
+    ],
+    [
+     50000,
+     0.0008
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 1028241,
+   "source_url": "https://www.lcsc.com/product-detail/C1549.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C1549",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0068,
+   "ext_per_board_100": 0.0068,
+   "ext_per_board_10_with_moq": 0.017
+  },
+  {
+   "refs": [
+    "R19",
+    "R1001",
+    "R1002",
+    "R1003",
+    "R1004"
+   ],
+   "value": "0R",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C17168",
+   "qty_per_board": 5,
+   "side": [
+    "bottom",
+    "top"
+   ],
+   "unit_price_10": 0.0012,
+   "unit_price_100": 0.0012,
+   "buy_qty_10": 100,
+   "buy_qty_100": 500,
+   "mpn": "0402WGF0000TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 5028400,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0012
+    ],
+    [
+     1000,
+     0.0009
+    ],
+    [
+     3000,
+     0.0008
+    ],
+    [
+     10000,
+     0.0007
+    ],
+    [
+     50000,
+     0.0006
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 13713320,
+   "source_url": "https://www.lcsc.com/product-detail/C17168.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C17168",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.006,
+   "ext_per_board_100": 0.006,
+   "ext_per_board_10_with_moq": 0.012
+  },
+  {
+   "refs": [
+    "C11",
+    "C12"
+   ],
+   "value": "47nF 50V",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "lcsc": "C880605",
+   "qty_per_board": 2,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0029,
+   "unit_price_100": 0.0029,
+   "buy_qty_10": 50,
+   "buy_qty_100": 200,
+   "mpn": "TCC0402X7R473K500AT",
+   "brand": "CCTC",
+   "lcsc_stock": 1219350,
+   "lcsc_price_ladder": [
+    [
+     50,
+     0.0029
+    ],
+    [
+     500,
+     0.0022
+    ],
+    [
+     1500,
+     0.0018
+    ],
+    [
+     10000,
+     0.0016
+    ],
+    [
+     20000,
+     0.0013
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 1261816,
+   "source_url": "https://www.lcsc.com/product-detail/C880605.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C880605",
+   "note": "qty-10 build must buy LCSC minimum 50",
+   "ext_per_board_10": 0.0058,
+   "ext_per_board_100": 0.0058,
+   "ext_per_board_10_with_moq": 0.0145
+  },
+  {
+   "refs": [
+    "R8"
+   ],
+   "value": "30.1k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C2076806",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0055,
+   "unit_price_100": 0.0055,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "ERJ2RKF3012X",
+   "brand": "PANASONIC",
+   "lcsc_stock": 44400,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0055
+    ],
+    [
+     1000,
+     0.0045
+    ],
+    [
+     3000,
+     0.004
+    ],
+    [
+     10000,
+     0.0036
+    ],
+    [
+     50000,
+     0.0033
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 45439,
+   "source_url": "https://www.lcsc.com/product-detail/C2076806.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C2076806",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0055,
+   "ext_per_board_100": 0.0055,
+   "ext_per_board_10_with_moq": 0.055
+  },
+  {
+   "refs": [
+    "C902",
+    "C904"
+   ],
+   "value": "2.7pF C0G",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "lcsc": "C1561",
+   "qty_per_board": 2,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0024,
+   "unit_price_100": 0.0024,
+   "buy_qty_10": 100,
+   "buy_qty_100": 200,
+   "mpn": "0402CG2R7C500NT",
+   "brand": "FH",
+   "lcsc_stock": 69700,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0024
+    ],
+    [
+     1000,
+     0.0018
+    ],
+    [
+     3000,
+     0.0016
+    ],
+    [
+     10000,
+     0.0013
+    ],
+    [
+     50000,
+     0.0011
+    ]
+   ],
+   "jlc_library": "preferred extended",
+   "jlc_stock": 134966,
+   "source_url": "https://www.lcsc.com/product-detail/C1561.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C1561",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0048,
+   "ext_per_board_100": 0.0048,
+   "ext_per_board_10_with_moq": 0.024
+  },
+  {
+   "refs": [
+    "C903"
+   ],
+   "value": "5.6pF C0G",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "lcsc": "C1574",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0048,
+   "unit_price_100": 0.0048,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "0402CG5R6C500NT",
+   "brand": "FH",
+   "lcsc_stock": 75400,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0048
+    ],
+    [
+     1000,
+     0.0038
+    ],
+    [
+     3000,
+     0.0033
+    ],
+    [
+     10000,
+     0.0027
+    ],
+    [
+     50000,
+     0.0024
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 89088,
+   "source_url": "https://www.lcsc.com/product-detail/C1574.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C1574",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0048,
+   "ext_per_board_100": 0.0048,
+   "ext_per_board_10_with_moq": 0.048
+  },
+  {
+   "refs": [
+    "L20"
+   ],
+   "value": "47nH",
+   "footprint": "Inductor_SMD:L_0402_1005Metric",
+   "lcsc": "C395068",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0048,
+   "unit_price_100": 0.0048,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "VHF100505HQ47NJT",
+   "brand": "FH",
+   "lcsc_stock": 165500,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0048
+    ],
+    [
+     1000,
+     0.0038
+    ],
+    [
+     3000,
+     0.0033
+    ],
+    [
+     10000,
+     0.0028
+    ],
+    [
+     50000,
+     0.0025
+    ],
+    [
+     100000,
+     0.0024
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 165564,
+   "source_url": "https://www.lcsc.com/product-detail/C395068.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C395068",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0048,
+   "ext_per_board_100": 0.0048,
+   "ext_per_board_10_with_moq": 0.048
+  },
+  {
+   "refs": [
+    "R81",
+    "R101",
+    "R111"
+   ],
+   "value": "453k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C27009",
+   "qty_per_board": 3,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0016,
+   "unit_price_100": 0.0016,
+   "buy_qty_10": 100,
+   "buy_qty_100": 300,
+   "mpn": "0402WGF4533TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 640200,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0016
+    ],
+    [
+     1000,
+     0.0013
+    ],
+    [
+     3000,
+     0.0011
+    ],
+    [
+     10000,
+     0.001
+    ],
+    [
+     50000,
+     0.0008
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 683558,
+   "source_url": "https://www.lcsc.com/product-detail/C27009.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C27009",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0048,
+   "ext_per_board_100": 0.0048,
+   "ext_per_board_10_with_moq": 0.016
+  },
+  {
+   "refs": [
+    "R4",
+    "R11",
+    "R402",
+    "R603"
+   ],
+   "value": "100R",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C25076",
+   "qty_per_board": 4,
+   "side": [
+    "bottom",
+    "top"
+   ],
+   "unit_price_10": 0.0011,
+   "unit_price_100": 0.0011,
+   "buy_qty_10": 100,
+   "buy_qty_100": 400,
+   "mpn": "0402WGF1000TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 4787200,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0011
+    ],
+    [
+     1000,
+     0.0009
+    ],
+    [
+     3000,
+     0.0008
+    ],
+    [
+     10000,
+     0.0007
+    ],
+    [
+     50000,
+     0.0006
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 9812441,
+   "source_url": "https://www.lcsc.com/product-detail/C25076.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C25076",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0044,
+   "ext_per_board_100": 0.0044,
+   "ext_per_board_10_with_moq": 0.011
+  },
+  {
+   "refs": [
+    "R501",
+    "R511",
+    "R512",
+    "R513"
+   ],
+   "value": "22R",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C25092",
+   "qty_per_board": 4,
+   "side": [
+    "bottom",
+    "top"
+   ],
+   "unit_price_10": 0.0011,
+   "unit_price_100": 0.0011,
+   "buy_qty_10": 100,
+   "buy_qty_100": 400,
+   "mpn": "0402WGF220JTCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 2356400,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0011
+    ],
+    [
+     1000,
+     0.0009
+    ],
+    [
+     3000,
+     0.0008
+    ],
+    [
+     10000,
+     0.0007
+    ],
+    [
+     50000,
+     0.0006
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 7090651,
+   "source_url": "https://www.lcsc.com/product-detail/C25092.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C25092",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0044,
+   "ext_per_board_100": 0.0044,
+   "ext_per_board_10_with_moq": 0.011
+  },
+  {
+   "refs": [
+    "R13",
+    "R15"
+   ],
+   "value": "316k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C25777",
+   "qty_per_board": 2,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0017,
+   "unit_price_100": 0.0017,
+   "buy_qty_10": 100,
+   "buy_qty_100": 200,
+   "mpn": "0402WGF3163TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 164500,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0017
+    ],
+    [
+     1000,
+     0.0013
+    ],
+    [
+     3000,
+     0.0011
+    ],
+    [
+     10000,
+     0.001
+    ],
+    [
+     50000,
+     0.0009
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 175520,
+   "source_url": "https://www.lcsc.com/product-detail/C25777.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C25777",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0034,
+   "ext_per_board_100": 0.0034,
+   "ext_per_board_10_with_moq": 0.017
+  },
+  {
+   "refs": [
+    "R17"
+   ],
+   "value": "8.06k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C276278",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0029,
+   "unit_price_100": 0.0029,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "RC0402FR-078K06L",
+   "brand": "YAGEO",
+   "lcsc_stock": 111900,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0029
+    ],
+    [
+     1000,
+     0.0025
+    ],
+    [
+     3000,
+     0.0023
+    ],
+    [
+     10000,
+     0.0022
+    ],
+    [
+     50000,
+     0.002
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 146946,
+   "source_url": "https://www.lcsc.com/product-detail/C276278.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C276278",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0029,
+   "ext_per_board_100": 0.0029,
+   "ext_per_board_10_with_moq": 0.029
+  },
+  {
+   "refs": [
+    "R1",
+    "R2"
+   ],
+   "value": "5.1k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C25905",
+   "qty_per_board": 2,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0014,
+   "unit_price_100": 0.0014,
+   "buy_qty_10": 100,
+   "buy_qty_100": 200,
+   "mpn": "0402WGF5101TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 707500,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0014
+    ],
+    [
+     1000,
+     0.0011
+    ],
+    [
+     3000,
+     0.0009
+    ],
+    [
+     10000,
+     0.0008
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 4048091,
+   "source_url": "https://www.lcsc.com/product-detail/C25905.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C25905",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0028,
+   "ext_per_board_100": 0.0028,
+   "ext_per_board_10_with_moq": 0.014
+  },
+  {
+   "refs": [
+    "C28"
+   ],
+   "value": "6.8nF",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "lcsc": "C1542",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0026,
+   "unit_price_100": 0.0026,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "0402B682K500NT",
+   "brand": "FH",
+   "lcsc_stock": 85100,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0026
+    ],
+    [
+     1000,
+     0.002
+    ],
+    [
+     3000,
+     0.0017
+    ],
+    [
+     10000,
+     0.0015
+    ],
+    [
+     50000,
+     0.0013
+    ]
+   ],
+   "jlc_library": "preferred extended",
+   "jlc_stock": 154812,
+   "source_url": "https://www.lcsc.com/product-detail/C1542.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C1542",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0026,
+   "ext_per_board_100": 0.0026,
+   "ext_per_board_10_with_moq": 0.026
+  },
+  {
+   "refs": [
+    "R71",
+    "R80"
+   ],
+   "value": "200k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C25764",
+   "qty_per_board": 2,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0013,
+   "unit_price_100": 0.0013,
+   "buy_qty_10": 100,
+   "buy_qty_100": 200,
+   "mpn": "0402WGF2003TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 2578400,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0013
+    ],
+    [
+     1000,
+     0.001
+    ],
+    [
+     3000,
+     0.0009
+    ],
+    [
+     10000,
+     0.0008
+    ],
+    [
+     50000,
+     0.0007
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 3305859,
+   "source_url": "https://www.lcsc.com/product-detail/C25764.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C25764",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0026,
+   "ext_per_board_100": 0.0026,
+   "ext_per_board_10_with_moq": 0.013
+  },
+  {
+   "refs": [
+    "R508",
+    "R509"
+   ],
+   "value": "2.2R",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C2906903",
+   "qty_per_board": 2,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0013,
+   "unit_price_100": 0.0013,
+   "buy_qty_10": 100,
+   "buy_qty_100": 200,
+   "mpn": "FRC0402J2R2 TS",
+   "brand": "FOJAN",
+   "lcsc_stock": 4838100,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0013
+    ],
+    [
+     1000,
+     0.001
+    ],
+    [
+     3000,
+     0.0009
+    ],
+    [
+     10000,
+     0.0008
+    ],
+    [
+     50000,
+     0.0006
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 4963773,
+   "source_url": "https://www.lcsc.com/product-detail/C2906903.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C2906903",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0026,
+   "ext_per_board_100": 0.0026,
+   "ext_per_board_10_with_moq": 0.013
+  },
+  {
+   "refs": [
+    "R601",
+    "R602"
+   ],
+   "value": "1R",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C2906901",
+   "qty_per_board": 2,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0013,
+   "unit_price_100": 0.0013,
+   "buy_qty_10": 100,
+   "buy_qty_100": 200,
+   "mpn": "FRC0402J1R0 TS",
+   "brand": "FOJAN",
+   "lcsc_stock": 3847500,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0013
+    ],
+    [
+     1000,
+     0.001
+    ],
+    [
+     3000,
+     0.0009
+    ],
+    [
+     10000,
+     0.0008
+    ],
+    [
+     50000,
+     0.0006
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 3872023,
+   "source_url": "https://www.lcsc.com/product-detail/C2906901.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C2906901",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0026,
+   "ext_per_board_100": 0.0026,
+   "ext_per_board_10_with_moq": 0.013
+  },
+  {
+   "refs": [
+    "R3"
+   ],
+   "value": "2R",
+   "footprint": "Resistor_SMD:R_0603_1608Metric",
+   "lcsc": "C22977",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0022,
+   "unit_price_100": 0.0022,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "0603WAF200KT5E",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 159900,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0022
+    ],
+    [
+     1000,
+     0.0017
+    ],
+    [
+     5000,
+     0.0014
+    ],
+    [
+     10000,
+     0.0013
+    ],
+    [
+     50000,
+     0.0012
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 596174,
+   "source_url": "https://www.lcsc.com/product-detail/C22977.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C22977",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0022,
+   "ext_per_board_100": 0.0022,
+   "ext_per_board_10_with_moq": 0.022
+  },
+  {
+   "refs": [
+    "R12",
+    "R503"
+   ],
+   "value": "1k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C11702",
+   "qty_per_board": 2,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0011,
+   "unit_price_100": 0.0011,
+   "buy_qty_10": 100,
+   "buy_qty_100": 200,
+   "mpn": "0402WGF1001TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 15102900,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0011
+    ],
+    [
+     1000,
+     0.0009
+    ],
+    [
+     3000,
+     0.0007
+    ],
+    [
+     50000,
+     0.0006
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 28880414,
+   "source_url": "https://www.lcsc.com/product-detail/C11702.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C11702",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0022,
+   "ext_per_board_100": 0.0022,
+   "ext_per_board_10_with_moq": 0.011
+  },
+  {
+   "refs": [
+    "R309"
+   ],
+   "value": "887k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C423127",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0022,
+   "unit_price_100": 0.0022,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "0402WGF8873TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 7400,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0022
+    ],
+    [
+     1000,
+     0.0018
+    ],
+    [
+     3000,
+     0.0015
+    ],
+    [
+     10000,
+     0.0014
+    ],
+    [
+     50000,
+     0.0012
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 7489,
+   "source_url": "https://www.lcsc.com/product-detail/C423127.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C423127",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0022,
+   "ext_per_board_100": 0.0022,
+   "ext_per_board_10_with_moq": 0.022
+  },
+  {
+   "refs": [
+    "R605"
+   ],
+   "value": "6.04k 1%",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C97819",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0021,
+   "unit_price_100": 0.0021,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "RC0402FR-076K04L",
+   "brand": "YAGEO",
+   "lcsc_stock": 58900,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0021
+    ],
+    [
+     1000,
+     0.0018
+    ],
+    [
+     3000,
+     0.0017
+    ],
+    [
+     10000,
+     0.0016
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 81127,
+   "source_url": "https://www.lcsc.com/product-detail/C97819.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C97819",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0021,
+   "ext_per_board_100": 0.0021,
+   "ext_per_board_10_with_moq": 0.021
+  },
+  {
+   "refs": [
+    "R20",
+    "R21"
+   ],
+   "value": "294R",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C477682",
+   "qty_per_board": 2,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.001,
+   "unit_price_100": 0.001,
+   "buy_qty_10": 100,
+   "buy_qty_100": 200,
+   "mpn": "RC0402FR-07294RL",
+   "brand": "YAGEO",
+   "lcsc_stock": 7600,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.001
+    ],
+    [
+     1000,
+     0.0008
+    ],
+    [
+     3000,
+     0.0007
+    ],
+    [
+     50000,
+     0.0006
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 7620,
+   "source_url": "https://www.lcsc.com/product-detail/C477682.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C477682",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.002,
+   "ext_per_board_100": 0.002,
+   "ext_per_board_10_with_moq": 0.01
+  },
+  {
+   "refs": [
+    "R51"
+   ],
+   "value": "47k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C25792",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0019,
+   "unit_price_100": 0.0019,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "0402WGF4702TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 3061400,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0019
+    ],
+    [
+     1000,
+     0.0015
+    ],
+    [
+     3000,
+     0.0013
+    ],
+    [
+     10000,
+     0.0011
+    ],
+    [
+     50000,
+     0.001
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 5233551,
+   "source_url": "https://www.lcsc.com/product-detail/C25792.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C25792",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0019,
+   "ext_per_board_100": 0.0019,
+   "ext_per_board_10_with_moq": 0.019
+  },
+  {
+   "refs": [
+    "C29"
+   ],
+   "value": "22pF",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "lcsc": "C1555",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0018,
+   "unit_price_100": 0.0018,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "0402CG220J500NT",
+   "brand": "FH",
+   "lcsc_stock": 807600,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0018
+    ],
+    [
+     1000,
+     0.0014
+    ],
+    [
+     3000,
+     0.0011
+    ],
+    [
+     10000,
+     0.001
+    ],
+    [
+     50000,
+     0.0008
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 2164131,
+   "source_url": "https://www.lcsc.com/product-detail/C1555.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C1555",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0018,
+   "ext_per_board_100": 0.0018,
+   "ext_per_board_10_with_moq": 0.018
+  },
+  {
+   "refs": [
+    "C901"
+   ],
+   "value": "100pF C0G",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "lcsc": "C1546",
+   "qty_per_board": 1,
+   "side": [
+    "top"
+   ],
+   "unit_price_10": 0.0018,
+   "unit_price_100": 0.0018,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "0402CG101J500NT",
+   "brand": "FH",
+   "lcsc_stock": 1301000,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0018
+    ],
+    [
+     1000,
+     0.0013
+    ],
+    [
+     3000,
+     0.0011
+    ],
+    [
+     10000,
+     0.001
+    ],
+    [
+     50000,
+     0.0008
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 3955253,
+   "source_url": "https://www.lcsc.com/product-detail/C1546.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C1546",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0018,
+   "ext_per_board_100": 0.0018,
+   "ext_per_board_10_with_moq": 0.018
+  },
+  {
+   "refs": [
+    "C507"
+   ],
+   "value": "1nF",
+   "footprint": "Capacitor_SMD:C_0402_1005Metric",
+   "lcsc": "C1523",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0017,
+   "unit_price_100": 0.0017,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "0402B102K500NT",
+   "brand": "FH",
+   "lcsc_stock": 796300,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0017
+    ],
+    [
+     1000,
+     0.0013
+    ],
+    [
+     3000,
+     0.0011
+    ],
+    [
+     10000,
+     0.001
+    ],
+    [
+     50000,
+     0.0009
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 3845587,
+   "source_url": "https://www.lcsc.com/product-detail/C1523.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C1523",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0017,
+   "ext_per_board_100": 0.0017,
+   "ext_per_board_10_with_moq": 0.017
+  },
+  {
+   "refs": [
+    "R604"
+   ],
+   "value": "240R 1%",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C114755",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0017,
+   "unit_price_100": 0.0017,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "RC0402FR-07240RL",
+   "brand": "YAGEO",
+   "lcsc_stock": 815400,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0017
+    ],
+    [
+     1000,
+     0.0014
+    ],
+    [
+     3000,
+     0.0012
+    ],
+    [
+     10000,
+     0.0011
+    ],
+    [
+     50000,
+     0.001
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 958500,
+   "source_url": "https://www.lcsc.com/product-detail/C114755.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C114755",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0017,
+   "ext_per_board_100": 0.0017,
+   "ext_per_board_10_with_moq": 0.017
+  },
+  {
+   "refs": [
+    "R9"
+   ],
+   "value": "2.2k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C25879",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0012,
+   "unit_price_100": 0.0012,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "0402WGF2201TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 880700,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0012
+    ],
+    [
+     1000,
+     0.0009
+    ],
+    [
+     3000,
+     0.0008
+    ],
+    [
+     10000,
+     0.0007
+    ],
+    [
+     50000,
+     0.0006
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 2701008,
+   "source_url": "https://www.lcsc.com/product-detail/C25879.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C25879",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0012,
+   "ext_per_board_100": 0.0012,
+   "ext_per_board_10_with_moq": 0.012
+  },
+  {
+   "refs": [
+    "R14"
+   ],
+   "value": "180k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C25760",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0012,
+   "unit_price_100": 0.0012,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "0402WGF1803TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 482400,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0012
+    ],
+    [
+     1000,
+     0.001
+    ],
+    [
+     3000,
+     0.0008
+    ],
+    [
+     50000,
+     0.0007
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 559716,
+   "source_url": "https://www.lcsc.com/product-detail/C25760.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C25760",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0012,
+   "ext_per_board_100": 0.0012,
+   "ext_per_board_10_with_moq": 0.012
+  },
+  {
+   "refs": [
+    "R61"
+   ],
+   "value": "124k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C36777",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0011,
+   "unit_price_100": 0.0011,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "0402WGF1243TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 83900,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0011
+    ],
+    [
+     1000,
+     0.0009
+    ],
+    [
+     3000,
+     0.0007
+    ],
+    [
+     50000,
+     0.0006
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 111941,
+   "source_url": "https://www.lcsc.com/product-detail/C36777.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C36777",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0011,
+   "ext_per_board_100": 0.0011,
+   "ext_per_board_10_with_moq": 0.011
+  },
+  {
+   "refs": [
+    "R507"
+   ],
+   "value": "15k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C25756",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0011,
+   "unit_price_100": 0.0011,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "0402WGF1502TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 972600,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0011
+    ],
+    [
+     1000,
+     0.0008
+    ],
+    [
+     3000,
+     0.0007
+    ],
+    [
+     10000,
+     0.0006
+    ],
+    [
+     50000,
+     0.0005
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 1958780,
+   "source_url": "https://www.lcsc.com/product-detail/C25756.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C25756",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0011,
+   "ext_per_board_100": 0.0011,
+   "ext_per_board_10_with_moq": 0.011
+  },
+  {
+   "refs": [
+    "R7"
+   ],
+   "value": "5.23k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C11631",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.001,
+   "unit_price_100": 0.001,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "RTT025231FTH",
+   "brand": "RALEC",
+   "lcsc_stock": 20000,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.001
+    ],
+    [
+     1000,
+     0.0008
+    ],
+    [
+     3000,
+     0.0006
+    ],
+    [
+     10000,
+     0.0005
+    ],
+    [
+     50000,
+     0.0004
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 20771,
+   "source_url": "https://www.lcsc.com/product-detail/C11631.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C11631",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.001,
+   "ext_per_board_100": 0.001,
+   "ext_per_board_10_with_moq": 0.01
+  },
+  {
+   "refs": [
+    "R502"
+   ],
+   "value": "1M",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C26083",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.001,
+   "unit_price_100": 0.001,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "0402WGF1004TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 1517500,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.001
+    ],
+    [
+     1000,
+     0.0008
+    ],
+    [
+     3000,
+     0.0007
+    ],
+    [
+     10000,
+     0.0006
+    ],
+    [
+     50000,
+     0.0005
+    ]
+   ],
+   "jlc_library": "basic",
+   "jlc_stock": 3428289,
+   "source_url": "https://www.lcsc.com/product-detail/C26083.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C26083",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.001,
+   "ext_per_board_100": 0.001,
+   "ext_per_board_10_with_moq": 0.01
+  },
+  {
+   "refs": [
+    "R301"
+   ],
+   "value": "432k",
+   "footprint": "Resistor_SMD:R_0402_1005Metric",
+   "lcsc": "C25787",
+   "qty_per_board": 1,
+   "side": [
+    "bottom"
+   ],
+   "unit_price_10": 0.0009,
+   "unit_price_100": 0.0009,
+   "buy_qty_10": 100,
+   "buy_qty_100": 100,
+   "mpn": "0402WGF4323TCE",
+   "brand": "UNI-ROYAL",
+   "lcsc_stock": 19700,
+   "lcsc_price_ladder": [
+    [
+     100,
+     0.0009
+    ],
+    [
+     1000,
+     0.0007
+    ],
+    [
+     3000,
+     0.0006
+    ],
+    [
+     10000,
+     0.0005
+    ]
+   ],
+   "jlc_library": "extended",
+   "jlc_stock": 19997,
+   "source_url": "https://www.lcsc.com/product-detail/C25787.html",
+   "api_url": "https://wmsc.lcsc.com/ftps/wm/product/detail?productCode=C25787",
+   "note": "qty-10 build must buy LCSC minimum 100",
+   "ext_per_board_10": 0.0009,
+   "ext_per_board_100": 0.0009,
+   "ext_per_board_10_with_moq": 0.009
+  }
+ ],
+ "excluded": [
+  {
+   "refs": [
+    "R26",
+    "R27"
+   ],
+   "value": "0R",
+   "lcsc": "C17168",
+   "reason": "DNP (not fitted)"
+  },
+  {
+   "refs": [
+    "R403"
+   ],
+   "value": "10k DNP",
+   "lcsc": "C25744",
+   "reason": "DNP (not fitted)"
+  },
+  {
+   "refs": [
+    "TP1"
+   ],
+   "value": "VBUS",
+   "lcsc": "",
+   "reason": "bare test-point pad (TestPoint_Pad_D1.0mm), no part placed"
+  },
+  {
+   "refs": [
+    "TP2"
+   ],
+   "value": "VDCIN",
+   "lcsc": "",
+   "reason": "bare test-point pad (TestPoint_Pad_D1.0mm), no part placed"
+  },
+  {
+   "refs": [
+    "TP3"
+   ],
+   "value": "VSYS",
+   "lcsc": "",
+   "reason": "bare test-point pad (TestPoint_Pad_D1.0mm), no part placed"
+  },
+  {
+   "refs": [
+    "TP4"
+   ],
+   "value": "VBAT",
+   "lcsc": "",
+   "reason": "bare test-point pad (TestPoint_Pad_D1.0mm), no part placed"
+  },
+  {
+   "refs": [
+    "TP5"
+   ],
+   "value": "GND",
+   "lcsc": "",
+   "reason": "bare test-point pad (TestPoint_Pad_D1.0mm), no part placed"
+  },
+  {
+   "refs": [
+    "TP6"
+   ],
+   "value": "CELL_N",
+   "lcsc": "",
+   "reason": "bare test-point pad (TestPoint_Pad_D1.0mm), no part placed"
+  },
+  {
+   "refs": [
+    "TP7"
+   ],
+   "value": "5V0",
+   "lcsc": "",
+   "reason": "bare test-point pad (TestPoint_Pad_D1.0mm), no part placed"
+  },
+  {
+   "refs": [
+    "TP15"
+   ],
+   "value": "VDD_0V9",
+   "lcsc": "",
+   "reason": "bare test-point pad (TestPoint_Pad_D1.0mm), no part placed"
+  },
+  {
+   "refs": [
+    "TP16"
+   ],
+   "value": "VCC_DDR",
+   "lcsc": "",
+   "reason": "bare test-point pad (TestPoint_Pad_D1.0mm), no part placed"
+  },
+  {
+   "refs": [
+    "TP17"
+   ],
+   "value": "VCC_1V8",
+   "lcsc": "",
+   "reason": "bare test-point pad (TestPoint_Pad_D1.0mm), no part placed"
+  },
+  {
+   "refs": [
+    "TP18"
+   ],
+   "value": "VCC_3V3",
+   "lcsc": "",
+   "reason": "bare test-point pad (TestPoint_Pad_D1.0mm), no part placed"
+  },
+  {
+   "refs": [
+    "TP20"
+   ],
+   "value": "VCC3V3_C5",
+   "lcsc": "",
+   "reason": "bare test-point pad (TestPoint_Pad_D1.0mm), no part placed"
+  },
+  {
+   "refs": [
+    "TP21"
+   ],
+   "value": "VCC3V3_HALOW",
+   "lcsc": "",
+   "reason": "bare test-point pad (TestPoint_Pad_D1.0mm), no part placed"
+  },
+  {
+   "refs": [
+    "TP22"
+   ],
+   "value": "VDD_FEM",
+   "lcsc": "",
+   "reason": "bare test-point pad (TestPoint_Pad_D1.0mm), no part placed"
+  },
+  {
+   "refs": [
+    "TP23"
+   ],
+   "value": "VCC3V3_GPS",
+   "lcsc": "",
+   "reason": "bare test-point pad (TestPoint_Pad_D1.0mm), no part placed"
+  },
+  {
+   "refs": [
+    "TP31"
+   ],
+   "value": "VSYS_SW",
+   "lcsc": "",
+   "reason": "bare test-point pad (TestPoint_Pad_D1.0mm), no part placed"
+  },
+  {
+   "refs": [
+    "TP501"
+   ],
+   "value": "RECOVERY",
+   "lcsc": "",
+   "reason": "bare test-point pad (TestPoint_Pad_D1.0mm), no part placed"
+  },
+  {
+   "refs": [
+    "TP1001",
+    "TP1002",
+    "TP1003",
+    "TP1004",
+    "TP1005",
+    "TP1006",
+    "TP1007",
+    "TP1008",
+    "TP1009",
+    "TP1010",
+    "TP1011",
+    "TP1012",
+    "TP1013",
+    "TP1014",
+    "TP1015",
+    "TP1016",
+    "TP1017",
+    "TP1018",
+    "TP1019",
+    "TP1020",
+    "TP1021",
+    "TP1022",
+    "TP1023",
+    "TP1024",
+    "TP1025",
+    "TP1026",
+    "TP1027",
+    "TP1028",
+    "TP1029",
+    "TP1030",
+    "TP1031",
+    "TP1032",
+    "TP1033",
+    "TP1034",
+    "TP1035"
+   ],
+   "value": "PogoPad_D1.5 expansion pads",
+   "lcsc": "",
+   "reason": "board-only copper pads (exclude-from-BOM in the board), no part placed"
+  },
+  {
+   "refs": [
+    "J501"
+   ],
+   "value": "DEBUG UART TestPads_1x03",
+   "lcsc": "",
+   "reason": "board-only copper pads, no part placed"
+  },
+  {
+   "refs": [
+    "MH1",
+    "MH2",
+    "MH3",
+    "MH4"
+   ],
+   "value": "MountingHole_3.2mm_M3",
+   "lcsc": "",
+   "reason": "mounting holes, no part"
+  },
+  {
+   "refs": [
+    "LOGO1"
+   ],
+   "value": "TeapotLogo",
+   "lcsc": "",
+   "reason": "silkscreen/copper graphic"
+  }
+ ],
+ "counts": {
+  "unique": 89,
+  "bom_lines_by_value": 93,
+  "placements_total": 301,
+  "placements_top": 118,
+  "placements_bottom": 183,
+  "smd_parts": 298,
+  "smd_top": 115,
+  "tht": 3,
+  "tht_refs": [
+   "J4",
+   "J2",
+   "J3"
+  ],
+  "joints": 1071,
+  "joints_detail": "1071 copper pads on fitted parts: 1044 SMD pads + 27 plated-hole pads (6 THT connector pins J2/J3/J4, 4 USB-C J1 shield legs, 17 thermal-via pads inside the U100 and U4 exposed-pad footprints); 1020 distinct pad numbers",
+  "large_ic_count_for_pcbway": 7,
+  "large_ic_refs": [
+   "U100",
+   "U801",
+   "U701",
+   "U2",
+   "U20",
+   "J1",
+   "J401"
+  ],
+  "source": "kicad-cli sch export bom + kicad-cli pcb export pos + pcbnew Python read of a scratch copy of linknode.kicad_pcb (2026-11-23)"
+ },
+ "pcb": {
+  "spec": "FR-4 TG150, 4 layers, 78 x 62 mm, 1.6 mm, 1 oz outer / 0.5 oz inner, 4/4 mil class, 0.2 mm min hole, green/white, tented vias, single pieces, standard build time",
+  "HASL lead free": {
+   "5": 32.2,
+   "10": 56.95,
+   "100": 166.27
+  },
+  "ENIG (Immersion gold)": {
+   "5": 62.04,
+   "10": 87.47,
+   "100": 197.95
+  },
+  "with impedance control (option)": {
+   "HASL lead free": {
+    "5": 82.37,
+    "10": 105.51,
+    "100": 205.39
+   },
+   "ENIG": {
+    "5": 110.49,
+    "10": 135.37,
+    "100": 244.47
+   }
+  },
+  "build_time": "4-5 days (qty 5, 10), 6-7 days (qty 100)",
+  "source": "PCBWay instant-quote calculator, https://www.pcbway.com/orderonline.aspx (its backend https://www.pcbway.com/Quote/GetDeliveryDays/ queried with the form values above, 2026-11-23; raw replies in web/pcbway_pcb_quotes.json). Checked that the parameters are honoured: 2 layers = $19.22, 3/3 mil = $300.95, 0.15 mm via = $361.80 at qty 10."
+ },
+ "assembly": {
+  "inputs": "Turnkey, single pieces, both sides, 89 unique parts, 298 SMD parts, 7 BGA/QFP-class parts (ICs > 16 pins, irregular parts > 10 pins), 3 THT parts",
+  "fee_basis": "PCBWay quote form asks for counts of unique parts, SMD parts, BGA/QFP parts and through-hole parts (per part, not per joint); https://www.pcbway.com/quotesmt.aspx",
+  "assembly_service": {
+   "5": 279.69,
+   "10": 508.67,
+   "100": 1034.84
+  },
+  "assembly_service_kitted": {
+   "5": 372.92,
+   "10": 678.23,
+   "100": 1379.79
+  },
+  "sensitivity": {
+   "top side only, qty 100": 919.97,
+   "0 BGA/QFP, qty 100": 934.17,
+   "0 THT, qty 100": 1016.33,
+   "qty 20": 820.06,
+   "qty 50": 947.1,
+   "qty 200": 1242.01
+  },
+  "stencil": {
+   "price_if_ordered": 15.0,
+   "note": "Stencil adds $15 when ordered (370 x 470 mm framework, queried); PCBWay states \"PCBA provides free stencil\" (https://www.pcbway.com/pcb-assembly.html) and the assembly quote shows no stencil line, so $0 is used. Budget $15-30 if they charge for top and bottom stencils."
+  },
+  "promo_29": {
+   "eligible": false,
+   "why": "$29 offer is limited to max 200 components per board (this board has 301) and 20 boards; https://www.pcbway.com/blog/PCB_Design_Layout/How_to_Get_29_PCB_Assembly_and_Meet_the_Requirements_e334dbde.html"
+  },
+  "component_sourcing_markup": "Not published. The SMT quote states \"Price does not include PCB fabrication or the cost of components\" (https://www.pcbway.com/quotesmt.aspx); parts are priced after BOM review. Industry markups 25-100%+ (Altium, https://resources.altium.com/p/what-every-pcb-buyer-should-know-about-buying-assemblies) are not PCBWay figures.",
+  "excluded": "Customs duties and VAT not included (quotesmt.aspx notice). Shipping not published as a fixed rate: omitted.",
+  "source": "PCBWay SMT instant-quote calculator https://www.pcbway.com/quotesmt.aspx (backend /Quote/GetDeliveryDays/, 2026-11-23; raw replies in web/pcbway_smt_quotes.json, web/pcbway_smt_sensitivity.json)"
+ },
+ "totals": {
+  "qty10": {
+   "boards": 10,
+   "finish": "ENIG (Immersion gold)",
+   "components": 506.93,
+   "components_with_lcsc_moq": 518.46,
+   "pcb": 87.47,
+   "assembly": 508.67,
+   "stencil": 0,
+   "total": 1103.07,
+   "per_board": 110.31,
+   "per_board_components": 50.69,
+   "per_board_components_with_moq": 51.85,
+   "per_board_pcb": 8.75,
+   "per_board_assembly": 50.87,
+   "per_board_with_moq": 111.46
+  },
+  "qty100": {
+   "boards": 100,
+   "finish": "ENIG (Immersion gold)",
+   "components": 4487.47,
+   "components_with_lcsc_moq": 4487.47,
+   "pcb": 197.95,
+   "assembly": 1034.84,
+   "stencil": 0,
+   "total": 5720.26,
+   "per_board": 57.2,
+   "per_board_components": 44.87,
+   "per_board_components_with_moq": 44.87,
+   "per_board_pcb": 1.98,
+   "per_board_assembly": 10.35,
+   "per_board_with_moq": 57.2
+  },
+  "qty10_HASL": {
+   "boards": 10,
+   "finish": "HASL lead free",
+   "components": 506.93,
+   "components_with_lcsc_moq": 518.46,
+   "pcb": 56.95,
+   "assembly": 508.67,
+   "stencil": 0,
+   "total": 1072.55,
+   "per_board": 107.25,
+   "per_board_components": 50.69,
+   "per_board_components_with_moq": 51.85,
+   "per_board_pcb": 5.7,
+   "per_board_assembly": 50.87,
+   "per_board_with_moq": 108.41
+  },
+  "qty100_HASL": {
+   "boards": 100,
+   "finish": "HASL lead free",
+   "components": 4487.47,
+   "components_with_lcsc_moq": 4487.47,
+   "pcb": 166.27,
+   "assembly": 1034.84,
+   "stencil": 0,
+   "total": 5688.58,
+   "per_board": 56.89,
+   "per_board_components": 44.87,
+   "per_board_components_with_moq": 44.87,
+   "per_board_pcb": 1.66,
+   "per_board_assembly": 10.35,
+   "per_board_with_moq": 56.89
+  },
+  "note": "Components at LCSC price (no PCBWay markup, none published). ENIG is the headline because of the 0.35 mm-pitch QFN-128 (judgement, not a PCBWay requirement); HASL shown for comparison. Excludes shipping, duties/VAT, the PCBWay sourcing markup, the stencil, and the off-board items."
+ },
+ "not_on_board": [
+  {
+   "item": "18650 Li-ion cells (parallel, wired to J3)",
+   "price": "not priced"
+  },
+  {
+   "item": "Solar panel, ~6 V 2-3.5 W (user-supplied, P-11)",
+   "price": "not priced"
+  },
+  {
+   "item": "Antennas: HaLow 915 MHz, GPS active antenna, ESP32-C5 2.4 GHz, plus U.FL pigtails",
+   "price": "not priced"
+  },
+  {
+   "item": "Battery NTC MF52A103F3435 (C84036), taped to the cells, wired to J4",
+   "price": "LCSC $0.0544 (10+) / $0.0438 (100+)",
+   "source": "https://www.lcsc.com/product-detail/C84036.html"
+  },
+  {
+   "item": "KF2EDGK-3.81-2P screw plug (C440858) shipped loose with J2",
+   "price": "LCSC $0.1535 (5+) / $0.1278 (50+) / $0.1147 (150+)",
+   "source": "https://www.lcsc.com/product-detail/C440858.html"
+  },
+  {
+   "item": "Mating JST XH / PH housings and crimps for J3/J4, microSD card, enclosure",
+   "price": "not priced"
+  }
+ ],
+ "unverified": [
+  "RV1106G3 price: live LCSC $23.867 (1+) / $21.1402 (30+), JLCPCB $23.6465 / $20.9449 (30+), stock 428 (LCSC) / 613 (JLCPCB). A web-search snippet of an older LCSC/JLCPCB index showed about $7.78 (1) / $5.33 (100+); that page could not be re-checked, so the current $21-24 is used. No published 100+ tier; Rockchip/agent pricing for volume is unknown. The G2 (C5272606) is $13.68 (1) / $10.90 (100).",
+  "HT-HC01 V2 price $11.90 is the Heltec store single-unit price (https://heltec.org/project/ht-hc01); no volume tiers, no shipping; not stocked by LCSC, so PCBWay turnkey cannot source it from LCSC.",
+  "PCBWay component sourcing markup or handling fee: not published; final PCBA price is set after BOM review.",
+  "PCBWay instant quotes are estimates read from their calculator backend on 2026-11-23 (no account, default shipping country); PCBWay says the final price is subject to review. Confirm at https://www.pcbway.com/orderonline.aspx and https://www.pcbway.com/pcb-assembly.html.",
+  "Stencil: assumed free with PCBA (PCBWay statement); $15 per stencil if charged.",
+  "Shipping, customs duties and VAT: not published as fixed figures, not included.",
+  "PCB spec assumptions: 1 oz outer / 0.5 oz inner copper, TG150, no impedance control, no via-in-pad/resin fill. If the RV1106 EP thermal vias or USB/RF lines need via-in-pad or impedance control, the PCB price rises (impedance control: $135.37 ENIG at qty 10, $244.47 at qty 100).",
+  "J1 USB-C has 4 plated shield legs; counted as an SMD part (PCBWay may count it as THT: +$2.3 to +$4.6 per order in the sensitivity runs).",
+  "Four basic passives (C19666, C19702, C307331, C23733) show LCSC stock 0 on 2026-11-23 but are in stock at JLCPCB; prices use the LCSC ladder.",
+  "Attrition/spares (extra reels or loss parts a CM adds for 0402s) not included.",
+  "Placement and joint counts come from the board as of 2026-11-23 while routing is in progress; parts may still change."
+ ]
+}

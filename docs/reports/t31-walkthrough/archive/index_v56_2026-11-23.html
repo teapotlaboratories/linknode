@@ -1,0 +1,913 @@
+<title>RV1106 Routing Walkthrough</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* One reading column showing only the step under review: what changed, the TI reference beside each tile, the checks, and an approval line. Palette and type match the Klepon Rev 1 reports. */
+:root{
+  --bg:#f4f6f3; --paper:#ffffff; --fg:#17201b; --muted:#56635b; --line:#d5ddd6;
+  --mask:#1d6a46; --mask-soft:#e3efe7; --copper:#b4692c; --copper-soft:#f6e9dc; --sheet:#ffffff;
+  --ok:#1d6a46; --ok-soft:#e3efe7; --warn:#9a5b00; --warn-soft:#fbeed6; --note:#3d5a8a; --note-soft:#e5ebf5;
+  --f-display:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#101614; --paper:#17201c; --fg:#e4ebe6; --muted:#9aa89f; --line:#2b3732;
+  --mask:#5fc08c; --mask-soft:#1c3328; --copper:#e09a5c; --copper-soft:#3a2a1c; --sheet:#f7f7f2;
+  --ok:#5fc08c; --ok-soft:#1c3328; --warn:#e8b25a; --warn-soft:#3a2c14; --note:#9bb6e6; --note-soft:#1d2738; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#101614; --paper:#17201c; --fg:#e4ebe6; --muted:#9aa89f; --line:#2b3732;
+  --mask:#5fc08c; --mask-soft:#1c3328; --copper:#e09a5c; --copper-soft:#3a2a1c; --sheet:#f7f7f2;
+  --ok:#5fc08c; --ok-soft:#1c3328; --warn:#e8b25a; --warn-soft:#3a2c14; --note:#9bb6e6; --note-soft:#1d2738; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15.5px;line-height:1.55}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 4rem;display:grid;gap:2.6rem}
+header{background:var(--paper);border-bottom:1px solid var(--line)}
+header .wrap{padding-block:2rem 1.5rem;gap:.7rem}
+.eyebrow{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--copper)}
+h1{font-family:var(--f-display);font-size:clamp(1.9rem,4.6vw,2.6rem);line-height:1.05;margin:0;letter-spacing:-.02em;text-wrap:balance}
+h2{font-family:var(--f-display);font-size:1.4rem;margin:0;text-wrap:balance}
+h3{font-family:var(--f-display);font-size:1.02rem;margin:0}
+p{margin:0}
+.lede{color:var(--muted);font-size:1.03rem}
+code{font-family:var(--f-mono);font-size:.86em}
+section{display:grid;gap:1rem;min-width:0}
+.shead{display:grid;gap:.35rem}
+.shead p{color:var(--muted)}
+.num{font-family:var(--f-mono);font-size:.78rem;color:var(--copper)}
+.pill{display:inline-block;font-family:var(--f-mono);font-size:.72rem;font-weight:500;border-radius:4px;padding:.05rem .45rem;white-space:nowrap}
+.pill.ok{background:var(--ok-soft);color:var(--ok)} .pill.ok::before{content:"✓ "}
+.pill.wait{background:var(--warn-soft);color:var(--warn)} .pill.wait::before{content:"◷ "}
+.pill.plan{background:var(--note-soft);color:var(--note)}
+.tablewrap{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:6px}
+table{border-collapse:collapse;width:100%;font-size:.88rem;min-width:620px}
+th,td{padding:.45rem .65rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-family:var(--f-mono);font-weight:500;font-size:.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+td.n{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:1rem}
+figure{margin:0;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:.6rem;display:grid;gap:.45rem;align-content:start;min-width:0}
+figure img{display:block;width:100%;height:auto;border-radius:3px;background:var(--sheet)}
+figcaption{font-size:.84rem;color:var(--muted)}
+figcaption b{color:var(--fg);font-weight:600}
+.tag{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase}
+.tag.ref{color:var(--note)} .tag.us{color:var(--copper)}
+.fp{display:block;width:100%;height:auto;color:var(--fg);font-family:var(--f-mono)}
+.fpbox{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:.8rem;max-width:760px}
+.sub{font-family:var(--f-display);font-size:1.05rem;margin:.6rem 0 0}
+.trio{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1rem;align-items:start}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:.8rem}
+.edges{display:grid;gap:.6rem}
+.now{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));margin-top:1.4rem}
+.nowcard{border:2px solid var(--copper);background:var(--copper-soft);border-radius:8px;padding:1rem 1.1rem;display:grid;gap:.5rem;align-content:start}
+.nowcard h2{font-size:1.25rem}
+.badge{display:inline-block;justify-self:start;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;background:var(--copper);color:var(--paper);border-radius:4px;padding:.15rem .5rem}
+.go{justify-self:start;font-family:var(--f-display);font-weight:600;color:var(--copper);text-decoration:none;border:1px solid var(--copper);border-radius:6px;padding:.35rem .8rem}
+.go:hover{background:var(--copper);color:var(--paper)}
+.toc{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:.9rem 1.1rem}
+.toc ol{margin:.4rem 0 0;padding-left:1.2rem;display:grid;gap:.35rem;font-size:.9rem}
+.toc a{color:var(--fg)}
+section.current{border:2px solid var(--copper);border-radius:10px;padding:1rem;background:color-mix(in srgb, var(--copper-soft) 40%, transparent)}
+section{scroll-margin-top:1rem}
+.approve{border:1px dashed var(--warn);background:var(--warn-soft);border-radius:6px;padding:.8rem 1rem;display:grid;gap:.3rem}
+.approve b{color:var(--warn)}
+.legend{display:flex;flex-wrap:wrap;gap:.3rem 1.2rem;font-size:.84rem;color:var(--muted)}
+.legend i{display:inline-block;width:.9em;height:.9em;border-radius:2px;margin-right:.35em;vertical-align:-.1em}
+ul.tight{margin:0;padding-left:1.1rem;display:grid;gap:.25rem}
+footer{color:var(--muted);font-size:.84rem}
+.status{display:flex;flex-wrap:wrap;gap:.4rem .9rem;font-size:.86rem;color:var(--muted);align-items:center}
+details{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:.6rem .9rem}
+summary{cursor:pointer;font-family:var(--f-display);font-weight:600}
+td.bad{color:var(--warn)} td.good{color:var(--ok)}
+section.approved{border:1px solid var(--line);border-radius:10px;padding:1rem;background:var(--paper)}
+.done{color:var(--ok)} .status a{color:var(--fg)}
+.tldr{border-left:4px solid var(--copper);background:var(--paper);border-radius:6px;padding:.7rem 1rem;display:grid;gap:.35rem}
+.tldr b{font-family:var(--f-display)}
+.sbs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:1rem;align-items:start}
+.tiref{max-width:560px}
+figure img{cursor:zoom-in}
+.lb{position:fixed;inset:0;z-index:50;background:color-mix(in srgb,var(--bg) 35%,#000 65%);display:grid;grid-template-rows:auto 1fr auto}
+.lb[hidden]{display:none!important}
+.lb-bar{display:flex;gap:.4rem;align-items:center;justify-content:flex-end;padding:calc(.5rem + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) .5rem max(12px,env(safe-area-inset-left,0px))}
+.lb-bar button{font-family:var(--f-mono);font-size:.9rem;min-width:2.4rem;height:2.2rem;border-radius:6px;border:1px solid var(--line);background:var(--paper);color:var(--fg);cursor:pointer}
+.lb-bar .z{font-family:var(--f-mono);font-size:.8rem;color:#fff;margin-right:auto;opacity:.85}
+.lb-stage{position:relative;overflow:hidden;touch-action:none;cursor:grab}
+.lb-stage.drag{cursor:grabbing}
+.lb-stage img{position:absolute;left:0;top:0;transform-origin:0 0;max-width:none;background:var(--sheet);user-select:none;-webkit-user-drag:none;border-radius:2px}
+.lb-cap{color:#fff;font-size:.86rem;padding:.5rem max(12px,env(safe-area-inset-right,0px)) calc(.6rem + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));max-height:22vh;overflow:auto}
+.lb-cap code{color:#fff}
+.flow{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:.7rem 1rem;display:grid;gap:.4rem}
+.flow ol{list-style:none;padding-left:0}
+.fl{display:inline-block;min-width:1.9em;text-align:center;color:#fff;font-family:var(--f-mono);font-size:.75rem;font-weight:600;border-radius:4px;padding:0 .3em;margin-right:.4em}
+.tile{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:1rem;align-items:start}
+</style>
+
+<header><div class="wrap">
+  <div class="eyebrow">LinkNode Rev 1 (formerly Klepon) · layout · updated 2026-11-23</div>
+  <h1>Routing · Section 1: RV1106 fan-out</h1>
+  <p class="lede">Click any image to enlarge it; zoom with the wheel, pinch or +/−, drag to pan, Esc to close. The placement blocks of the current board in order: the blocks you have approved, then the step under review at the end. Superseded floorplan trials are kept in the project folder, not here.</p>
+  <div class="status">floorplan B6 (76 × 60 mm) <span class="pill ok">approved</span> <a href="#blk1">Block 1: connector edge and holes</a> <span class="pill ok">approved</span> <a href="#blk2">Block 2: power section</a> <span class="pill ok">approved</span> <a href="#blk3">Block 3: radios</a> <span class="pill ok">approved</span> <a href="#blk4">Block 4: RV1106 surroundings</a> <span class="pill ok">approved</span> <a href="#edge">Edge margin</a> <span class="pill ok">approved</span> <a href="#silk">Silkscreen</a> <span class="pill ok">approved</span> <a href="#labels">Labels</a> <span class="pill ok">approved</span> <a href="#expansion">Expansion</a> <span class="pill ok">approved</span> <a href="#route1">Routing 1</a> <span class="pill wait">awaiting you</span></div>
+</div></header>
+<main class="wrap">
+
+<section id="blk1" class="approved">
+  <div class="shead"><span class="pill ok">approved 2026-11-23</span><span class="num">Placement · Block 1 · 2026-11-23</span><h2>Connector edge and mounting holes</h2><p>You approved B6, so its placement is now on the real board file (76 × 60 mm, no routing yet; the old 90 × 80 board is kept in <code>hardware/kicad/backup/</code>). Block 1 checks what the floorplan did not: where each connector sits against the board edge, whether the plugs and the card leave room for an enclosure wall between them, and the mounting holes.</p></div>
+  <div class="tldr"><b>TL;DR</b><ul class="tight">
+    <li>Four M3 holes, one in each corner, 4 mm from the edges (hole pattern 68.1 × 52.1 mm).</li>
+    <li>DC in, PWR button, USB-C and microSD sit flush on the bottom edge; battery and NTC headers on the left edge.</li>
+    <li>One change: microSD moved 1.7 mm right, leaving 2.7 mm between the USB-C plug and the card slot for the enclosure wall.</li>
+  </ul></div>
+  <div class="fpbox"><svg class="fp" viewBox="-3 41.1 82.1 35" role="img" aria-label="Bottom edge of the board, to scale, with plug envelopes">
+<rect x="0" y="41.1" width="76.1" height="19" fill="none" stroke="currentColor" stroke-width="0.3"/>
+<line x1="0" y1="60.1" x2="76.1" y2="60.1" stroke="currentColor" stroke-width="0.5"/>
+<rect x="7.98" y="50.63" width="9.11" height="9.40" fill="#b4692c" fill-opacity="0.45" stroke="#b4692c" stroke-width="0.2"/>
+<text x="12.53" y="56.60" font-size="1.8" text-anchor="middle" fill="currentColor">DC in</text>
+<rect x="18.02" y="52.45" width="6.60" height="7.20" fill="#b4692c" fill-opacity="0.45" stroke="#b4692c" stroke-width="0.2"/>
+<text x="21.32" y="56.60" font-size="1.8" text-anchor="middle" fill="currentColor">PWR</text>
+<rect x="25.97" y="52.55" width="9.04" height="7.40" fill="#b4692c" fill-opacity="0.45" stroke="#b4692c" stroke-width="0.2"/>
+<text x="30.49" y="56.60" font-size="1.8" text-anchor="middle" fill="currentColor">USB-C</text>
+<rect x="39.39" y="45.65" width="14.87" height="14.61" fill="#b4692c" fill-opacity="0.45" stroke="#b4692c" stroke-width="0.2"/>
+<text x="46.83" y="56.60" font-size="1.8" text-anchor="middle" fill="currentColor">microSD</text>
+<rect x="8.32" y="60.10" width="8.42" height="8.90" fill="none" stroke="#3d5a8a" stroke-width="0.25" stroke-dasharray="0.8 0.5"/>
+<text x="12.53" y="64.55" font-size="1.25" text-anchor="middle" fill="#3d5a8a">DC plug</text><text x="12.53" y="66.25" font-size="1.25" text-anchor="middle" fill="#3d5a8a">8.42 wide</text>
+<rect x="24.32" y="60.10" width="12.35" height="13.00" fill="none" stroke="#3d5a8a" stroke-width="0.25" stroke-dasharray="0.8 0.5"/>
+<text x="30.49" y="66.60" font-size="1.25" text-anchor="middle" fill="#3d5a8a">USB-C plug</text><text x="30.49" y="68.30" font-size="1.25" text-anchor="middle" fill="#3d5a8a">≤ 12.35 wide</text>
+<rect x="41.33" y="60.10" width="11" height="6" fill="none" stroke="#3d5a8a" stroke-width="0.25" stroke-dasharray="0.8 0.5"/>
+<text x="46.83" y="63.70" font-size="1.5" text-anchor="middle" fill="#3d5a8a">card ≈11 wide</text>
+<circle cx="4.02" cy="56.08" r="1.6" fill="none" stroke="currentColor" stroke-width="0.25"/><circle cx="4.02" cy="56.08" r="2.75" fill="none" stroke="#9aa29b" stroke-width="0.2" stroke-dasharray="0.5 0.4"/>
+<circle cx="72.08" cy="56.08" r="1.6" fill="none" stroke="currentColor" stroke-width="0.25"/><circle cx="72.08" cy="56.08" r="2.75" fill="none" stroke="#9aa29b" stroke-width="0.2" stroke-dasharray="0.5 0.4"/>
+<path d="M16.74 70.60 H18.02 M16.74 70.00 v1.2 M18.02 70.00 v1.2" stroke="#9a5b00" stroke-width="0.2" fill="none"/>
+<text x="17.38" y="72.20" font-size="1.3" text-anchor="middle" fill="#9a5b00">1.3</text>
+<path d="M36.67 74.30 H39.39 M36.67 73.70 v1.2 M39.39 73.70 v1.2" stroke="#9a5b00" stroke-width="0.2" fill="none"/>
+<text x="38.03" y="75.90" font-size="1.3" text-anchor="middle" fill="#9a5b00">2.7 mm wall</text>
+<text x="62.1" y="59.5" font-size="1.6" fill="currentColor">board edge</text>
+</svg></div>
+  <p style="color:var(--muted)">Bottom edge to scale: connector bodies (orange), the plugs and card beyond the edge (dashed), the two corner holes with the M3 head radius (grey dashed). The card’s position is approximate (assumed centred in the socket).</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Check</th><th>Measured</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td>Mounting holes</td><td class="n">4 × 3.2 mm, non-plated, no copper; centres 4.0 mm from the edges; pattern 68.1 × 52.1 mm</td><td>OK (hole pattern for the enclosure)</td></tr>
+      <tr><td>Parts near the holes</td><td class="n">nearest courtyard ≥ 4.0 mm from a hole centre (M3 head radius 2.75 mm)</td><td>OK</td></tr>
+      <tr><td>DC in, USB-C, microSD fronts</td><td class="n">within ±0.2 mm of the bottom edge; microSD lip 0.5 mm past it (corrected in the Block 4 review: the socket outline was re-measured from the datasheet)</td><td>OK</td></tr>
+      <tr><td>Battery and NTC header mouths</td><td class="n">0.05 mm from the left edge</td><td>OK</td></tr>
+      <tr><td>PWR button</td><td class="n">0.45 mm inside the edge, pressed from the top</td><td>OK (needs a hole or plunger in the lid)</td></tr>
+      <tr><td>DC plug ↔ PWR button</td><td class="n">1.3 mm</td><td>OK</td></tr>
+      <tr><td><b>USB-C plug (≤ 12.35 mm) ↔ microSD socket</b></td><td class="n">was 1.0 mm → <b>2.7 mm</b></td><td><b>Changed</b>: microSD moved 1.7 mm right (as far as it goes before the ESP32-C5), so the enclosure wall between the two openings can be about 2.5 mm</td></tr>
+    </tbody>
+  </table></div>
+  <div class="pair">
+    <figure><img src="img/blk1/edge_persp.jpg" alt="3D view of the connector edge" width="1200" height="667" loading="lazy"><figcaption><b>Connector edge, 3D</b>: hole, DC input (green), PWR, USB-C, microSD, hole.</figcaption></figure>
+    <figure><img src="img/blk1/front.jpg" alt="Straight-on view of the connector edge" width="1200" height="190" loading="lazy"><figcaption><b>Straight on</b>, as the enclosure wall sees it.</figcaption></figure>
+  </div>
+  <p style="color:var(--muted)">After the change: DRC on the saved board has no courtyard overlaps and no copper at the edge (only silkscreen notes, tidied in a later block), schematic parity 0, 476 connections still to route.</p>
+  <p class="done"><b>Approved</b> by you on 2026-11-23. Board state after this block is kept in <code>hardware/kicad/backup/klepon_T41_blk1_2026-11-23.kicad_pcb</code>.</p>
+</section>
+
+<section id="blk2" class="approved">
+  <div class="shead"><span class="pill ok">approved 2026-11-23</span><span class="num">Placement · Block 2 · 2026-11-23</span>
+  <h2>Every converter laid out the way TI’s own layout example does it</h2>
+  <p>The B6 packer grouped the power parts by sheet but scattered each converter’s capacitors. Checked against TI’s layout rules, <b>46 of 114 checks failed</b>. For example, the 5 V boost’s output capacitors were 7–13 mm from its VOUT pin, where TI calls that loop the most critical path. Each converter is now one fixed <i>tile</i> copied from the TI layout example in its datasheet. The six identical bucks use one tile design, and the tiles sit on a grid. <b>All 114 checks now pass.</b> The floorplan zones are unchanged: radio rails along the top, SoC rails in a 2 × 2 grid, boost below them, charger between the DC and USB inputs.</p></div>
+  <div class="tldr"><b>TL;DR</b><ul class="tight">
+    <li>Each converter (charger, 5 V boost, six bucks) is now laid out like TI’s own example layout for that chip.</li>
+    <li>TI layout checks: 46 of 114 failed before, <b>0 fail now</b>. DRC: silkscreen notes only; schematic parity 0.</li>
+    <li>Buck inductors stay ≥ 5.5 mm from the HaLow module, as in the approved floorplan.</li>
+    <li>The 15 test points stay on top (say if you want them on the bottom). The ESP32-C5 caps C802/C803 were fixed in Block 3.</li>
+  </ul></div>
+
+  <div class="pair">
+    <figure><img src="img/blk2/v_before.png" alt="Pad-level view of the power column before Block 2" width="1500" height="2376" loading="lazy"><figcaption><b>Before</b> (B6 packer). Pads coloured by role: red SW node, orange input/PMID/SYS, blue output rail, grey GND, green FB. Hatched = bottom side.</figcaption></figure>
+    <figure><img src="img/blk2/v_after.png" alt="Pad-level view of the power column after Block 2" width="1500" height="2376" loading="lazy"><figcaption><b>After</b>. Arrows show the power flow ①–⑥ (see the list below). Each converter is outlined and labelled with the rail it makes (e.g. U5 → VDD_0V9 0.88 V). Each red SW node is short and sits beside its inductor, and every input/output cap is at its pins.</figcaption></figure>
+  </div>
+
+  <div class="tablewrap"><table>
+    <thead><tr><th>Converter</th><th>Rule checks</th><th>Failed before</th><th>Failed now</th></tr></thead>
+    <tbody><tr><td>U5 VDD_0V9 buck</td><td class=n>10</td><td class='n bad'>3</td><td class='n good'>0</td></tr>
+<tr><td>U6 VCC_DDR buck</td><td class=n>10</td><td class='n bad'>4</td><td class='n good'>0</td></tr>
+<tr><td>U7 VCC_1V8 buck</td><td class=n>10</td><td class='n bad'>4</td><td class='n good'>0</td></tr>
+<tr><td>U8 VCC_3V3 buck</td><td class=n>10</td><td class='n bad'>4</td><td class='n good'>0</td></tr>
+<tr><td>U10 VCC3V3_C5 buck</td><td class=n>12</td><td class='n bad'>5</td><td class='n good'>0</td></tr>
+<tr><td>U11 VCC3V3_HALOW buck</td><td class=n>12</td><td class='n bad'>5</td><td class='n good'>0</td></tr>
+<tr><td>U4 5 V boost</td><td class=n>19</td><td class='n bad'>8</td><td class='n good'>0</td></tr>
+<tr><td>U2 charger</td><td class=n>23</td><td class='n bad'>13</td><td class='n good'>0</td></tr>
+<tr><td>Inductors ≥ 5.5 mm from the HaLow module</td><td class=n>8</td><td class='n bad'>0</td><td class='n good'>0</td></tr><tr><td><b>Total</b></td><td class=n><b>114</b></td><td class='n bad'><b>46</b></td><td class='n good'><b>0</b></td></tr></tbody>
+  </table></div>
+  <p style="color:var(--muted)">Each limit is set from TI’s own example layout with the same package sizes, not picked freely. Where TI’s example itself has a long distance, the row is reported as <i>info</i> only. Example: the TLV62569 GND pin is on the far side of the package from VIN, so Cin returns through the ground pour. The full table is at the bottom.</p>
+
+  <div class="flow"><b>Power flow</b> (the arrows in the layout images point from each section’s power source to its input):
+    <ol class="tight">
+      <li><span class="fl" style="background:#e8590c">①</span> DC in (J2, 3.6–24 V) and USB VBUS (J1, 5 V) enter.</li>
+      <li><span class="fl" style="background:#c92a2a">②</span> DC passes the reverse-protection FET Q11 and becomes <code>VDCIN</code>.</li>
+      <li><span class="fl" style="background:#c92a2a">③</span> <code>VDCIN</code> through Q3/Q4, and USB through Q1/Q2, reach the charger U2’s VBUS pins.</li>
+      <li><span class="fl" style="background:#2b8a3e">④</span> The charger makes <code>VSYS</code>, which feeds the hold-off FET Q9.</li>
+      <li><span class="fl" style="background:#2b8a3e">⑤</span> Q9 switches it to <code>VSYS_SW</code>, the boost U4’s input (via L2).</li>
+      <li><span class="fl" style="background:#5f3dc4">⑥</span> The boost makes <code>VCC5V0_SYS</code> (5 V), carried on the In2 plane to every buck’s input cap and the HaLow FEM switch Q7.</li>
+      <li><span class="fl" style="background:#0b7285">BAT</span> The cells on J3 (<code>VCELL</code>) pass the ship FET Q13 to the charger’s BAT pins (<code>VBAT</code>).</li>
+    </ol></div>
+  <h3 class="sub">Charger (U2, BQ25798): TI Fig 8-21, in TI’s priority order</h3>
+  <div class="sbs">
+    <figure><img src="img/blk2/sch_u2.png" alt="Charger schematic, USB and Charger sheet" width="1500" height="1138" loading="lazy"><figcaption><span class="tag ref">Schematic</span> <code>usb_and_charger.kicad_sch</code>: U2 and its PMID, SYS, VBUS, BAT, REGN and BTST caps.</figcaption></figure>
+    <figure><img src="img/blk2/t_u2.png" alt="U2 charger tile with each capacitor outlined in its bus colour" width="1375" height="1031" loading="lazy"><figcaption><span class="tag us">Layout</span> (each cap outlined in its bus colour: PMID orange, VSYS green, VBUS red, VBAT blue, REGN purple). 1. 100 nF PMID (C10) and SYS (C19) caps sit across the top pins, PMID-GND and GND-SYS, with 10 µF banks beside them (PMID C7–C9 left, SYS C16–C18 right). 2. L1 sits above, reached through vias under the IC; the BTST caps C11/C12 are on the bottom under the IC, as TI shows. 3. REGN cap C13 at the REGN pin. 4. 100 nF VBUS cap C6 at the VBUS pins, bulk C4/C5 beyond. 5. BAT caps C20/C21 at the BAT pins. 7. BATP (R4) and the TS divider kept away from SW.</figcaption></figure>
+  </div>
+  <div class="tiref"><figure><img src="img/blk2/ti_bq_fig8-21.png" alt="TI BQ25798 layout example" width="765" height="525" loading="lazy"><figcaption><b>TI reference</b>: <code>TI_BQ25798_RevC_2026.pdf</code> §8.4.2 Fig 8-21 (p.140); priority list §8.4.1 (p.139).</figcaption></figure></div>
+  <h3 class="sub">Input path: TI Fig 10-1 order</h3>
+  <div class="sbs">
+    <figure><img src="img/blk2/sch_input.png" alt="Input path schematic" width="1245" height="1011" loading="lazy"><figcaption><span class="tag ref">Schematic</span> <code>usb_and_charger.kicad_sch</code>: J2 → Q11 reverse FET (D3, R22) → VDCIN (D1 TVS, C3, R3 + C2 snubber) → Q3/Q4 (D5, R21) → VBUS; J1 → Q1/Q2 (D4, R20) → VBUS.</figcaption></figure>
+    <figure><img src="img/blk2/t_input.png" alt="Input path layout with each FET group outlined" width="1500" height="849" loading="lazy"><figcaption><span class="tag us">Layout</span> Placed in signal order, from each connector to the charger’s VBUS side (left of U2): DC parts in orange then red, USB parts in blue.</figcaption></figure>
+  </div>
+  <h3 class="sub">5 V boost (U4, TPS61089): TI Fig 11-1</h3>
+  <div class="sbs">
+    <figure><img src="img/blk2/sch_u4.png" alt="Boost schematic, Power sheet" width="1500" height="419" loading="lazy"><figcaption><span class="tag ref">Schematic</span> <code>power.kicad_sch</code>: U4 with L2, Cin C24/C25, Cout C30–C33, BOOT C26, VCC C27, FB R15/R16, COMP R17/C28/C29.</figcaption></figure>
+    <figure><img src="img/blk2/t_u4.png" alt="U4 boost tile with input and output buses outlined" width="1340" height="770" loading="lazy"><figcaption><span class="tag us">Layout</span> (input bus VSYS_SW in orange, output bus VCC5V0_SYS in green). The boost hot loop (switch FET → rectifier → output cap → GND) is closed by C33 (100 nF), whose pads sit right at VOUT and GND (≤ 1.5 mm). The 22 µF row continues to the right, as in TI’s figure. L2 is on the left with its SW pad level with the SW pin, and bulk Cin C24 sits under it. C25 (100 nF) is on the VIN pin and C26 (BOOT) beside it. The VCC cap is under the VCC pin, and FB, COMP, ILIM, FSW and EN parts are on the bottom.</figcaption></figure>
+  </div>
+  <div class="tiref"><figure><img src="img/blk2/ti_tps_fig11-1.png" alt="TI TPS61089 layout example" width="765" height="455" loading="lazy"><figcaption><b>TI reference</b>: <code>TI_TPS61089.pdf</code> §11.2 Fig 11-1 (p.22): “the output capacitor needs not only to be close to the VOUT pin, but also to the GND pin” (§11.1).</figcaption></figure></div>
+  <h3 class="sub">SoC rails (U5–U8, TLV62569): one tile, TI Fig 20</h3>
+  <div class="sbs">
+    <figure><img src="img/blk2/sch_soc.png" alt="SoC rail schematic, Power sheet" width="1500" height="970" loading="lazy"><figcaption><span class="tag ref">Schematic</span> <code>power.kicad_sch</code>: U5 VDD_0V9, U6 VCC_DDR, U7 VCC_1V8, U8 VCC_3V3, each with Cin, L, Cout, the FB divider + feed-forward cap and the EN RC delay (sequencing). U4 is on the same sheet.</figcaption></figure>
+    <figure><img src="img/blk2/t_socgrid.png" alt="SoC buck tiles, each outlined with its rail" width="1375" height="1003" loading="lazy"><figcaption><span class="tag us">Layout</span> Each tile is outlined and labelled with its output rail. In every tile Cin sits beside VIN, L is next to SW, and Cout is at the L output with its GND by the IC GND pin. The FB divider, Cff and EN parts are on the bottom (hatched), ≥ 0.8 mm from any SW copper. The input of every buck is the 5 V bus VCC5V0_SYS.</figcaption></figure>
+  </div>
+  <div class="tiref"><figure><img src="img/blk2/ti_tlv_fig20.png" alt="TI TLV62569 layout example" width="385" height="265" loading="lazy"><figcaption><b>TI reference</b>: <code>TI_TLV62569.pdf</code> §10.2 Fig 20 (p.13). Our tiles are this figure turned 180°. That puts each inductor on the side away from the HaLow module, keeping B6’s ≥ 5.5 mm (L5, L6, L11 at 5.53 mm).</figcaption></figure></div>
+  <h3 class="sub">Radio rails (U10, U11, TLV62569): same tile with a second output cap</h3>
+  <div class="sbs">
+    <figure><img src="img/blk2/sch_radio.png" alt="Radio Power schematic" width="1500" height="1018" loading="lazy"><figcaption><span class="tag ref">Schematic</span> <code>radio_power.kicad_sch</code>: U10 VCC3V3_C5 and U11 VCC3V3_HALOW, GPIO-enabled (100k pull-down), plus the HaLow 5 V FEM switch Q7/Q8.</figcaption></figure>
+    <figure><img src="img/blk2/t_radio.png" alt="Radio buck tiles, each outlined with its rail" width="1500" height="535" loading="lazy"><figcaption><span class="tag us">Layout</span> U10 (ESP32-C5 rail) and U11 (HaLow rail) along the top edge. The FEM switch Q7 with C120–C122 and R120–R122 went with the loose parts, beside U11 (see the overview).</figcaption></figure>
+  </div>
+  <h3 class="sub">Left column: battery protection, ship FET, hold-off</h3>
+  <div class="sbs">
+    <figure><img src="img/blk2/sch_battery.png" alt="Battery sheet schematic" width="1500" height="1029" loading="lazy"><figcaption><span class="tag ref">Schematic</span> <code>battery.kicad_sch</code>: J3/J4, DW01A U3 with the FS8205A FETs Q5/Q6, ship FET Q13.</figcaption></figure>
+    <figure><img src="img/blk2/sch_holdoff.png" alt="Hold-off sheet schematic" width="1500" height="1029" loading="lazy"><figcaption><span class="tag ref">Schematic</span> <code>holdoff.kicad_sch</code>: LM2903 U30 + TL432 U31 switching VSYS → VSYS_SW through Q9; Q10/Q12 for the USB bypass.</figcaption></figure>
+    <figure><img src="img/blk2/t_left.png" alt="Left column layout with each group outlined" width="1471" height="2440" loading="lazy"><figcaption><span class="tag us">Layout</span> These parts have no TI layout figure. They are packed by net distance next to J3/J4 and the boost input (VSYS_SW → L2). Q13 sits between the cell connector side and the charger BAT pins.</figcaption></figure>
+  </div>
+
+  <div class="pair">
+    <figure><img src="img/blk2/before_iso.jpg" alt="3D view before" width="1400" height="1089" loading="lazy"><figcaption><b>Before</b>, 3D.</figcaption></figure>
+    <figure><img src="img/blk2/after_iso.jpg" alt="3D view after" width="1400" height="1089" loading="lazy"><figcaption><b>After</b>, 3D: radio row, SoC 2 × 2 grid, boost, charger.</figcaption></figure>
+    <figure><img src="img/blk2/before_top.jpg" alt="Top view before" width="710" height="1100" loading="lazy"><figcaption><b>Before</b>, top, power column.</figcaption></figure>
+    <figure><img src="img/blk2/after_top.jpg" alt="Top view after" width="710" height="1100" loading="lazy"><figcaption><b>After</b>, top, power column.</figcaption></figure>
+  </div>
+
+  <h3 class="sub">Checks on the saved board</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Check</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>DRC, zones refilled, and once more without refill</td><td>No courtyard overlap, clearance or edge errors. Only silkscreen items (silk overlap 6, silk over copper 8, silk at the edge 15; before: 11 / 9 / 15) and the 2 isolated-copper islands from before. Silk is tidied in a later block.</td></tr>
+      <tr><td>Schematic parity</td><td class=n>0</td></tr>
+      <tr><td>Parts moved</td><td>177 (all power-sheet parts, plus 10 HaLow / ESP32-C5 bottom passives that the packer had parked in the power column). Holes, connectors, U1, R1/R2 and everything outside the power column did not move.</td></tr>
+      <tr><td>Side changes</td><td>C11, C12 (BTST) to the bottom, as in TI’s figure. C14, C15 (system-side SYS bulk) to the bottom. C13 (REGN) to the top, at its pin.</td></tr>
+      <tr><td>RV1106 bus lengths</td><td>Unchanged from B6: SDIO 22 mm, SPI 35 mm, SD 20 mm, GPS UART 12.5 mm (straight line).</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 class="sub">Open points</h3>
+  <ul class="tight">
+    <li><b>ESP32-C5 decoupling C802/C803</b> still sits about 48 mm from the module (a T32 packer leftover). HaLow caps C701–C706 now sit 0–10 mm from the module. Both groups are placed properly in Block 3 (radios).</li>
+    <li><b>15 test points</b> (1 mm pads) stay on the top side. If you’re happy to probe from underneath, moving them to the bottom frees about 60 mm² of top area.</li>
+    <li><b>Routing notes for later:</b> SW1/SW2 drop through vias under U2 to an inner layer (TI item 2); each GND cap pad gets its own via to In1.</li>
+  </ul>
+
+  <p class="done"><b>Approved</b> by you on 2026-11-23. Board state after this block: <code>hardware/kicad/backup/klepon_T41_blk2_2026-11-23.kicad_pcb</code>.</p>
+
+  <details><summary>All 125 audit rows (pad-centre distances, mm)</summary>
+  <p style="color:var(--muted);margin:.5rem 0">Tool: <code>hardware/tools/blk2_audit.py</code>. Placement: <code>hardware/tools/blk2_place.py</code>. The board before this step is in <code>hardware/kicad/backup/klepon_T41_blk1_2026-11-23.kicad_pcb</code>.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Converter</th><th>Check</th><th>Part</th><th>Before</th><th>Now</th><th>Limit</th><th>Now</th><th>Before</th><th>Source</th></tr></thead>
+    <tbody>
+<tr><td>U5 TLV62569</td><td>Cin + at VIN</td><td class=n>C50 (top)</td><td class=n>9.30</td><td class=n>1.84</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U5 TLV62569</td><td>Cin GND to IC GND</td><td class=n>C50 (top)</td><td class=n>12.78</td><td class=n>4.16</td><td class=n></td><td>info</td><td class=n></td><td>SLVSDG1C §10.1, Fig 20 (GND pin opposite VIN; via the pour)</td></tr>
+<tr><td>U5 TLV62569</td><td>L pad 1 at SW</td><td class=n>L5 (top)</td><td class=n>1.98</td><td class=n>2.32</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U5 TLV62569</td><td>Cout + at L pad 2</td><td class=n>C53 (top)</td><td class=n>8.18</td><td class=n>2.28</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U5 TLV62569</td><td>Cout GND at IC GND</td><td class=n>C53 (top)</td><td class=n>13.32</td><td class=n>1.93</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U5 TLV62569</td><td>FB node at FB pin</td><td class=n>R51 (bottom)</td><td class=n>0.10</td><td class=n>0.70</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U5 TLV62569</td><td>FB node away from SW</td><td class=n>R51 (bottom)</td><td class=n>3.04</td><td class=n>2.53</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U5 TLV62569</td><td>FB node at FB pin</td><td class=n>R52 (bottom)</td><td class=n>1.12</td><td class=n>1.07</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U5 TLV62569</td><td>FB node away from SW</td><td class=n>R52 (bottom)</td><td class=n>2.23</td><td class=n>4.01</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U5 TLV62569</td><td>FB node at FB pin</td><td class=n>C52 (bottom)</td><td class=n>1.31</td><td class=n>1.85</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U5 TLV62569</td><td>FB node away from SW</td><td class=n>C52 (bottom)</td><td class=n>2.74</td><td class=n>2.26</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U6 TLV62569</td><td>Cin + at VIN</td><td class=n>C60 (top)</td><td class=n>10.71</td><td class=n>1.84</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U6 TLV62569</td><td>Cin GND to IC GND</td><td class=n>C60 (top)</td><td class=n>11.15</td><td class=n>4.16</td><td class=n></td><td>info</td><td class=n></td><td>SLVSDG1C §10.1, Fig 20 (GND pin opposite VIN; via the pour)</td></tr>
+<tr><td>U6 TLV62569</td><td>L pad 1 at SW</td><td class=n>L6 (top)</td><td class=n>2.29</td><td class=n>2.32</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U6 TLV62569</td><td>Cout + at L pad 2</td><td class=n>C63 (top)</td><td class=n>2.62</td><td class=n>2.28</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U6 TLV62569</td><td>Cout GND at IC GND</td><td class=n>C63 (top)</td><td class=n>1.90</td><td class=n>1.93</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U6 TLV62569</td><td>FB node at FB pin</td><td class=n>R61 (bottom)</td><td class=n>3.49</td><td class=n>0.70</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U6 TLV62569</td><td>FB node away from SW</td><td class=n>R61 (bottom)</td><td class=n>3.34</td><td class=n>2.53</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U6 TLV62569</td><td>FB node at FB pin</td><td class=n>R62 (bottom)</td><td class=n>0.04</td><td class=n>1.07</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U6 TLV62569</td><td>FB node away from SW</td><td class=n>R62 (bottom)</td><td class=n>2.99</td><td class=n>4.01</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U6 TLV62569</td><td>FB node at FB pin</td><td class=n>C62 (bottom)</td><td class=n>4.52</td><td class=n>1.85</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U6 TLV62569</td><td>FB node away from SW</td><td class=n>C62 (bottom)</td><td class=n>2.76</td><td class=n>2.26</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U7 TLV62569</td><td>Cin + at VIN</td><td class=n>C70 (top)</td><td class=n>13.99</td><td class=n>1.84</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U7 TLV62569</td><td>Cin GND to IC GND</td><td class=n>C70 (top)</td><td class=n>16.36</td><td class=n>4.16</td><td class=n></td><td>info</td><td class=n></td><td>SLVSDG1C §10.1, Fig 20 (GND pin opposite VIN; via the pour)</td></tr>
+<tr><td>U7 TLV62569</td><td>L pad 1 at SW</td><td class=n>L7 (top)</td><td class=n>2.69</td><td class=n>2.32</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U7 TLV62569</td><td>Cout + at L pad 2</td><td class=n>C73 (top)</td><td class=n>3.92</td><td class=n>2.28</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U7 TLV62569</td><td>Cout GND at IC GND</td><td class=n>C73 (top)</td><td class=n>7.81</td><td class=n>1.93</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U7 TLV62569</td><td>FB node at FB pin</td><td class=n>R71 (bottom)</td><td class=n>0.01</td><td class=n>0.70</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U7 TLV62569</td><td>FB node away from SW</td><td class=n>R71 (bottom)</td><td class=n>2.97</td><td class=n>2.53</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U7 TLV62569</td><td>FB node at FB pin</td><td class=n>R72 (bottom)</td><td class=n>1.26</td><td class=n>1.07</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U7 TLV62569</td><td>FB node away from SW</td><td class=n>R72 (bottom)</td><td class=n>4.01</td><td class=n>4.01</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U7 TLV62569</td><td>FB node at FB pin</td><td class=n>C72 (bottom)</td><td class=n>1.25</td><td class=n>1.85</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U7 TLV62569</td><td>FB node away from SW</td><td class=n>C72 (bottom)</td><td class=n>3.88</td><td class=n>2.26</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U8 TLV62569</td><td>Cin + at VIN</td><td class=n>C80 (top)</td><td class=n>9.38</td><td class=n>1.84</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U8 TLV62569</td><td>Cin GND to IC GND</td><td class=n>C80 (top)</td><td class=n>9.73</td><td class=n>4.16</td><td class=n></td><td>info</td><td class=n></td><td>SLVSDG1C §10.1, Fig 20 (GND pin opposite VIN; via the pour)</td></tr>
+<tr><td>U8 TLV62569</td><td>L pad 1 at SW</td><td class=n>L8 (top)</td><td class=n>2.89</td><td class=n>2.32</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U8 TLV62569</td><td>Cout + at L pad 2</td><td class=n>C83 (top)</td><td class=n>5.03</td><td class=n>2.28</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U8 TLV62569</td><td>Cout GND at IC GND</td><td class=n>C83 (top)</td><td class=n>10.75</td><td class=n>1.93</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U8 TLV62569</td><td>FB node at FB pin</td><td class=n>R81 (bottom)</td><td class=n>0.01</td><td class=n>0.70</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U8 TLV62569</td><td>FB node away from SW</td><td class=n>R81 (bottom)</td><td class=n>2.97</td><td class=n>2.53</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U8 TLV62569</td><td>FB node at FB pin</td><td class=n>R82 (bottom)</td><td class=n>1.60</td><td class=n>1.07</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U8 TLV62569</td><td>FB node away from SW</td><td class=n>R82 (bottom)</td><td class=n>4.56</td><td class=n>4.01</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U8 TLV62569</td><td>FB node at FB pin</td><td class=n>C82 (bottom)</td><td class=n>1.25</td><td class=n>1.85</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U8 TLV62569</td><td>FB node away from SW</td><td class=n>C82 (bottom)</td><td class=n>4.00</td><td class=n>2.26</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U10 TLV62569</td><td>Cin + at VIN</td><td class=n>C100 (top)</td><td class=n>12.51</td><td class=n>1.84</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U10 TLV62569</td><td>Cin GND to IC GND</td><td class=n>C100 (top)</td><td class=n>15.88</td><td class=n>4.16</td><td class=n></td><td>info</td><td class=n></td><td>SLVSDG1C §10.1, Fig 20 (GND pin opposite VIN; via the pour)</td></tr>
+<tr><td>U10 TLV62569</td><td>L pad 1 at SW</td><td class=n>L10 (top)</td><td class=n>3.19</td><td class=n>2.32</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U10 TLV62569</td><td>Cout + at L pad 2</td><td class=n>C102 (top)</td><td class=n>8.62</td><td class=n>2.28</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U10 TLV62569</td><td>Cout GND at IC GND</td><td class=n>C102 (top)</td><td class=n>10.94</td><td class=n>1.93</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U10 TLV62569</td><td>2nd Cout beside the 1st (+)</td><td class=n>C103 (top)</td><td class=n>1.75</td><td class=n>1.66</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U10 TLV62569</td><td>2nd Cout beside the 1st (GND)</td><td class=n>C103 (top)</td><td class=n>1.75</td><td class=n>1.66</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U10 TLV62569</td><td>FB node at FB pin</td><td class=n>R101 (bottom)</td><td class=n>2.39</td><td class=n>0.70</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U10 TLV62569</td><td>FB node away from SW</td><td class=n>R101 (bottom)</td><td class=n>0.89</td><td class=n>2.53</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U10 TLV62569</td><td>FB node at FB pin</td><td class=n>R102 (bottom)</td><td class=n>0.03</td><td class=n>1.07</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U10 TLV62569</td><td>FB node away from SW</td><td class=n>R102 (bottom)</td><td class=n>2.99</td><td class=n>4.01</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U10 TLV62569</td><td>FB node at FB pin</td><td class=n>C101 (bottom)</td><td class=n>3.97</td><td class=n>1.85</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U10 TLV62569</td><td>FB node away from SW</td><td class=n>C101 (bottom)</td><td class=n>1.13</td><td class=n>2.26</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U11 TLV62569</td><td>Cin + at VIN</td><td class=n>C110 (top)</td><td class=n>8.19</td><td class=n>1.84</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U11 TLV62569</td><td>Cin GND to IC GND</td><td class=n>C110 (top)</td><td class=n>12.12</td><td class=n>4.16</td><td class=n></td><td>info</td><td class=n></td><td>SLVSDG1C §10.1, Fig 20 (GND pin opposite VIN; via the pour)</td></tr>
+<tr><td>U11 TLV62569</td><td>L pad 1 at SW</td><td class=n>L11 (top)</td><td class=n>2.32</td><td class=n>2.32</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U11 TLV62569</td><td>Cout + at L pad 2</td><td class=n>C112 (top)</td><td class=n>10.14</td><td class=n>2.28</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U11 TLV62569</td><td>Cout GND at IC GND</td><td class=n>C112 (top)</td><td class=n>10.63</td><td class=n>1.93</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U11 TLV62569</td><td>2nd Cout beside the 1st (+)</td><td class=n>C113 (top)</td><td class=n>7.83</td><td class=n>1.66</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U11 TLV62569</td><td>2nd Cout beside the 1st (GND)</td><td class=n>C113 (top)</td><td class=n>9.28</td><td class=n>1.66</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>fail</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U11 TLV62569</td><td>FB node at FB pin</td><td class=n>R111 (bottom)</td><td class=n>0.13</td><td class=n>0.70</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U11 TLV62569</td><td>FB node away from SW</td><td class=n>R111 (bottom)</td><td class=n>3.09</td><td class=n>2.53</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U11 TLV62569</td><td>FB node at FB pin</td><td class=n>R112 (bottom)</td><td class=n>1.26</td><td class=n>1.07</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U11 TLV62569</td><td>FB node away from SW</td><td class=n>R112 (bottom)</td><td class=n>3.96</td><td class=n>4.01</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U11 TLV62569</td><td>FB node at FB pin</td><td class=n>C111 (bottom)</td><td class=n>1.14</td><td class=n>1.85</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U11 TLV62569</td><td>FB node away from SW</td><td class=n>C111 (bottom)</td><td class=n>2.24</td><td class=n>2.26</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSDG1C §10.1, Fig 20</td></tr>
+<tr><td>U4 TPS61089</td><td>C33 100 nF + at VOUT (hot loop)</td><td class=n>C33 (top)</td><td class=n>11.60</td><td class=n>1.42</td><td class=n>≤ 1.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>C33 100 nF GND at GND (hot loop)</td><td class=n>C33 (top)</td><td class=n>10.94</td><td class=n>1.42</td><td class=n>≤ 1.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>22 uF row: + beside the previous</td><td class=n>C32 (top)</td><td class=n>4.03</td><td class=n>1.71</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>22 uF row: GND beside the previous</td><td class=n>C32 (top)</td><td class=n>4.03</td><td class=n>1.71</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>22 uF: + to VOUT pin</td><td class=n>C32 (top)</td><td class=n>7.62</td><td class=n>3.11</td><td class=n></td><td>info</td><td class=n></td><td>SLVSD38C §11.1, Fig 11-1 (row of caps as in the example)</td></tr>
+<tr><td>U4 TPS61089</td><td>22 uF row: + beside the previous</td><td class=n>C30 (top)</td><td class=n>2.25</td><td class=n>2.16</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>22 uF row: GND beside the previous</td><td class=n>C30 (top)</td><td class=n>2.25</td><td class=n>2.16</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>22 uF: + to VOUT pin</td><td class=n>C30 (top)</td><td class=n>9.86</td><td class=n>5.24</td><td class=n></td><td>info</td><td class=n></td><td>SLVSD38C §11.1, Fig 11-1 (row of caps as in the example)</td></tr>
+<tr><td>U4 TPS61089</td><td>22 uF row: + beside the previous</td><td class=n>C31 (top)</td><td class=n>2.43</td><td class=n>2.16</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>22 uF row: GND beside the previous</td><td class=n>C31 (top)</td><td class=n>5.08</td><td class=n>2.16</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>22 uF: + to VOUT pin</td><td class=n>C31 (top)</td><td class=n>12.04</td><td class=n>7.39</td><td class=n></td><td>info</td><td class=n></td><td>SLVSD38C §11.1, Fig 11-1 (row of caps as in the example)</td></tr>
+<tr><td>U4 TPS61089</td><td>C25 100 nF + at VIN</td><td class=n>C25 (top)</td><td class=n>7.08</td><td class=n>1.19</td><td class=n>≤ 1.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>C24 10 uF + at L VIN pad</td><td class=n>C24 (top)</td><td class=n>3.83</td><td class=n>2.20</td><td class=n>≤ 3</td><td class="good">pass</td><td class=n>fail</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>L pad at SW</td><td class=n>L2 (top)</td><td class=n>1.50</td><td class=n>2.90</td><td class=n>≤ 3.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>BOOT cap at BOOT</td><td class=n>C26 (top)</td><td class=n>1.33</td><td class=n>1.31</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>BOOT cap at SW</td><td class=n>C26 (top)</td><td class=n>2.67</td><td class=n>2.68</td><td class=n>≤ 3</td><td class="good">pass</td><td class=n>pass</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>VCC cap at VCC</td><td class=n>C27 (top)</td><td class=n>4.39</td><td class=n>1.43</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>FB node at FB pin</td><td class=n>R15 (bottom)</td><td class=n>0.17</td><td class=n>0.89</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>FB node away from SW</td><td class=n>R15 (bottom)</td><td class=n>1.67</td><td class=n>2.29</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>FB node at FB pin</td><td class=n>R16 (bottom)</td><td class=n>1.26</td><td class=n>1.38</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>FB node away from SW</td><td class=n>R16 (bottom)</td><td class=n>2.67</td><td class=n>2.67</td><td class=n>≥ 0.8</td><td class="good">pass</td><td class=n>pass</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U4 TPS61089</td><td>COMP R at COMP</td><td class=n>R17 (bottom)</td><td class=n>0.75</td><td class=n>1.46</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLVSD38C §11.1, Fig 11-1</td></tr>
+<tr><td>U2 BQ25798</td><td>1. 100 nF PMID + at PMID</td><td class=n>C10 (top)</td><td class=n>9.48</td><td class=n>1.46</td><td class=n>≤ 1.5</td><td class="good">pass</td><td class=n>fail</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>1. 100 nF PMID GND at GND</td><td class=n>C10 (top)</td><td class=n>9.87</td><td class=n>1.46</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>fail</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>1. 100 nF SYS + at SYS</td><td class=n>C19 (top)</td><td class=n>14.15</td><td class=n>1.48</td><td class=n>≤ 1.5</td><td class="good">pass</td><td class=n>fail</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>1. 100 nF SYS GND at GND</td><td class=n>C19 (top)</td><td class=n>13.86</td><td class=n>1.46</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>fail</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>1. 10 uF PMID beside the 100 nF</td><td class=n>C9 (top)</td><td class=n>5.91</td><td class=n>2.03</td><td class=n>≤ 3.5</td><td class="good">pass</td><td class=n>fail</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>1. 10 uF SYS beside the 100 nF</td><td class=n>C18 (top)</td><td class=n>5.15</td><td class=n>1.85</td><td class=n>≤ 3.5</td><td class="good">pass</td><td class=n>fail</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>1. PMID bulk chain (+)</td><td class=n>C8 (top)</td><td class=n>3.99</td><td class=n>2.16</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>1. PMID bulk chain (+)</td><td class=n>C7 (top)</td><td class=n>4.76</td><td class=n>2.16</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>1. SYS bulk chain (+)</td><td class=n>C17 (top)</td><td class=n>3.48</td><td class=n>1.66</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>1. SYS bulk chain (+)</td><td class=n>C16 (top)</td><td class=n>1.73</td><td class=n>1.66</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>1. SYS bulk, system side</td><td class=n>C14 (bottom)</td><td class=n>14.11</td><td class=n>19.63</td><td class=n></td><td>info</td><td class=n></td><td>SLUSDV2C §8.4.1, Fig 8-21 (system bulk, low-impedance path)</td></tr>
+<tr><td>U2 BQ25798</td><td>1. SYS bulk, system side</td><td class=n>C15 (bottom)</td><td class=n>14.33</td><td class=n>4.57</td><td class=n></td><td>info</td><td class=n></td><td>SLUSDV2C §8.4.1, Fig 8-21 (system bulk, low-impedance path)</td></tr>
+<tr><td>U2 BQ25798</td><td>2. L1 to SW1 (via under IC)</td><td class=n>L1 (top)</td><td class=n>4.85</td><td class=n>4.45</td><td class=n>≤ 6.5</td><td class="good">pass</td><td class=n>pass</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>2. L1 to SW2 (via under IC)</td><td class=n>L1 (top)</td><td class=n>1.81</td><td class=n>4.45</td><td class=n>≤ 6.5</td><td class="good">pass</td><td class=n>pass</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>2. BTST1 cap (bottom, vias)</td><td class=n>C11 (bottom)</td><td class=n>7.73</td><td class=n>0.23</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>fail</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>2. BTST2 cap (bottom, vias)</td><td class=n>C12 (bottom)</td><td class=n>1.66</td><td class=n>1.00</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>pass</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>3. REGN cap + at REGN</td><td class=n>C13 (top)</td><td class=n>0.22</td><td class=n>1.69</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>pass</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>4. 100 nF VBUS + at VBUS</td><td class=n>C6 (top)</td><td class=n>4.90</td><td class=n>1.24</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>fail</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>4. VBUS bulk beside the 100 nF</td><td class=n>C5 (top)</td><td class=n>1.57</td><td class=n>2.18</td><td class=n>≤ 3</td><td class="good">pass</td><td class=n>pass</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>4. VBUS bulk chain</td><td class=n>C4 (top)</td><td class=n>12.21</td><td class=n>2.16</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>5. BAT cap + at BAT</td><td class=n>C20 (top)</td><td class=n>10.44</td><td class=n>1.59</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>fail</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>5. BAT cap chain</td><td class=n>C21 (top)</td><td class=n>1.90</td><td class=n>1.66</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>pass</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>7. BATP (R4) away from SW</td><td class=n>R4 (bottom)</td><td class=n>12.56</td><td class=n>3.57</td><td class=n>≥ 1.5</td><td class="good">pass</td><td class=n>pass</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>7. TS divider away from SW</td><td class=n>R7 (bottom)</td><td class=n>3.75</td><td class=n>3.93</td><td class=n>≥ 1.5</td><td class="good">pass</td><td class=n>pass</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>U2 BQ25798</td><td>7. TS divider away from SW</td><td class=n>R8 (bottom)</td><td class=n>4.92</td><td class=n>4.49</td><td class=n>≥ 1.5</td><td class="good">pass</td><td class=n>pass</td><td>SLUSDV2C §8.4.1, Fig 8-21</td></tr>
+<tr><td>Floorplan</td><td>inductor to HaLow module (courtyards)</td><td class=n>L1 (top)</td><td class=n>22.97</td><td class=n>13.52</td><td class=n>≥ 5.5</td><td class="good">pass</td><td class=n>pass</td><td>B6 floorplan rule</td></tr>
+<tr><td>Floorplan</td><td>inductor to HaLow module (courtyards)</td><td class=n>L2 (top)</td><td class=n>17.60</td><td class=n>17.74</td><td class=n>≥ 5.5</td><td class="good">pass</td><td class=n>pass</td><td>B6 floorplan rule</td></tr>
+<tr><td>Floorplan</td><td>inductor to HaLow module (courtyards)</td><td class=n>L5 (top)</td><td class=n>8.78</td><td class=n>5.53</td><td class=n>≥ 5.5</td><td class="good">pass</td><td class=n>pass</td><td>B6 floorplan rule</td></tr>
+<tr><td>Floorplan</td><td>inductor to HaLow module (courtyards)</td><td class=n>L6 (top)</td><td class=n>8.25</td><td class=n>5.53</td><td class=n>≥ 5.5</td><td class="good">pass</td><td class=n>pass</td><td>B6 floorplan rule</td></tr>
+<tr><td>Floorplan</td><td>inductor to HaLow module (courtyards)</td><td class=n>L7 (top)</td><td class=n>5.62</td><td class=n>13.48</td><td class=n>≥ 5.5</td><td class="good">pass</td><td class=n>pass</td><td>B6 floorplan rule</td></tr>
+<tr><td>Floorplan</td><td>inductor to HaLow module (courtyards)</td><td class=n>L8 (top)</td><td class=n>12.95</td><td class=n>13.48</td><td class=n>≥ 5.5</td><td class="good">pass</td><td class=n>pass</td><td>B6 floorplan rule</td></tr>
+<tr><td>Floorplan</td><td>inductor to HaLow module (courtyards)</td><td class=n>L10 (top)</td><td class=n>8.03</td><td class=n>15.01</td><td class=n>≥ 5.5</td><td class="good">pass</td><td class=n>pass</td><td>B6 floorplan rule</td></tr>
+<tr><td>Floorplan</td><td>inductor to HaLow module (courtyards)</td><td class=n>L11 (top)</td><td class=n>8.28</td><td class=n>5.53</td><td class=n>≥ 5.5</td><td class="good">pass</td><td class=n>pass</td><td>B6 floorplan rule</td></tr>
+    </tbody></table></div>
+  </details>
+</section>
+
+
+<section id="blk3" class="approved">
+  <div class="shead"><span class="pill ok">approved 2026-11-23</span><span class="num">Placement · Block 3 · 2026-11-23</span>
+  <h2>Radios: every supply pin decoupled at the pin, GPS power and antenna at the module</h2>
+  <p>The floorplan already put the three modules where you wanted them, and most of their small parts (the SDIO pull-ups, the ESP32-C5 EN delay) sit under their pins. The radio check found <b>11 of 27 checks failing</b>. Several decoupling caps had been parked in the power column, up to 70 mm from the pin they serve. The GPS supply was also laid out backwards: its 3.3 V LDO sat 10 mm from the module, while the backup LDO took the spot by the VCC pin. Only the parts that failed moved, each to the best free spot at its pin. <b>1 check still fails</b> (L20, see open points).</p></div>
+  <div class="tldr"><b>TL;DR</b><ul class="tight">
+    <li>HaLow and ESP32-C5: each supply pin now has its 100 nF + 10/22 µF pair right at the pin (on the bottom, under the module edge), as the Heltec and Espressif reference schematics show.</li>
+    <li>GPS: the 3.3 V LDO moved next to the module’s VCC pin, the U.FL sits at the RF input (2.4 mm, was 3.9 mm), and the backup LDO moved into the free space above.</li>
+    <li>Radio checks: 11 of 27 failed before, 1 fails now. DRC: silkscreen notes only; schematic parity 0; Block 2 still 0 of 114 fails; bus lengths unchanged.</li>
+    <li>L20 (the GPS antenna bias choke) stays 3.2 mm from the RF line: accepted by you.</li>
+  </ul></div>
+
+  <div class="pair">
+    <figure><img src="img/blk3/v_before.png" alt="Radio area before Block 3" width="5114" height="5414" loading="lazy"><figcaption><b>Before</b>. The 17 parts that move are <b style="color:#e03131">circled red</b>, labelled “(bottom)” if on the underside. C701, C704, C802 and C803 start outside this view, in the power column. Pads coloured by role; hatched = bottom side.</figcaption></figure>
+    <figure><img src="img/blk3/v_after.png" alt="Radio area after Block 3" width="5114" height="5414" loading="lazy"><figcaption><b>After</b>. The same 17 parts <b style="color:#2f9e44">circled green</b> at their new spots. Each <b style="color:#f08c00">orange arrow</b> runs from where the part was (dot) to where it is now; arrows entering from the left edge come from the power column. Everything not circled did not move.</figcaption></figure>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Module</th><th>Rule checks</th><th>Failed before</th><th>Failed now</th></tr></thead>
+    <tbody><tr><td>HaLow module (U701)</td><td class=n>6</td><td class='n bad'>4</td><td class='n good'>0</td></tr>
+<tr><td>ESP32-C5 module (U801)</td><td class=n>4</td><td class='n bad'>2</td><td class='n good'>0</td></tr>
+<tr><td>GPS module (U20) and its LDOs</td><td class=n>9</td><td class='n bad'>5</td><td class='n bad'>1</td></tr>
+<tr><td>Inductors ≥ 5.5 mm from the HaLow module</td><td class=n>8</td><td class='n bad'>0</td><td class='n good'>0</td></tr><tr><td><b>Total</b></td><td class=n><b>27</b></td><td class='n bad'><b>11</b></td><td class='n bad'><b>1</b></td></tr></tbody>
+  </table></div>
+  <p style="color:var(--muted)">Heltec and the LDO makers give reference schematics but no layout distances, so the limits are usual decoupling practice: 100 nF pad ≤ 2.0 mm from its pin, bulk cap ≤ 3.5 mm. The GPS manual asks for the antenna connector “as close as possible” to RF_IN; the limit set here is 3.0 mm. The full table is at the bottom.</p>
+
+  <h3 class="sub">HaLow (U701, HT-HC01 V2)</h3>
+  <div class="sbs">
+    <figure><img src="img/blk3/sch_halow.png" alt="HaLow schematic sheet" width="3664" height="2515" loading="lazy"><figcaption><span class="tag ref">Schematic</span> <code>halow.kicad_sch</code>: U701, the three supply pairs, SDIO pull-ups R701–R706, GPIO/strap pulls RN701–RN704 and R707.</figcaption></figure>
+    <figure><img src="img/blk3/t_halow.png" alt="HaLow layout with supply pairs outlined" width="4262" height="2887" loading="lazy"><figcaption><span class="tag us">Layout</span> Supply pairs outlined at their pins: VDD_IO pin 19 (C703 + C704), VBAT pin 25 (C701 + C702), VDD_FEM pin 32 (C705 + C706). Arrows: VCC3V3_HALOW from U11 and VDD_FEM from the FEM switch Q7. Moved: C701 (was 20 mm away), C704 (10 mm), C705/C706 (22 mm).</figcaption></figure>
+  </div>
+  <div class="tiref"><figure><img src="img/blk3/ref_heltec.png" alt="Heltec HT-HC01 V2 SDIO reference schematic" width="805" height="450" loading="lazy"><figcaption><b>Heltec reference</b>: <code>Heltec_HT-HC01_V2_SDIO_reference.pdf</code>: 100 nF + 10 µF on VDD_IO, VBAT and VDD_FEM, 10k pulls on SDIO and the GPIO/JTAG pins. Heltec publishes no layout guide (datasheet §4 links only these schematics).</figcaption></figure></div>
+
+  <h3 class="sub">ESP32-C5 (U801, WROOM-1U)</h3>
+  <div class="sbs">
+    <figure><img src="img/blk3/sch_esp.png" alt="ESP32-C5 schematic sheet" width="3664" height="2515" loading="lazy"><figcaption><span class="tag ref">Schematic</span> <code>esp32c5.kicad_sch</code>: U801 with C802 22 µF + C803 100 nF on 3V3, R801 10k + C801 1 µF on EN, R802 BOOT pull-up.</figcaption></figure>
+    <figure><img src="img/blk3/t_esp.png" alt="ESP32-C5 layout with decoupling outlined" width="3176" height="3437" loading="lazy"><figcaption><span class="tag us">Layout</span> 3V3 (pin 2) pair C802/C803 moved from the power column (66–71 mm away) to the bottom under pin 2. The EN RC and the BOOT pull-up were already at their pins. The module’s right edge is 0.6 mm from the board edge, so these parts go underneath.</figcaption></figure>
+  </div>
+  <div class="tiref"><figure><img src="img/blk3/ref_esp_p50.png" alt="Espressif ESP32-C5-WROOM-1U peripheral schematic" width="820" height="640" loading="lazy"><figcaption><b>Espressif reference</b>: <code>esp32-c5-wroom-1_wroom-1u_datasheet_en.pdf</code> §9 Fig 9-2 (p.50): C1 22 µF + C2 0.1 µF on 3V3; the RC delay on EN is “usually R = 10 kΩ and C = 1 µF”.</figcaption></figure></div>
+
+  <h3 class="sub">GPS (U20, ATGM336H) with its LDOs</h3>
+  <div class="sbs">
+    <figure><img src="img/blk3/sch_gps.png" alt="GPS schematic sheet" width="3664" height="2515" loading="lazy"><figcaption><span class="tag ref">Schematic</span> <code>gps.kicad_sch</code>: U21 ME6211 VSYS → VCC3V3_GPS (GPS_PWR_EN), U22 XC6206 VBAT → the module’s backup VBAT pin, L20 47 nH VCC_RF bias onto the antenna line, J20 U.FL.</figcaption></figure>
+    <figure><img src="img/blk3/t_gps.png" alt="GPS layout with power and antenna outlined" width="3176" height="3781" loading="lazy"><figcaption><span class="tag us">Layout</span> U21 now sits beside the module’s VCC pin, with its caps C200/C201 and the 10 µF C202 under the pins on the bottom. The backup LDO U22 moved up, with C204 under the module’s VBAT pin. The U.FL moved down to the RF input. Arrows: VSYS from the charger, VBAT, the 3.3 V and backup feeds into the module, and RF in.</figcaption></figure>
+  </div>
+  <p>ATGM336H manual §2.8 (p.11; <code>ZHONGKEWEI_ATGM336H-5NR32-G.pdf</code>, translated): use a low-ripple LDO, ripple under 50 mVpp; avoid fast, large digital signals near the module and keep a good ground; put the antenna connector as close as possible to RF_IN, with 50 Ω matching. Our nearest switching inductor is 31 mm from the module.</p>
+
+  <h3 class="sub">3D views after Block 3</h3>
+  <div class="gallery">
+    <figure><img src="img/blk3/3d_iso_front.jpg" alt="3D render: Front angle: DC in, PWR, USB-C, microSD along the near edge;" width="2000" height="1500" loading="lazy"><figcaption>Front angle: DC in, PWR, USB-C, microSD along the near edge; power column left, RV1106 centre, HaLow top, GPS and ESP32-C5 right.</figcaption></figure>
+    <figure><img src="img/blk3/3d_top.jpg" alt="3D render: Top, straight down." width="2000" height="1500" loading="lazy"><figcaption>Top, straight down.</figcaption></figure>
+    <figure><img src="img/blk3/3d_iso_back.jpg" alt="3D render: Back angle: battery and NTC headers, the HaLow and GPS U.FL " width="2000" height="1500" loading="lazy"><figcaption>Back angle: battery and NTC headers, the HaLow and GPS U.FL connectors.</figcaption></figure>
+    <figure><img src="img/blk3/3d_iso_radio.jpg" alt="3D render: Radio side close-up: HaLow module, its RF filter and U.FL, t" width="2000" height="1500" loading="lazy"><figcaption>Radio side close-up: HaLow module, its RF filter and U.FL, the GPS module with its U.FL at the RF input and the LDOs beside it.</figcaption></figure>
+    <figure><img src="img/blk3/3d_iso_power.jpg" alt="3D render: Power side close-up: radio rails and the SoC 2 × 2 grid, the" width="2000" height="1500" loading="lazy"><figcaption>Power side close-up: radio rails and the SoC 2 × 2 grid, the boost, the charger.</figcaption></figure>
+    <figure><img src="img/blk3/3d_bottom.jpg" alt="3D render: Bottom, seen from below (mirrored): the RV1106 decoupling ri" width="2000" height="1500" loading="lazy"><figcaption>Bottom, seen from below (mirrored): the RV1106 decoupling ring and the module decoupling under the module edges.</figcaption></figure>
+  </div>
+
+  <h3 class="sub">Checks on the saved board</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Check</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>DRC, zones refilled, and once more without refill</td><td>Unchanged from Block 2: no courtyard, clearance or edge errors. Only silkscreen notes (6 / 8 / 15) and the 2 isolated-copper islands remain.</td></tr>
+      <tr><td>Schematic parity</td><td class=n>0</td></tr>
+      <tr><td>Parts moved</td><td>17: C701, C704, C705, C706 (HaLow); C802, C803 (ESP32-C5); J20, L20, U21, U22, C200–C204, R200, TP23 (GPS). C200, C201, C202, C203, C204 went from top to bottom; the rest kept their side.</td></tr>
+      <tr><td>Block 2 power checks</td><td>Still 0 of 114 fail. No power part moved.</td></tr>
+      <tr><td>RV1106 bus lengths</td><td>Unchanged: SDIO 22 mm, SPI 35 mm, SD 20 mm, GPS UART 12.5 mm.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 class="sub">Open points</h3>
+  <ul class="tight">
+    <li><b>L20, the GPS antenna bias choke:</b> its RF-side pad is 3.2 mm from the RF line (limit 2.5). It feeds VCC_RF to the active antenna, so it hangs off the U.FL → RF_IN line. The U.FL body covers the line and the module edge is 0.15 mm below it, so there is no closer spot on top. A 3 mm stub is about λ/33 at 1575 MHz, so the effect is small. The alternative is L20 on the bottom with a via on the RF line, which I don’t think is better. <b>Accepted by you, 2026-11-23.</b></li>
+    <li><b>HaLow and ESP32-C5 caps on the bottom:</b> they sit under the module edges, with vias next to the castellated pads. The RV1106 decoupling already uses this pattern.</li>
+  </ul>
+  <p class="done"><b>Approved</b> by you on 2026-11-23, with L20 accepted as placed.</p>
+
+  <details><summary>All 36 audit rows (pad-centre distances, mm)</summary>
+  <p style="color:var(--muted);margin:.5rem 0">Tools: <code>hardware/tools/blk3_audit.py</code>, <code>hardware/tools/blk3_place.py</code> (helpers in <code>placelib.py</code>). Board before this step: <code>hardware/kicad/backup/klepon_T41_blk2_2026-11-23.kicad_pcb</code>.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Module</th><th>Check</th><th>Part</th><th>Before</th><th>Now</th><th>Limit</th><th>Now</th><th>Before</th><th>Source</th></tr></thead>
+    <tbody>
+<tr><td>U701 HaLow</td><td>100 nF at VDD_IO (pin 19)</td><td class=n>C703 (bottom)</td><td class=n>0.78</td><td class=n>0.78</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>pass</td><td>Heltec SDIO reference</td></tr>
+<tr><td>U701 HaLow</td><td>10 uF at VDD_IO (pin 19)</td><td class=n>C704 (bottom)</td><td class=n>10.08</td><td class=n>1.43</td><td class=n>≤ 3.5</td><td class="good">pass</td><td class=n>fail</td><td>Heltec SDIO reference</td></tr>
+<tr><td>U701 HaLow</td><td>100 nF at VBAT (pin 25)</td><td class=n>C701 (bottom)</td><td class=n>20.28</td><td class=n>1.32</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>fail</td><td>Heltec SDIO reference</td></tr>
+<tr><td>U701 HaLow</td><td>10 uF at VBAT (pin 25)</td><td class=n>C702 (bottom)</td><td class=n>0.08</td><td class=n>0.08</td><td class=n>≤ 3.5</td><td class="good">pass</td><td class=n>pass</td><td>Heltec SDIO reference</td></tr>
+<tr><td>U701 HaLow</td><td>100 nF at VDD_FEM (pin 32)</td><td class=n>C705 (bottom)</td><td class=n>21.63</td><td class=n>0.02</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>fail</td><td>Heltec SDIO reference</td></tr>
+<tr><td>U701 HaLow</td><td>10 uF at VDD_FEM (pin 32)</td><td class=n>C706 (bottom)</td><td class=n>22.75</td><td class=n>1.40</td><td class=n>≤ 3.5</td><td class="good">pass</td><td class=n>fail</td><td>Heltec SDIO reference</td></tr>
+<tr><td>U701 HaLow</td><td>pull on pin 18</td><td class=n>R701 (bottom)</td><td class=n>0.08</td><td class=n>0.08</td><td class=n></td><td>info</td><td class=n></td><td>Heltec SDIO reference</td></tr>
+<tr><td>U701 HaLow</td><td>pull on pin 21</td><td class=n>R702 (bottom)</td><td class=n>0.10</td><td class=n>0.10</td><td class=n></td><td>info</td><td class=n></td><td>Heltec SDIO reference</td></tr>
+<tr><td>U701 HaLow</td><td>pull on pin 17</td><td class=n>R703 (bottom)</td><td class=n>1.24</td><td class=n>1.24</td><td class=n></td><td>info</td><td class=n></td><td>Heltec SDIO reference</td></tr>
+<tr><td>U701 HaLow</td><td>pull on pin 16</td><td class=n>R704 (bottom)</td><td class=n>0.08</td><td class=n>0.08</td><td class=n></td><td>info</td><td class=n></td><td>Heltec SDIO reference</td></tr>
+<tr><td>U701 HaLow</td><td>pull on pin 23</td><td class=n>R705 (bottom)</td><td class=n>0.08</td><td class=n>0.08</td><td class=n></td><td>info</td><td class=n></td><td>Heltec SDIO reference</td></tr>
+<tr><td>U701 HaLow</td><td>pull on pin 22</td><td class=n>R706 (bottom)</td><td class=n>0.08</td><td class=n>0.08</td><td class=n></td><td>info</td><td class=n></td><td>Heltec SDIO reference</td></tr>
+<tr><td>U701 HaLow</td><td>pull on pin 34</td><td class=n>R707 (bottom)</td><td class=n>0.05</td><td class=n>0.05</td><td class=n></td><td>info</td><td class=n></td><td>Heltec SDIO reference</td></tr>
+<tr><td>U801 ESP32-C5</td><td>0.1 uF at 3V3 (pin 2)</td><td class=n>C803 (bottom)</td><td class=n>70.51</td><td class=n>0.90</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>fail</td><td>ESP32-C5-WROOM-1U datasheet §9, Fig 9-2</td></tr>
+<tr><td>U801 ESP32-C5</td><td>22 uF at 3V3 (pin 2)</td><td class=n>C802 (bottom)</td><td class=n>66.42</td><td class=n>1.32</td><td class=n>≤ 3.5</td><td class="good">pass</td><td class=n>fail</td><td>ESP32-C5-WROOM-1U datasheet §9, Fig 9-2</td></tr>
+<tr><td>U801 ESP32-C5</td><td>EN RC: 1 uF at EN (pin 3)</td><td class=n>C801 (bottom)</td><td class=n>1.06</td><td class=n>1.06</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>ESP32-C5-WROOM-1U datasheet §9, Fig 9-2</td></tr>
+<tr><td>U801 ESP32-C5</td><td>EN RC: 10k at EN (pin 3)</td><td class=n>R801 (bottom)</td><td class=n>0.13</td><td class=n>0.13</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>ESP32-C5-WROOM-1U datasheet §9, Fig 9-2</td></tr>
+<tr><td>U801 ESP32-C5</td><td>BOOT pull-up at pin 15</td><td class=n>R802 (bottom)</td><td class=n>0.11</td><td class=n>0.11</td><td class=n></td><td>info</td><td class=n></td><td>ESP32-C5-WROOM-1U datasheet §9, Fig 9-2</td></tr>
+<tr><td>U20 GPS</td><td>U.FL signal pad to RF_IN (pin 11)</td><td class=n>J20 (top)</td><td class=n>3.89</td><td class=n>2.38</td><td class=n>≤ 3</td><td class="good">pass</td><td class=n>fail</td><td>ATGM336H manual §2.8 + LDO application circuits</td></tr>
+<tr><td>U20 GPS</td><td>L20 at VCC_RF (pin 14)</td><td class=n>L20 (top)</td><td class=n>2.22</td><td class=n>2.10</td><td class=n>≤ 3</td><td class="good">pass</td><td class=n>pass</td><td>ATGM336H manual §2.8 + LDO application circuits</td></tr>
+<tr><td>U20 GPS</td><td>L20 at the RF line</td><td class=n>L20 (top)</td><td class=n>1.85</td><td class=n>3.25</td><td class=n>≤ 2.5</td><td class="bad">FAIL</td><td class=n>pass</td><td>ATGM336H manual §2.8 + LDO application circuits</td></tr>
+<tr><td>U20 GPS</td><td>LDO U21 out to GPS VCC (pin 8)</td><td class=n>U21 (top)</td><td class=n>9.73</td><td class=n>3.16</td><td class=n>≤ 6</td><td class="good">pass</td><td class=n>fail</td><td>ATGM336H manual §2.8 + LDO application circuits</td></tr>
+<tr><td>U20 GPS</td><td>U21 input cap C200</td><td class=n>C200 (bottom)</td><td class=n>1.66</td><td class=n>0.02</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>pass</td><td>ATGM336H manual §2.8 + LDO application circuits</td></tr>
+<tr><td>U20 GPS</td><td>U21 output cap C201</td><td class=n>C201 (bottom)</td><td class=n>15.45</td><td class=n>0.02</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>fail</td><td>ATGM336H manual §2.8 + LDO application circuits</td></tr>
+<tr><td>U20 GPS</td><td>10 uF C202 at GPS VCC (pin 8)</td><td class=n>C202 (bottom)</td><td class=n>3.16</td><td class=n>0.03</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>ATGM336H manual §2.8 + LDO application circuits</td></tr>
+<tr><td>U20 GPS</td><td>U22 input cap C203</td><td class=n>C203 (bottom)</td><td class=n>1.83</td><td class=n>0.02</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>pass</td><td>ATGM336H manual §2.8 + LDO application circuits</td></tr>
+<tr><td>U20 GPS</td><td>U22 output cap C204 at GPS VBAT (pin 6)</td><td class=n>C204 (bottom)</td><td class=n>8.67</td><td class=n>0.02</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>fail</td><td>ATGM336H manual §2.8 + LDO application circuits</td></tr>
+<tr><td>Floorplan</td><td>inductor to HaLow module</td><td class=n>L1 (top)</td><td class=n>13.52</td><td class=n>13.52</td><td class=n>≥ 5.5</td><td class="good">pass</td><td class=n>pass</td><td>B6 floorplan rule</td></tr>
+<tr><td>Floorplan</td><td>inductor to HaLow module</td><td class=n>L2 (top)</td><td class=n>17.74</td><td class=n>17.74</td><td class=n>≥ 5.5</td><td class="good">pass</td><td class=n>pass</td><td>B6 floorplan rule</td></tr>
+<tr><td>Floorplan</td><td>inductor to HaLow module</td><td class=n>L5 (top)</td><td class=n>5.53</td><td class=n>5.53</td><td class=n>≥ 5.5</td><td class="good">pass</td><td class=n>pass</td><td>B6 floorplan rule</td></tr>
+<tr><td>Floorplan</td><td>inductor to HaLow module</td><td class=n>L6 (top)</td><td class=n>5.53</td><td class=n>5.53</td><td class=n>≥ 5.5</td><td class="good">pass</td><td class=n>pass</td><td>B6 floorplan rule</td></tr>
+<tr><td>Floorplan</td><td>inductor to HaLow module</td><td class=n>L7 (top)</td><td class=n>13.48</td><td class=n>13.48</td><td class=n>≥ 5.5</td><td class="good">pass</td><td class=n>pass</td><td>B6 floorplan rule</td></tr>
+<tr><td>Floorplan</td><td>inductor to HaLow module</td><td class=n>L8 (top)</td><td class=n>13.48</td><td class=n>13.48</td><td class=n>≥ 5.5</td><td class="good">pass</td><td class=n>pass</td><td>B6 floorplan rule</td></tr>
+<tr><td>Floorplan</td><td>inductor to HaLow module</td><td class=n>L10 (top)</td><td class=n>15.01</td><td class=n>15.01</td><td class=n>≥ 5.5</td><td class="good">pass</td><td class=n>pass</td><td>B6 floorplan rule</td></tr>
+<tr><td>Floorplan</td><td>inductor to HaLow module</td><td class=n>L11 (top)</td><td class=n>5.53</td><td class=n>5.53</td><td class=n>≥ 5.5</td><td class="good">pass</td><td class=n>pass</td><td>B6 floorplan rule</td></tr>
+<tr><td>Floorplan</td><td>nearest switching inductor to GPS module</td><td class=n>U20 (top)</td><td class=n>30.94</td><td class=n>30.94</td><td class=n></td><td>info</td><td class=n></td><td>ATGM336H manual §2.8 + LDO application circuits (keep noise away)</td></tr>
+    </tbody></table></div>
+  </details>
+</section>
+
+<section id="blk4" class="approved">
+  <div class="shead"><span class="pill ok">approved 2026-11-23</span><span class="num">Placement · Block 4 · 2026-11-23</span>
+  <h2>RV1106 surroundings: three small parts moved to their pins, one schematic question</h2>
+  <p>Most parts around the RV1106 were placed and approved in T29/T30: the decoupling ring, both crystals, the NPOR RC, the USB series resistors and the RTC corner. I checked everything else against the Rockchip design guide: the series resistors, the ADC and detect filter caps, and the microSD. <b>3 of 16 checks failed</b>, all because three small bottom-side parts sat away from the pin they serve. They moved, and <b>0 fail now</b>.</p></div>
+  <div class="tldr"><b>TL;DR</b><ul class="tight">
+    <li>R511, the SD card clock’s 22 Ω series resistor, moved to the RV1106 pin it drives (was 9.6 mm away, now 1.6 mm). Rockchip: series resistors go at the transmitter.</li>
+    <li>C506 (VBUS detect) and C508 (USB-C CC sense) moved next to their RV1106 input pins: 8.2 → 3.3 mm and 4.9 → 2.6 mm.</li>
+    <li>Checks: 3 of 16 failed before, 0 now. Blocks 2 and 3 unchanged. DRC: silkscreen notes only; parity 0.</li>
+    <li>From your review: the SD switch “clash” was a misplaced 3D model of the socket (fixed; the board was right). The bottom test-pad labels now face away from the caps. microSD ESD added: two 0.5 pF arrays at the socket.</li>
+  </ul></div>
+
+  <div class="pair">
+    <figure><img src="img/blk4/v_before.png" alt="Around the RV1106 before Block 4" width="3750" height="3500" loading="lazy"><figcaption><b>Before</b>. The 3 parts that move are <b style="color:#e03131">circled red</b> (all on the bottom).</figcaption></figure>
+    <figure><img src="img/blk4/v_after.png" alt="Around the RV1106 after Block 4" width="3750" height="3500" loading="lazy"><figcaption><b>After</b>. Moved parts <b style="color:#2f9e44">circled green</b>; <b style="color:#f08c00">orange</b> arrows run from old spot to new; <b style="color:#1864ab">blue</b> lines show the RV1106 pin each one serves. The grey outline marks the RV1106 body: the bottom under it stays clear for its fan-out vias, so nothing new went there.</figcaption></figure>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Group</th><th>Rule checks</th><th>Failed before</th><th>Failed now</th></tr></thead>
+    <tbody><tr><td>Series R</td><td class=n>3</td><td class='n bad'>1</td><td class='n good'>0</td></tr>
+<tr><td>Clocks</td><td class=n>4</td><td class='n bad'>0</td><td class='n good'>0</td></tr>
+<tr><td>USB</td><td class=n>2</td><td class='n bad'>1</td><td class='n good'>0</td></tr>
+<tr><td>ADC</td><td class=n>3</td><td class='n bad'>1</td><td class='n good'>0</td></tr>
+<tr><td>microSD</td><td class=n>4</td><td class='n bad'>0</td><td class='n good'>0</td></tr><tr><td><b>Total</b></td><td class=n><b>16</b></td><td class='n bad'><b>3</b></td><td class='n good'><b>0</b></td></tr></tbody>
+  </table></div>
+  <p style="color:var(--muted)">The Rockchip guide says “close to” without numbers. Series resistors get ≤ 3 mm from the pin they drive. Filter caps get ≤ 3.5 mm: that is the closest spot just outside the chip body, and these inputs are slow (VBUS detect, the recovery button, CC sense).</p>
+
+  <h3 class="sub">Schematic and layout</h3>
+  <div class="sbs">
+    <figure><img src="img/blk4/sch_soc.png" alt="SoC sheet around the moved parts" width="1290" height="1202" loading="lazy"><figcaption><span class="tag ref">Schematic</span> <code>soc.kicad_sch</code>: R511 22 Ω on SDMMC0_CLK (Rockchip Table 2-7), the USB_DET divider R506/R507 with C506, the recovery input R510/C507/TP501, and C508 on SARADC_IN1 (CC sense).</figcaption></figure>
+    <figure><img src="img/blk4/v_after.png" alt="Layout around the RV1106 after Block 4" width="3750" height="3500" loading="lazy"><figcaption><span class="tag us">Layout</span> The same parts on the board: R511 at pin 15 (SD clock out), C508 at pin 22, C506 at pin 25, C507 already at pin 23.</figcaption></figure>
+  </div>
+
+
+  <h3 class="sub">Rockchip references for each rule</h3>
+  <div class="gallery">
+    <figure><img src="img/blk4/ref_item9_p41.png" alt="HDG section 3.2 items 7-10" width="1404" height="202" loading="lazy"><figcaption><b>Series resistors</b>: HDG §3.2 item 9 (p.41), “Serial resistor recommend to be placed near transmitter.” This is why R511 moved to the RV1106 pin it drives.</figcaption></figure>
+    <figure><img src="img/blk4/ref_sdmmc_tab27.png" alt="HDG Table 2-7 SDMMC interface design" width="1404" height="399" loading="lazy"><figcaption><b>SD clock</b>: HDG Table 2-7 (p.24): SDMMC_CLK gets a 22 Ω series resistor (our R511); data and CMD connect directly.</figcaption></figure>
+    <figure><img src="img/blk4/ref_usbdet_fig218.png" alt="HDG Figure 2-18 USB insert detection" width="679" height="651" loading="lazy"><figcaption><b>VBUS detect</b>: HDG Fig 2-18 (p.27): divider with a 100 nF cap at USB_DET. Ours is R506/R507 + C506; C506 now sits next to the pin.</figcaption></figure>
+    <figure><img src="img/blk4/ref_saradc_fig235.png" alt="HDG Figure 2-35 SAR-ADC detection" width="1302" height="597" loading="lazy"><figcaption><b>ADC inputs</b>: HDG Fig 2-35 (p.37): 10k pull-up + 1 nF on ADCIN0 (recovery, our R510/C507), and a filtered divider on ADCIN1 (our CC sense, C508).</figcaption></figure>
+    <figure><img src="img/blk4/ref_usbpwr_fig219.png" alt="HDG Figure 2-19 USB controller power surge protection" width="1284" height="954" loading="lazy"><figcaption><b>USB controller supply</b>: HDG Fig 2-19 (p.27): 1 Ω series into AVDD1V8_USB (our R601/R602), decoupling at the pin. Already placed in T29; unchanged.</figcaption></figure>
+  </div>
+
+  <h3 class="sub">Your review: three fixes</h3>
+  <p><b>1. SD power switch Q401 “clashing” with the socket.</b> The parts never overlapped on the board (0.3 mm courtyard gap, so DRC was clean). The 3D model of the socket was drawn in the wrong place, as on USB-C and the ESP32-C5 before. It took two corrections: my first move (1.9 mm) stopped short, as you spotted. The STEP file KiCad renders has a different origin from the WRL file the alignment tool fits, and that hid the error. Final fit, measured on the ShouHan underside drawing scaled by the 8.00 mm post pitch: cover rear edge 10.54 mm behind the locating posts, front lip 4.03 mm ahead. The model now fills that outline: pin tails on the pads, side tabs on the side pads, and the lip 0.5 mm past the board edge. The footprint’s body outline (Fab) was also about 0.5 mm off and is corrected. Q401 has about 2 mm of clearance. Every 3D image on this page is re-rendered with the corrected model, from each block’s saved board.</p>
+  <div class="pair">
+    <figure><img src="img/blk4/fix_sd_before.png" alt="Socket 3D model before the fix" width="790" height="823" loading="lazy"><figcaption><b>Before</b>: the model sits 1.9 mm back, its pin tails reach Q401, and its front stops short of the edge.</figcaption></figure>
+    <figure><img src="img/blk4/fix_sd_after.png" alt="Socket 3D model after the fix" width="790" height="823" loading="lazy"><figcaption><b>After</b>: tails on the pads, the front at the board edge, Q401 clear. The two new ESD arrays are visible behind the socket.</figcaption></figure>
+  </div>
+  <div class="tiref"><figure><img src="img/blk4/fix_sd_overlay.png" alt="Socket model with the footprint pads and datasheet outline overlaid" width="1383" height="1317" loading="lazy"><figcaption><b>Check</b>: magenta = the socket’s copper pads, cyan = the datasheet body outline (Fab), orange = the board edge. The model fills the outline, with tails and tabs on the pads.</figcaption></figure></div>
+  <div class="tiref"><figure><img src="img/blk4/ref_shouhan_layout.png" alt="ShouHan TF-PUSH recommended PCB layout" width="1358" height="1124" loading="lazy"><figcaption><b>ShouHan reference</b>: <code>ShouHan_TF-PUSH.pdf</code> p.1, recommended PCB layout. The signal pads sit 10.20 + 0.80 mm from the hole line; our footprint matches.</figcaption></figure></div>
+  <p><b>2. Bottom test-pad labels.</b> In the library footprint, the TX/RX/GND labels sit inside its courtyard. When the labels were enlarged in November (T37), they were moved to the RV1106 side, over C601, C634 and C635. They are back on the courtyard side now. Eight designators had also been left visible against the 2026-11-21 “all designators hidden” rule (J2–J4, J501, R23–R25, C508), and I hid them. DRC silkscreen overlaps: 9 → 0.</p>
+  <div class="pair">
+    <figure><img src="img/blk4/fix_j501_before.png" alt="Debug test pads before" width="559" height="527" loading="lazy"><figcaption><b>Before</b> (bottom, mirrored): labels and the “J501” designator over the decoupling caps.</figcaption></figure>
+    <figure><img src="img/blk4/fix_j501_after.png" alt="Debug test pads after" width="559" height="527" loading="lazy"><figcaption><b>After</b>: GND / RX / TX on the free side, no designator.</figcaption></figure>
+  </div>
+  <p><b>3. microSD ESD protection</b> (new requirement H-16; replaces the earlier no-ESD choice that followed the Luckfox board). Two DOWO TPD4E05U06DQAR arrays (LCSC C22390021, $0.029 each, 97k in stock): 0.5 pF max, 5.0 V working voltage, pin-compatible with TI’s TPD4E05U06. U401 protects CLK, CMD, D0 and D1; U402 protects D2, D3 and card-detect, with one channel spare. They sit on top right behind the socket, 2.1–5.2 mm from the data pins they protect (card-detect 8.6 mm; it is a slow switch line). The 6-channel TPD6E05U06 was rejected at $0.66 with only 624 in stock. Cost: +$0.058 per board plus one extended-part setup fee.</p>
+  <div class="sbs">
+    <figure><img src="img/blk4/sch_sd_esd.png" alt="microSD sheet with the ESD arrays" width="1459" height="1334" loading="lazy"><figcaption><span class="tag ref">Schematic</span> <code>microsd.kicad_sch</code>: U401 and U402 tap each SD line; NC pins flagged. ERC 0; the netlist changed only by the ESD pins on 17 nets; no overlaps, no wires through symbols. R403 (DNP) moved left on the DET line to keep its text clear.</figcaption></figure>
+    <figure><img src="img/blk4/t_esd.png" alt="ESD arrays placed at the microSD socket" width="2875" height="3062" loading="lazy"><figcaption><span class="tag us">Layout</span> U401 and U402 (red) behind the socket; blue lines run from each ESD pad to the socket pin it protects. Each ESD GND pad gets its own via at routing (Rockchip §3.2 item 13).</figcaption></figure>
+  </div>
+  <div class="gallery">
+    <figure><img src="img/blk4/ref_esd_p46.png" alt="HDG section 3.3.1" width="1404" height="633" loading="lazy"><figcaption><b>Rockchip</b> HDG §3.3.1 (p.46): TF-card ESD under 1 pF, close to the connector.</figcaption></figure>
+    <figure><img src="img/blk4/ref_dowo_p2.png" alt="DOWO TPD4E05U06DQAR electrical characteristics" width="1164" height="861" loading="lazy"><figcaption><b>DOWO</b> <code>DOWO_TPD4E05U06DQAR.pdf</code> p.2: VRWM 5.0 V, C(I/O–GND) 0.4 typ / 0.5 max pF, I/O pins 1, 2, 4, 5; GND 3, 8.</figcaption></figure>
+  </div>
+
+  <h3 class="sub">3D views after Block 4</h3>
+  <div class="gallery">
+    <figure><img src="img/blk4/3d_bot_soc.jpg" alt="3D render" width="1992" height="1488" loading="lazy"><figcaption><b>Underside of the RV1106</b>, seen from below (mirrored): the decoupling ring around the via field. R511, C506 and C508 sit just outside the ring, on the left side of the chip as seen from the top (the right side in this mirrored view; C508 is labelled).</figcaption></figure>
+    <figure><img src="img/blk4/3d_iso_under.jpg" alt="3D render" width="1992" height="1488" loading="lazy"><figcaption>Underside at an angle: all bottom-side passives; the debug test pads J501 sit beside the RV1106.</figcaption></figure>
+    <figure><img src="img/blk4/3d_iso_soc.jpg" alt="3D render" width="1992" height="1488" loading="lazy"><figcaption>Top side around the RV1106: crystals, USB series resistors, the RTC corner (unchanged in this block).</figcaption></figure>
+    <figure><img src="img/blk4/3d_iso_front.jpg" alt="3D render" width="1992" height="1488" loading="lazy"><figcaption>Whole board, front angle.</figcaption></figure>
+    <figure><img src="img/blk4/3d_top.jpg" alt="3D render" width="1992" height="1488" loading="lazy"><figcaption>Top.</figcaption></figure>
+    <figure><img src="img/blk4/3d_bottom.jpg" alt="3D render" width="1992" height="1488" loading="lazy"><figcaption>Bottom, seen from below (mirrored).</figcaption></figure>
+  </div>
+
+  <h3 class="sub">Checks on the saved board</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Check</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>DRC, zones refilled, and once more without refill</td><td>No courtyard, clearance or edge errors. After the review fixes: silkscreen overlap 0, over copper 1 (U2’s pin-1 mark on C6, for the silkscreen step), at the edge 15, plus the 2 isolated-copper islands from before. 482 connections to route (+8 for the ESD arrays).</td></tr>
+      <tr><td>Schematic parity</td><td class=n>0</td></tr>
+      <tr><td>Parts moved / added</td><td>Moved 3, all on the bottom: R511, C506, C508. Added 2 on top: U401, U402 (ESD). Socket 3D model corrected; J501 labels moved; 8 designators hidden.</td></tr>
+      <tr><td>Blocks 2 and 3</td><td>Unchanged: 0 of 114 and 1 of 27 (L20, accepted).</td></tr>
+      <tr><td>RV1106 bus lengths</td><td>Unchanged.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="done"><b>Approved</b> by you on 2026-11-23, with the review fixes (socket 3D model, test-pad labels, microSD ESD).</p>
+
+  <details><summary>All 20 audit rows (pad-centre distances, mm)</summary>
+  <p style="color:var(--muted);margin:.5rem 0">Tools: <code>hardware/tools/blk4_audit.py</code>, <code>hardware/tools/blk4_place.py</code> (<code>placelib.place_moves</code>). Board before this step: <code>hardware/kicad/backup/klepon_T41_blk3_2026-11-23.kicad_pcb</code>.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Group</th><th>Check</th><th>Part</th><th>Before</th><th>Now</th><th>Limit</th><th>Now</th><th>Before</th><th>Source</th></tr></thead>
+    <tbody>
+<tr><td>Series R</td><td>SD_CLK 22R at RV1106 pin 15</td><td class=n>R511</td><td class=n>9.61</td><td class=n>1.57</td><td class=n>≤ 3</td><td class="good">pass</td><td class=n>fail</td><td>HDG §3.2 item 9 (p.41)</td></tr>
+<tr><td>Series R</td><td>SDIO_CLK 22R at RV1106 pin 111</td><td class=n>R513</td><td class=n>1.75</td><td class=n>1.75</td><td class=n>≤ 3</td><td class="good">pass</td><td class=n>pass</td><td>HDG §3.2 item 9 (p.41)</td></tr>
+<tr><td>Series R</td><td>SPI1 CLK 22R at RV1106 pin 38</td><td class=n>R512</td><td class=n>2.78</td><td class=n>2.78</td><td class=n>≤ 3</td><td class="good">pass</td><td class=n>pass</td><td>HDG §3.2 item 9 (p.41)</td></tr>
+<tr><td>Clocks</td><td>24 MHz crystal at XIN (pin 68)</td><td class=n>Y501</td><td class=n>2.15</td><td class=n>2.15</td><td class=n>≤ 4</td><td class="good">pass</td><td class=n>pass</td><td>HDG §2.1.1-2.1.2 (p.14-15)</td></tr>
+<tr><td>Clocks</td><td>24 MHz load cap C502 at XIN</td><td class=n>C502</td><td class=n>2.41</td><td class=n>2.41</td><td class=n>≤ 4</td><td class="good">pass</td><td class=n>pass</td><td>HDG §2.1.1-2.1.2 (p.14-15)</td></tr>
+<tr><td>Clocks</td><td>32.768 kHz crystal at RTC pin 20</td><td class=n>Y502</td><td class=n>4.07</td><td class=n>4.07</td><td class=n></td><td>info</td><td class=n></td><td>HDG §2.1.1-2.1.2 (p.14-15) (placed in T30 to open the USB channel)</td></tr>
+<tr><td>Clocks</td><td>32.768 kHz crystal at RTC pin 21</td><td class=n>Y502</td><td class=n>6.59</td><td class=n>6.59</td><td class=n></td><td>info</td><td class=n></td><td>HDG §2.1.1-2.1.2 (p.14-15) (placed in T30)</td></tr>
+<tr><td>Clocks</td><td>NPOR cap C505 at pin 66</td><td class=n>C505</td><td class=n>1.17</td><td class=n>1.17</td><td class=n>≤ 2.5</td><td class="good">pass</td><td class=n>pass</td><td>HDG §2.1.1-2.1.2 (p.14-15)</td></tr>
+<tr><td>Clocks</td><td>NPOR resistor R503 at pin 66</td><td class=n>R503</td><td class=n>3.60</td><td class=n>3.60</td><td class=n>≤ 4</td><td class="good">pass</td><td class=n>pass</td><td>HDG §2.1.1-2.1.2 (p.14-15)</td></tr>
+<tr><td>USB</td><td>USB 1.8 V series 1R (R601) at pin 24</td><td class=n>R601</td><td class=n>5.40</td><td class=n>5.40</td><td class=n></td><td>info</td><td class=n></td><td>HDG §2.3.5 (p.27) (series R on a supply: info)</td></tr>
+<tr><td>USB</td><td>VBUS detect: 15k R507 at pin 25</td><td class=n>R507</td><td class=n>0.99</td><td class=n>0.99</td><td class=n>≤ 3</td><td class="good">pass</td><td class=n>pass</td><td>practice: divider at the ADC/detect pin</td></tr>
+<tr><td>USB</td><td>VBUS detect filter C506 at pin 25</td><td class=n>C506</td><td class=n>8.21</td><td class=n>3.28</td><td class=n>≤ 3.5</td><td class="good">pass</td><td class=n>fail</td><td>practice: filter cap at the input pin, just outside the RV1106 body (bottom under it is kept for fan-out vias); slow / near-DC input</td></tr>
+<tr><td>ADC</td><td>Recovery SARADC_IN0 cap C507 at pin 23</td><td class=n>C507</td><td class=n>3.03</td><td class=n>3.03</td><td class=n>≤ 3.5</td><td class="good">pass</td><td class=n>pass</td><td>practice: filter cap at the input pin, just outside the RV1106 body (bottom under it is kept for fan-out vias); slow / near-DC input</td></tr>
+<tr><td>ADC</td><td>CC sense SARADC_IN1 cap C508 at pin 22</td><td class=n>C508</td><td class=n>4.88</td><td class=n>2.63</td><td class=n>≤ 3.5</td><td class="good">pass</td><td class=n>fail</td><td>practice: filter cap at the input pin, just outside the RV1106 body (bottom under it is kept for fan-out vias); slow / near-DC input (requirement H-15)</td></tr>
+<tr><td>ADC</td><td>DDR ZQ 240R (R604) at pin 52</td><td class=n>R604</td><td class=n>3.43</td><td class=n>3.43</td><td class=n>≤ 4</td><td class="good">pass</td><td class=n>pass</td><td>practice: reference resistor at its pin</td></tr>
+<tr><td>microSD</td><td>100 nF C404 at socket VDD (pin 4)</td><td class=n>C404</td><td class=n>0.48</td><td class=n>0.48</td><td class=n>≤ 2</td><td class="good">pass</td><td class=n>pass</td><td>microSD sheet; HDG §3.3.1 (p.46)</td></tr>
+<tr><td>microSD</td><td>100 nF C402 at socket VDD</td><td class=n>C402</td><td class=n>1.73</td><td class=n>1.73</td><td class=n>≤ 3</td><td class="good">pass</td><td class=n>pass</td><td>microSD sheet; HDG §3.3.1 (p.46)</td></tr>
+<tr><td>microSD</td><td>4.7 uF C401 at socket VDD</td><td class=n>C401</td><td class=n>2.98</td><td class=n>2.98</td><td class=n>≤ 4</td><td class="good">pass</td><td class=n>pass</td><td>microSD sheet; HDG §3.3.1 (p.46)</td></tr>
+<tr><td>microSD</td><td>power switch Q401 drain to socket VDD</td><td class=n>Q401</td><td class=n>3.99</td><td class=n>3.99</td><td class=n>≤ 6</td><td class="good">pass</td><td class=n>pass</td><td>microSD sheet; HDG §3.3.1 (p.46)</td></tr>
+<tr><td>microSD</td><td>ESD on the TF card lines (HDG: &lt; 1 pF, at the connector)</td><td class=n>J401</td><td class=n>0.00</td><td class=n>0.00</td><td class=n></td><td>info</td><td class=n></td><td>HDG §3.3.1 (p.46): schematic has none</td></tr>
+    </tbody></table></div>
+  </details>
+</section>
+
+<section id="edge" class="approved">
+  <div class="shead"><span class="pill ok">approved 2026-11-23</span><span class="num">Board outline · edge margin · 2026-11-23</span>
+  <h2>Board grown to 78 × 62 mm so nothing sits on the top or right edge</h2>
+  <p>You asked for more room between the parts and the top and right edges, and chose at least 2.5 mm. The right edge moved out 2.0 mm and the top edge moved up 2.0 mm. The left and bottom edges, with all the connectors, are unchanged. No part moved; only the three corner holes on a moved edge went with it.</p></div>
+  <div class="tldr"><b>TL;DR</b><ul class="tight">
+    <li>Board 76 × 60 → <b>78 × 62 mm</b>. The connector edge (bottom) and the battery/NTC edge (left) are unchanged.</li>
+    <li>Closest part to the top edge: 0.85 → <b>2.85 mm</b> (radio resistors R102/R112). Closest to the right edge: 0.5 → <b>2.5 mm</b> (ESP32-C5 module).</li>
+    <li>Corner holes stay 4.0 mm from both edges. The new hole pattern is 70.05 × 54.05 mm (was 68.05 × 52.05), which matters for the enclosure.</li>
+    <li>Checks: DRC and parity unchanged; all block checks unchanged; bus lengths unchanged.</li>
+  </ul></div>
+  <div class="pair">
+    <figure><img src="img/edge/v_before.png" alt="Board before the outline change" width="7593" height="6093" loading="lazy"><figcaption><b>Before</b>, 76 × 60 mm. The closest parts to the top and right edges are <b style="color:#e03131">outlined red</b>.</figcaption></figure>
+    <figure><img src="img/edge/v_after.png" alt="Board after the outline change" width="7593" height="6093" loading="lazy"><figcaption><b>After</b>, 78 × 62 mm. The same parts are <b style="color:#2f9e44">outlined green</b>, now 2.5–3.0 mm from the edge.</figcaption></figure>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Edge</th><th>Closest parts</th><th>Before</th><th>After</th></tr></thead>
+    <tbody>
+      <tr><td>Top</td><td>R102 / R112 (radio rail FB resistors, bottom side)</td><td class=n>0.85 mm</td><td class='n good'>2.85 mm</td></tr>
+      <tr><td>Top</td><td>C702 (HaLow 10 µF), U10 / U11 (radio bucks)</td><td class=n>0.94 / 1.02 mm</td><td class='n good'>2.94 / 3.02 mm</td></tr>
+      <tr><td>Right</td><td>U801 (ESP32-C5 module)</td><td class=n>0.50 mm</td><td class='n good'>2.50 mm</td></tr>
+      <tr><td>Right</td><td>R801, C803 (ESP32-C5 EN and 3V3, bottom)</td><td class=n>1.00 / 1.18 mm</td><td class='n good'>3.00 / 3.18 mm</td></tr>
+      <tr><td>Left, bottom</td><td>connectors on the edge (by design)</td><td class=n colspan=2>unchanged</td></tr>
+    </tbody>
+  </table></div>
+  <h3 class="sub">3D views</h3>
+  <div class="gallery">
+    <figure><img src="img/edge/3d_top_before.jpg" alt="Top before" width="1992" height="1488" loading="lazy"><figcaption><b>Before</b>, top.</figcaption></figure>
+    <figure><img src="img/edge/3d_top.jpg" alt="Top after" width="1992" height="1488" loading="lazy"><figcaption><b>After</b>, top: wider margin above the radio rails and right of the ESP32-C5.</figcaption></figure>
+    <figure><img src="img/edge/3d_iso_front.jpg" alt="Front angle after" width="1992" height="1488" loading="lazy"><figcaption><b>After</b>, front angle.</figcaption></figure>
+    <figure><img src="img/edge/3d_iso_back.jpg" alt="Back angle after" width="1992" height="1488" loading="lazy"><figcaption><b>After</b>, back angle: the HaLow and GPS U.FL connectors with room to the top edge.</figcaption></figure>
+  </div>
+  <h3 class="sub">Checks on the saved board</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Check</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>DRC, zones refilled, and once more without refill</td><td>Unchanged: silkscreen over copper 1 (U2’s pin-1 mark, for the silkscreen step), silkscreen at the edge 15, 2 isolated-copper islands. No courtyard, clearance or edge errors.</td></tr>
+      <tr><td>Schematic parity</td><td class=n>0</td></tr>
+      <tr><td>Block checks</td><td>Power 0 of 114, radios 1 of 27 (L20, accepted), RV1106 surroundings 0 of 16: all unchanged.</td></tr>
+      <tr><td>Copper pours</td><td>The four board-wide pours (GND on top, In1, bottom; 5 V on In2) follow the new outline.</td></tr>
+      <tr><td>Mounting holes</td><td>MH1, MH2, MH4 moved with their edges and stay 3.975 mm from both. At MH1 the M3 head (Ø5.5) clears the nearest part, test point TP20, by about 1.1 mm.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="done"><b>Approved</b> by you on 2026-11-23.</p>
+</section>
+
+<section id="silk" class="approved">
+  <div class="shead"><span class="pill ok">approved 2026-11-23</span><span class="num">Placement · silkscreen tidy · 2026-11-23</span>
+  <h2>Silkscreen clean: nothing printed off the board or on a pad</h2>
+  <p>The last placement step. DRC listed 16 silkscreen items. Fifteen were the outline lines of the four edge connectors running onto or past the board edge; one was the charger’s pin-1 mark sitting on a capacitor pad. Designators stay hidden, as decided on 2026-11-21.</p></div>
+  <div class="tldr"><b>TL;DR</b><ul class="tight">
+    <li>Edge connectors (USB-C, DC in, battery, NTC): outline lines that ran past the board edge now stop 0.15 mm inside it (12 shortened, 5 removed). The connectors themselves did not move.</li>
+    <li>C6 moved 0.3 mm so U2’s pin-1 mark is clear of its pad. The charger check still passes: C6 is 1.54 mm from the VBUS pins (limit 2.0).</li>
+    <li>DRC silkscreen items: 16 → <b>0</b>. Placement is complete; routing is next.</li>
+    <li>For you: should the board carry printed labels for the user-facing parts (DC IN +, BAT +/−, NTC, PWR) and a name/revision? See below.</li>
+  </ul></div>
+  <h3 class="sub">Before and after (silkscreen layer; orange line = board edge)</h3>
+  <figure><img src="img/silk/silk_left.png" alt="Battery and NTC connectors silk before and after" width="2400" height="1786" loading="lazy"><figcaption><b>Left edge, J3 battery and J4 NTC</b>: the outline used to run along and past the edge (red); it now stops just inside (green).</figcaption></figure>
+  <figure><img src="img/silk/silk_bottom.png" alt="DC in and USB-C silk before and after" width="2400" height="660" loading="lazy"><figcaption><b>Bottom edge, J2 DC in and J1 USB-C</b>: the lines along the edge are gone; the side lines end just inside it.</figcaption></figure>
+  <figure><img src="img/silk/silk_u2c6.png" alt="Charger pin-1 mark before and after" width="2400" height="1108" loading="lazy"><figcaption><b>Charger U2</b>: its pin-1 mark (rectangle) sat on C6’s pad; C6 moved 0.3 mm left.</figcaption></figure>
+  <h3 class="sub">3D views</h3>
+  <div class="pair">
+    <figure><img src="img/silk/3d_top.jpg" alt="Top after the silkscreen tidy" width="1992" height="1488" loading="lazy"><figcaption><b>Top</b>: no designators; pin-1 and polarity marks kept.</figcaption></figure>
+    <figure><img src="img/silk/3d_bottom.jpg" alt="Bottom after the silkscreen tidy" width="1992" height="1488" loading="lazy"><figcaption><b>Bottom</b> (mirrored): only the debug test-pad labels GND / RX / TX.</figcaption></figure>
+  </div>
+  <h3 class="sub">Checks on the saved board</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Check</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>DRC silkscreen items</td><td class=n>16 → 0</td></tr>
+      <tr><td>Other DRC notes</td><td>4 “footprint differs from library” warnings, J1–J4: their board copies have the trimmed silk, while the library footprints (KiCad stock JST/HRO and our Kefa) are unchanged. Reviewed and accepted. 2 copper-pour fragments, resolved at routing.</td></tr>
+      <tr><td>Schematic parity</td><td class=n>0</td></tr>
+      <tr><td>Block checks</td><td>Power 0 of 114, radios 1 of 27 (L20, accepted), RV1106 surroundings 0 of 16: unchanged.</td></tr>
+      <tr><td>Parts moved</td><td>C6 only (0.3 mm).</td></tr>
+    </tbody>
+  </table></div>
+  <h3 class="sub">Question: printed labels</h3>
+  <p>With designators hidden, nothing on the board tells a user which wire goes where. Small labels next to the user-facing parts would help when wiring the battery, NTC and DC input in the field: <b>DC IN + −</b>, <b>BAT + −</b>, <b>NTC</b>, <b>PWR</b>, <b>SD</b>, plus a board name and revision (<b>KLEPON R1</b>). They cost nothing on the silkscreen. Say yes (or give the wording) and I’ll place them clear of pads and the edge.</p>
+  <p class="done"><b>Approved</b> by you on 2026-11-23, with “yes” to printed labels (next step).</p>
+</section>
+
+<section id="labels" class="approved">
+  <div class="shead"><span class="pill ok">approved 2026-11-23</span><span class="num">Placement · labels and branding · 2026-11-23</span>
+  <h2>Wiring labels on top, Teapotlabs branding on the bottom, in the BWLC1A style</h2>
+  <p>You asked for small labels at the user-facing parts, plus “Teapotlabs LinkNode” with the Teapotlabs logo and a separate “REVISION 1”, matching the BWLC1A board. I read its styles from <code>tracker-c0.kicad_pcb</code> and copied them, including its logo footprint and the Really Free font.</p></div>
+  <div class="tldr"><b>Project renamed: Klepon → LinkNode</b> (your call, 2026-11-23)<ul class="tight">
+    <li>The KiCad project is now <code>hardware/kicad/linknode.kicad_pro</code> (with <code>.kicad_pcb</code>, <code>.kicad_sch</code>, <code>.kicad_dru</code>). The project library is <code>linknode.kicad_sym</code> / <code>linknode.pretty</code>, with nickname <code>linknode</code> in every symbol and footprint. The tools and the living docs (project rules, requirements, backlog, power budget, pin map) use the new name.</li>
+    <li>The bottom silkscreen reads <b>Teapotlabs / LinkNode</b>. “LinkNode” is wider than “Klepon”, and its tall letters touched the “p” in Teapotlabs, so it sits 0.3 mm lower than the BWLC1A spacing.</li>
+    <li>Checks: ERC 0 before and after (every library part resolves), netlist identical apart from the library name, DRC and parity unchanged, block checks unchanged.</li>
+    <li>Kept as they were: the repo folder <code>~/Developments/klepon</code>, worklogs, archived pages, older reports and backups (history). A stray <code>klepon.kicad_prl</code> in the repo root (KiCad window settings from 2026-11-21) is not part of the project; delete it if you like.</li>
+  </ul></div>
+  <div class="tldr"><b>TL;DR</b><ul class="tight">
+    <li><b>Top</b>: BAT + −, NTC, DC IN + −, PWR, USB, SD, and the three antennas: <b>WiFi HaLow</b>, <b>GPS</b>, and <b>WiFi 2.4GHz 5GHz</b> (your wording, 2026-11-23). The ESP32-C5 module is dual-band, with one antenna port for 2.4 and 5 GHz (WROOM-1U datasheet p.1, p.3). Q-10 sets the mesh to 2.4 GHz in firmware, but the connector and the antenna you fit should cover both bands. Bold knockout text as on BWLC1A’s “LTE ANT” / “GNSS”, with plain + and − at the pins. The polarity follows the netlist: J2 pin 1 = DC +, J3 pin 1 = battery + (VCELL).</li>
+    <li><b>Bottom</b>: the Teapotlabs cup logo with “Teapotlabs / LinkNode” in Really Free 3 mm, laid out exactly like BWLC1A’s logo block, and “REVISION 1” separately as 2 mm bold knockout.</li>
+    <li>The Really Free font is embedded in the board file (as BWLC1A does), so it renders the same on any machine and at the fab.</li>
+    <li>No “CHG” label at the charge LED: the parts around it leave no room for the 0.8 mm minimum text height.</li>
+    <li>Checks: no silkscreen or text DRC items, parity 0, no part moved, block checks unchanged.</li>
+  </ul></div>
+  <div class="pair">
+    <figure><img src="img/labels/3d_top.jpg" alt="Top with labels" width="2384" height="1880" loading="lazy"><figcaption><b>Top</b>, with the wiring and antenna labels.</figcaption></figure>
+    <figure><img src="img/labels/3d_bottom.jpg" alt="Bottom with branding" width="2384" height="1880" loading="lazy"><figcaption><b>Bottom</b> (mirrored view, as you hold the board flipped): logo block top-left, REVISION 1 below it.</figcaption></figure>
+  </div>
+  <h3 class="sub">Close-ups</h3>
+  <div class="gallery">
+    <figure><img src="img/labels/crop_left.jpg" alt="Battery and NTC labels" width="763" height="564" loading="lazy"><figcaption><b>Battery and NTC</b>: “BAT” above J3, + and − at its two pins (next to the pin-1 triangle), “NTC” under J4.</figcaption></figure>
+    <figure><img src="img/labels/crop_bottom.jpg" alt="Bottom-edge labels" width="1454" height="489" loading="lazy"><figcaption><b>Connector edge</b>: DC IN with + at pin 1 and − at pin 2 (just under the diode), PWR above the button, USB, SD.</figcaption></figure>
+    <figure><img src="img/labels/crop_ant.jpg" alt="Antenna labels" width="619" height="395" loading="lazy"><figcaption><b>Antennas</b>: WiFi HaLow at J901 (beside the HaLow module), GPS at J20.</figcaption></figure>
+    <figure><img src="img/labels/crop_c5.jpg" alt="ESP32-C5 antenna label" width="763" height="489" loading="lazy"><figcaption><b>ESP32-C5</b>: “WiFi 2.4GHz 5GHz” under the module’s own U.FL (bottom-left corner of the module).</figcaption></figure>
+    <figure><img src="img/labels/crop_brand.jpg" alt="Bottom branding" width="644" height="733" loading="lazy"><figcaption><b>Bottom branding</b>: logo and “Teapotlabs / LinkNode” in Really Free; REVISION 1 in knockout, as on BWLC1A’s “REVISION 5”.</figcaption></figure>
+  </div>
+  <h3 class="sub">Style, copied from BWLC1A</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Item</th><th>BWLC1A (tracker-c0)</th><th>LinkNode</th></tr></thead>
+    <tbody>
+      <tr><td>Product text</td><td>“Teapotlabs” / “Tracker C0”, Really Free, 3 mm, bottom</td><td>“Teapotlabs” / “LinkNode”, same face, size and offsets to the logo</td></tr>
+      <tr><td>Logo</td><td>TeapotLogo footprint, bottom, 8.2 × 5.6 mm</td><td>Same footprint, copied into the project library</td></tr>
+      <tr><td>Revision</td><td>“REVISION 5”, 2 mm bold knockout, apart from the logo</td><td>“REVISION 1”, same style, under the ESP32-C5 module end</td></tr>
+      <tr><td>Part labels</td><td>“LTE ANT”, “GNSS”: 1 mm bold knockout; “CHRG” 0.8 mm; + / − plain 1 mm</td><td>Same: 1 mm knockout (PWR 0.8 mm to fit above the button); + / − plain 1 mm</td></tr>
+      <tr><td>Font</td><td>Embedded in the board file</td><td>Embedded the same way</td></tr>
+    </tbody>
+  </table></div>
+  <h3 class="sub">Checks on the saved board</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Check</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>Placement check (every label against pads, through-hole pads, part bodies, silkscreen, edge, screw heads)</td><td class=n>0 conflicts of 15</td></tr>
+      <tr><td>DRC, zones refilled, and once more without refill</td><td>No silkscreen or text-height items. As before: 4 “footprint differs from library” (J1–J4, accepted) and 2 copper-pour fragments (routing).</td></tr>
+      <tr><td>Schematic parity</td><td class=n>0 (the logo is a board-only item)</td></tr>
+      <tr><td>Block checks</td><td>Power 0 of 114, radios 1 of 27 (L20, accepted), RV1106 surroundings 0 of 16: unchanged. No part moved.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="done"><b>Approved</b> by you on 2026-11-23. Placement is complete.</p>
+</section>
+
+<section id="expansion" class="approved">
+  <div class="shead"><span class="pill ok">approved 2026-11-23</span><span class="num">Expansion breakout · pogo pads · proposal approved 2026-11-23 · built</span>
+  <h2>Breakout as pogo-pin pads on the bottom: Ethernet, two I2C, SPI, GPIO and power</h2>
+  <p>To make it cheaper you chose bare test pads on the bottom instead of a header: users make a small pogo-pin board that bolts to the four corner holes. You also removed the power switches, so the power pads connect straight to the rails. ESD stays on the signal pads, using the chip already in the BOM. You approved this plan on 2026-11-23, and it is now built into the schematic and the board (see “Built” below). Routing these nets comes last, as you asked.</p></div>
+  <div class="tldr"><b>TL;DR</b><ul class="tight">
+    <li><b>What users get</b>: 35 pads (Ø1.5 mm, 2.54 mm pitch, 7 × 5) under the ESP32-C5 module on the bottom. They carry Ethernet TX± / RX± (raw), <b>audio: two differential mic inputs, mic bias and line out</b> (added 2026-11-23), two I2C buses (I2C2 and I2C0), SPI0, 9 GPIOs at 3.3 V (3 with PWM), 3.3 V, 5 V and GND.</li>
+    <li><b>What it costs</b>: about $0.20 in parts and <b>no new part types</b> (every part, including the four 1 µF audio capacitors, is already in the BOM). The board stays 78 × 62 mm. Three on/off signals move to other RV1106 pins, and the “REVISION 1” text moves up beside the logo.</li>
+    <li><b>Watch out</b>: the power pads have no switch or limit, so a short on a user’s board pulls down the node’s 3.3 V or 5 V, and user peripherals stay powered whenever the node runs. Ethernet needs magnetics and a TVS on the user’s board. 6 of the GPIOs toggle at boot. Pogo contacts rely on spring pressure, so for field units users can solder wires to the pads instead.</li>
+    <li><b>You decide</b>: approve the pad map and position, and confirm the unswitched power pads.</li>
+  </ul></div>
+  <figure><img src="img/exp/pogo_field.png" alt="Pogo pad field position and pad map" width="2400" height="1106" loading="lazy"><figcaption><b>Left</b>: whole board, top view (the pads are on the bottom side), with the pads drawn in place. A user’s pogo board below uses these same coordinates: <b>pad 1 = MH1 + (56.00, 27.20) mm</b>, rows and columns 2.54 mm apart, 7 × 5 pads, M3 hole pattern 70.05 × 54.05 mm. The figure is drawn from the board itself (<code>hardware/tools/t49_padmap_fig.py</code>). <b>Right</b>: the field close up with pad numbers. The nearest bottom-side part (R802) is 0.87 mm away. The ESP32-C5’s ground pads on top start just below row 4, so their vias go below the field.</figcaption></figure>
+  <h3 class="sub">Pad map (top view; pad 1 is top-left; row 5 is audio)</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th></th><th>col 1</th><th>col 2</th><th>col 3</th><th>col 4</th><th>col 5</th><th>col 6</th><th>col 7</th></tr></thead>
+    <tbody><tr><th>Row 1</th><td style="background:var(--warn-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">1</span><br><b>ETH_TX+</b><br><span style="color:var(--muted);font-size:.8em">pin 100</span></td><td style="background:var(--warn-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">2</span><br><b>ETH_TX−</b><br><span style="color:var(--muted);font-size:.8em">pin 99</span></td><td style="background:var(--line);text-align:center"><span style="color:var(--muted);font-size:.8em">3</span><br><b>GND</b><br><span style="color:var(--muted);font-size:.8em"></span></td><td style="background:var(--warn-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">4</span><br><b>ETH_RX+</b><br><span style="color:var(--muted);font-size:.8em">pin 98</span></td><td style="background:var(--warn-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">5</span><br><b>ETH_RX−</b><br><span style="color:var(--muted);font-size:.8em">pin 97</span></td><td style="background:var(--line);text-align:center"><span style="color:var(--muted);font-size:.8em">6</span><br><b>GND</b><br><span style="color:var(--muted);font-size:.8em"></span></td><td style="background:var(--copper-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">7</span><br><b>5V</b><br><span style="color:var(--muted);font-size:.8em">VCC5V0_SYS</span></td></tr><tr><th>Row 2</th><td style="background:var(--line);text-align:center"><span style="color:var(--muted);font-size:.8em">8</span><br><b>GND</b><br><span style="color:var(--muted);font-size:.8em"></span></td><td style="background:var(--note-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">9</span><br><b>I2C2_SDA</b><br><span style="color:var(--muted);font-size:.8em">pin 73</span></td><td style="background:var(--note-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">10</span><br><b>I2C2_SCL</b><br><span style="color:var(--muted);font-size:.8em">pin 72</span></td><td style="background:var(--note-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">11</span><br><b>I2C0_SDA</b><br><span style="color:var(--muted);font-size:.8em">pin 76</span></td><td style="background:var(--note-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">12</span><br><b>I2C0_SCL</b><br><span style="color:var(--muted);font-size:.8em">pin 75</span></td><td style="background:var(--line);text-align:center"><span style="color:var(--muted);font-size:.8em">13</span><br><b>GND</b><br><span style="color:var(--muted);font-size:.8em"></span></td><td style="background:var(--copper-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">14</span><br><b>3V3</b><br><span style="color:var(--muted);font-size:.8em">VCC_3V3</span></td></tr><tr><th>Row 3</th><td style="background:var(--note-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">15</span><br><b>SPI0_CS0</b><br><span style="color:var(--muted);font-size:.8em">pin 95</span></td><td style="background:var(--note-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">16</span><br><b>SPI0_CLK</b><br><span style="color:var(--muted);font-size:.8em">pin 94</span></td><td style="background:var(--note-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">17</span><br><b>SPI0_MOSI</b><br><span style="color:var(--muted);font-size:.8em">pin 93</span></td><td style="background:var(--note-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">18</span><br><b>SPI0_MISO</b><br><span style="color:var(--muted);font-size:.8em">pin 92</span></td><td style="background:var(--ok-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">19</span><br><b>GPIO1_B1</b><br><span style="color:var(--muted);font-size:.8em">pin 78 · PWM7</span></td><td style="background:var(--ok-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">20</span><br><b>GPIO1_C7</b><br><span style="color:var(--muted);font-size:.8em">pin 84 · PWM11</span></td><td style="background:var(--ok-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">21</span><br><b>GPIO0_A4</b><br><span style="color:var(--muted);font-size:.8em">pin 63 · PWM1</span></td></tr><tr><th>Row 4</th><td style="background:var(--ok-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">22</span><br><b>GPIO0_A3</b><br><span style="color:var(--muted);font-size:.8em">pin 62</span></td><td style="background:var(--ok-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">23</span><br><b>GPIO4_A6</b><br><span style="color:var(--muted);font-size:.8em">pin 39 *</span></td><td style="background:var(--ok-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">24</span><br><b>GPIO4_A4</b><br><span style="color:var(--muted);font-size:.8em">pin 41 *</span></td><td style="background:var(--ok-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">25</span><br><b>GPIO4_A3</b><br><span style="color:var(--muted);font-size:.8em">pin 42 *</span></td><td style="background:var(--ok-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">26</span><br><b>GPIO4_A2</b><br><span style="color:var(--muted);font-size:.8em">pin 44 *</span></td><td style="background:var(--ok-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">27</span><br><b>GPIO4_B0</b><br><span style="color:var(--muted);font-size:.8em">pin 47 *</span></td><td style="background:var(--line);text-align:center"><span style="color:var(--muted);font-size:.8em">28</span><br><b>GND</b><br><span style="color:var(--muted);font-size:.8em"></span></td></tr><tr><th>Row 5</th><td style="background:var(--warn-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">29</span><br><b>MIC0+</b><br><span style="color:var(--muted);font-size:.8em">pin 34 via 1 µF</span></td><td style="background:var(--warn-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">30</span><br><b>MIC0−</b><br><span style="color:var(--muted);font-size:.8em">pin 33 via 1 µF</span></td><td style="background:var(--line);text-align:center"><span style="color:var(--muted);font-size:.8em">31</span><br><b>GND</b><br><span style="color:var(--muted);font-size:.8em"></span></td><td style="background:var(--warn-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">32</span><br><b>MIC1+</b><br><span style="color:var(--muted);font-size:.8em">pin 36 via 1 µF</span></td><td style="background:var(--warn-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">33</span><br><b>MIC1−</b><br><span style="color:var(--muted);font-size:.8em">pin 35 via 1 µF</span></td><td style="background:var(--warn-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">34</span><br><b>MICBIAS</b><br><span style="color:var(--muted);font-size:.8em">pin 32</span></td><td style="background:var(--warn-soft);text-align:center"><span style="color:var(--muted);font-size:.8em">35</span><br><b>LINEOUT</b><br><span style="color:var(--muted);font-size:.8em">pin 29</span></td></tr></tbody>
+  </table></div>
+  <p style="color:var(--muted)">* GPIO4 pins are the RV1106’s eMMC / SPI-flash pins. The boot ROM probes them at power-up (HDG §2.1.3), so a peripheral there sees a few toggles at boot and must not look like a flash chip. All GPIO pads are 3.3 V logic. I2C pads have 4.7 kΩ pull-ups to 3.3 V on the board. The Ethernet pairs sit side by side, with GND pads beside them.</p>
+  <h3 class="sub">Signals that move</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Signal</th><th>From</th><th>To</th><th>Why it is safe</th></tr></thead>
+    <tbody>
+      <tr><td>C5_PWR_EN (ESP32-C5 buck U10)</td><td>pin 75 (I2C0_SCL)</td><td>a spare 1.8 V camera-group pin (2–9)</td><td>TLV62569 EN high threshold 1.2 V max (<code>TI_TLV62569.pdf</code> p.4). The pin resets pulled down, and the 100k pull-down R100 stays.</td></tr>
+      <tr><td>GPS_PWR_EN (GPS LDO U21)</td><td>pin 73 (I2C2_SDA)</td><td>a spare 1.8 V camera-group pin</td><td>ME6211 CE start-up 1.0 V min (<code>Microne_ME6211.pdf</code> p.6). Resets pulled down; R200 stays.</td></tr>
+      <tr><td>HALOW_FEM_EN (2N7002 Q8)</td><td>pin 72 (I2C2_SCL)</td><td>pin 58 (3.3 V, PMU)</td><td>A 2N7002 needs more than 1.8 V, so this one stays at 3.3 V. Pin 58 resets high-impedance and R122 100k holds it low.</td></tr>
+    </tbody>
+  </table></div>
+  <h3 class="sub">Ethernet: what is on the board and what the user’s board adds</h3>
+  <p>On LinkNode: a <b>0 Ω resistor in series on each of the four lines</b>, which Rockchip says “cannot be omitted” (HDG Table 2-11). They sit by the pads, where Fig 2-22 draws them, so the long run keeps the ETH_TXP / TXN / RXP / RXN names that the differential-pair router needs. The pairs are routed as 100 Ω differential, under 30 mil skew, over ground (HDG Table 3-2). The 6.04 kΩ EXTR resistor and the PHY supply bead are already fitted. On the user’s board, following HDG Fig 2-22 from the TVS onward: <b>UDD32C03L01 across each pair</b>, the two 10 nF center-tap capacitors, the 1000 pF / 3 kV capacitor and an <b>RJ45 with magnetics</b> (Rockchip uses HR911105A). Putting the TVS there protects at the cable entry, where surges arrive. There are no link LEDs: the RV1106G3 QFN has no ETH_LED pins.</p>
+  <div class="pair">
+    <figure><img src="img/exp/hdg_fig2-21.png" alt="HDG Figure 2-21" width="1056" height="670" loading="lazy"><figcaption><b>HDG Fig 2-21</b>: FEPHY pins, EXTR 6.04k (fitted as R605).</figcaption></figure>
+    <figure><img src="img/exp/hdg_fig2-22.png" alt="HDG Figure 2-22" width="1383" height="825" loading="lazy"><figcaption><b>HDG Fig 2-22</b>: LinkNode carries the 0 Ω resistors on the left (placed by the pads). Everything from the TVS (ED6800/ED6801) to the RJ45 goes on the user’s pogo board.</figcaption></figure>
+  </div>
+  <h3 class="sub">Audio: what is on the board and what the user’s board adds (added 2026-11-23)</h3>
+  <p>The RV1106G has a built-in codec with one line output and two differential mic inputs (HDG §2.3.5.1). It shares pins with the I2S expansion, so only one of the two can be used (HDG §2.3.5 note); LinkNode uses the codec. As Rockchip’s Table 2-12 requires, LinkNode carries a <b>1 µF capacitor in series on each mic line</b> (C1001–C1004, 0402 X5R, the BOM’s existing 1 µF). The VCM capacitor (C637, 4.7 µF) and the codec’s 1.8 V supply were already fitted. LINEOUT and MICBIAS go straight to their pads, as the table says. All six audio pads have ESD protection (new U1006 on the mic lines; MICBIAS and LINEOUT use spare channels of U1005).</p>
+  <ul class="tight">
+    <li><b>Mic</b>: a differential mic or electret connects to MIC0± or MIC1±. An electret also needs bias from MICBIAS through a resistor on the user’s board (typically a few kΩ; check the mic’s datasheet).</li>
+    <li><b>Line out</b>: line level, for an amplifier on the user’s board; it cannot drive a speaker directly.</li>
+    <li>Pad 31, between the two mic pairs, is GND, as a return for the audio.</li>
+  </ul>
+  <div class="pair">
+    <figure><img src="img/exp/hdg_fig2-24.png" alt="HDG Figure 2-24" width="960" height="749" loading="lazy"><figcaption><b>HDG Fig 2-24</b>: the codec reference. 1 µF in series on MIC0 P/N, 4.7 µF on VCM, LINEOUT and MICBIAS direct.</figcaption></figure>
+    <figure><img src="img/exp/hdg_tab2-12.png" alt="HDG Table 2-12" width="1324" height="750" loading="lazy"><figcaption><b>HDG Table 2-12</b> (p.31): connection rules for the codec pins.</figcaption></figure>
+  </div>
+  <h3 class="sub">Power pads (unswitched, your choice)</h3>
+  <p>3V3 connects to VCC_3V3 (the SoC’s TLV62569, 2 A) and 5V to VCC5V0_SYS (the boost). Neither has a switch or limit, so the user’s board must bring its own protection, and its peripherals are powered whenever the node is. The power budget (<code>docs/power-budget.md</code>) leaves about 0.7 A on the 5 V bus at a nearly empty cell with the radios transmitting. The docs will recommend <b>≤ 0.5 A total</b> (5 V equivalent) for attached boards, and a fuse or current-limited switch on the user’s board. On battery, the hold-off circuit still turns the whole node off at about 3.3 V, so pad power can’t run the cell flat.</p>
+  <h3 class="sub">Parts (no new part types)</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Ref</th><th>Part</th><th>Already used as</th><th>Each</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>U1001–U1006</td><td>DOWO TPD4E05U06DQAR, 4-channel ESD, 0.5 pF (LCSC C22390021)</td><td>U401, U402 (microSD)</td><td class=n>$0.03</td><td>17 signal pads (I2C ×4, SPI ×4, GPIO ×9) + 6 audio pads, with 1 spare channel. Placed by the pad field. U1006 was added for audio.</td></tr>
+      <tr><td>R1001–R1004</td><td>0 Ω 0402</td><td>R19</td><td class=n>&lt;$0.01</td><td>FEPHY series resistors, at the chip</td></tr>
+      <tr><td>R1005–R1008</td><td>4.7 kΩ 0402</td><td>R6</td><td class=n>&lt;$0.01</td><td>I2C2 and I2C0 pull-ups</td></tr><tr><td>C1001–C1004</td><td>1 µF 0402 X5R (LCSC C52923)</td><td>C604, C606, C801, …</td><td class=n>&lt;$0.01</td><td>Mic series capacitors (HDG Table 2-12)</td></tr>
+      <tr><td>TP1001–TP1035</td><td>bare pads Ø1.5 mm, bottom (35)</td><td>(copper only)</td><td class=n>$0</td><td>HASL finish is fine for occasional mating; gold (ENIG) lasts longer but costs more per board.</td></tr>
+    </tbody>
+  </table></div>
+  <p style="color:var(--muted)">Superseded: proposal v1 (2×12 header, Qwiic, two current-limited switches, board 87.5 mm wide, about $0.85 plus 5 new part types) is in <code>archive/index_v49_2026-11-23.html</code>.</p>
+  <h3 class="sub">Built (2026-11-23)</h3>
+  <div class="tldr"><b>What changed</b><ul class="tight">
+    <li><b>New schematic sheet “Expansion”</b> (<code>expansion.kicad_sch</code>, refs 10xx): 35 pad test points TP1001–TP1035 (pad n = TP10nn), 6 ESD arrays, the four 0 Ω Ethernet resistors, the four 4.7 kΩ I2C pull-ups and the four 1 µF mic capacitors.</li>
+    <li><b>RV1106 pins</b>: the three enables moved as planned (C5_PWR_EN → pin 3, GPS_PWR_EN → pin 4, HALOW_FEM_EN → pin 58), and 27 spare pins now carry the breakout (21 + the 6 codec pins).</li>
+    <li><b>Root sheet re-laid out</b> so every new connection is a straight wire with no crossings: SoC Power now sits under GPS and feeds Expansion with 10 straight wires (Ethernet + audio). On the SoC Power sheet, R605 and C637 moved right to clear the codec rows; their connections are unchanged.</li>
+    <li><b>Board</b>: the pads are on the bottom at exactly pad 1 = MH1 + (56.00, 27.20) mm (all 28 checked), with ESD and resistors beside them. “REVISION 1” moved up under the logo.</li>
+  </ul></div>
+  <figure><img src="img/exp/sch_expansion.png" alt="Expansion schematic sheet" width="2425" height="1269" loading="lazy"><figcaption><b>Expansion sheet</b>. Each ESD array takes two nets from the left and two from the right, so there are no crossing wires. The Ethernet lines run label → 0 Ω → pad, the mic lines label → 1 µF → pad; the power and GND pads are at the bottom.</figcaption></figure>
+  <figure><img src="img/exp/sch_root.png" alt="Root sheet" width="2425" height="1646" loading="lazy"><figcaption><b>Root sheet</b>: Expansion below SoC (17 straight wires); SoC Power in the left column feeds it 10 straight wires (Ethernet + audio). The GPS enable goes straight up to the GPS sheet; the ESP32-C5 enable runs below Expansion and up the right margin to Radio Power.</figcaption></figure>
+  <figure><img src="img/exp/board_bottom.jpg" alt="Board bottom with pogo pads" width="953" height="1279" loading="lazy"><figcaption><b>Board bottom</b> (mirrored view): the 7 × 5 pad field, its ESD arrays, resistors and mic capacitors, the logo block and REVISION 1.</figcaption></figure>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Check</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>ERC (all severities)</td><td class=n>0</td></tr>
+      <tr><td>Netlist compared with the one before this change</td><td>41 new parts. Existing pins that changed: only the intended RV1106 pins, plus the three enable nets now reaching the chip on their new pins (Q8, R100, R122, R200, U10, U21: same net names).</td></tr>
+      <tr><td>Schematic layout check</td><td>No new overlaps or crossings. The only new hits are the checker’s known false positive on the multi-unit RV1106 symbol, identical to the existing stubs beside them.</td></tr>
+      <tr><td>DRC, zones refilled, and once more without refill</td><td>Unchanged: 4 library-footprint warnings (J1–J4, accepted) and 2 copper-pour fragments. Schematic parity 0. Unrouted connections 482 → 552 (536 after the first breakout, 552 with audio; counted by pcbnew’s connectivity, because the DRC report’s list stops at 499): the new nets, which you put last.</td></tr>
+      <tr><td>Block checks</td><td>Power 0 of 114, radios 1 of 27 (L20, accepted), RV1106 surroundings 0 of 16: unchanged.</td></tr>
+    </tbody>
+  </table></div>
+  <h3 class="sub">Recommended pogo pin for the user’s board</h3>
+  <p><b>BAT WIRELESS BWCD-L5.0W2.0H2.5</b>, LCSC <b>C2826549</b>, $0.077 each (45k in stock), so a full 35-pin board costs about $2.70 in pins. From its datasheet (<code>hardware/datasheets/BatWireless_BWCD-L5.0W2.0H2.5.pdf</code> p.4–5): Ø0.90 mm plunger with a domed tip (lands on our Ø1.5 mm pads with about ±0.3 mm to spare), Ø2.00 mm solder flange (SMD, 0.54 mm apart on the 2.54 mm grid), 5.0 mm long, 2.5 mm stroke, 75 ± 20 g at working height, 10,000 cycles, 1.5 A, 30 V DC, gold plated.</p>
+  <ul class="tight">
+    <li><b>Mounting</b>: the user’s board copies the four M3 holes (70.05 × 54.05 mm) and uses about 3.5 mm standoffs, so each pin compresses about 1.5 mm of its 2.5 mm stroke. A strip board that uses only the right-hand holes MH2 and MH4 also works and avoids the through-hole connector legs.</li>
+    <li><b>Force</b>: 35 pins × 75 g ≈ 2.6 kgf, so the boards must be screwed together, not just pressed.</li>
+    <li><b>Clearance</b>: our parts next to the field are 0402s and ESD arrays, under 1 mm tall. Keep the user’s parts on that face lower than the standoff gap minus 1 mm.</li>
+    <li><b>Ethernet</b>: the user’s board carries the TVS, the center-tap capacitors and the RJ45 with magnetics (HDG Fig 2-22), as close to the pogo pins as possible.</li>
+    <li>Pad on the user’s board: a Ø2.2 mm round SMD pad per pin (my suggestion; the datasheet gives no land pattern), at the same coordinates as ours seen from above.</li>
+  </ul>
+  <figure><img src="img/exp/pogo_bwcd.png" alt="BWCD pogo pin drawing" width="910" height="512" loading="lazy"><figcaption><b>BWCD-L5.0W2.0H2.5</b> drawing (datasheet p.5): Ø0.90 plunger, Ø1.50 barrel, Ø2.00 flange, 5.0 mm long, 2.5 mm spring travel.</figcaption></figure>
+  <p class="done"><b>Approved</b> by you on 2026-11-23 (pogo pads with audio). Next: routing, RV1106 sections first, these expansion nets last.</p>
+</section>
+
+<section id="route1" class="current">
+  <div class="shead"><span class="badge">Current step · awaiting your approval</span><span class="num">Routing · Section 1 · RV1106 decoupling fan-out · 2026-11-23</span>
+  <h2>Routing starts: the RV1106’s supply pins are fanned out to their decoupling capacitors</h2>
+  <p>The first routing section, by the T31 method you approved before. Each supply pin gets a short top stub to a via in the ring between the pin rows and the exposed pad. The via drops to the bottom, where a short straight link reaches that pin’s decoupling capacitor (placed in Block 4). Your routing rules (2026-11-23) apply from here on: signals on top and bottom, the 5 V plane (layer 3) only for short escapes, my own scripts only, no Freerouting, expansion nets last.</p></div>
+  <div class="tldr"><b>TL;DR</b><ul class="tight">
+    <li>29 ring vias, 32 bottom links, 2 GND stubs into the exposed pad, and GND vias for the 24 MHz crystal (outside its keep-out). DDR ZQ (pin 52) got its own via and a bottom route to R604. 76 tracks and 32 vias in all.</li>
+    <li>Three capacitor links (C619, C628, R503) were left for the rail-routing section: a straight link would not keep clearance.</li>
+    <li>Checks: DRC adds nothing (one fewer copper fragment), schematic parity 0, block checks unchanged. Unrouted connections 552 → 508.</li>
+    <li>Tool changes for your rules (recorded in the worklog): the net router routes on top and bottom only unless told otherwise; it reads the open connections from KiCad’s own connectivity (the DRC report stops at 499); it straightens its grid staircases.</li>
+  </ul></div>
+  <figure><img src="img/route/s1_fanout.png" alt="RV1106 fan-out copper" width="1920" height="1032" loading="lazy"><figcaption><b>Fan-out copper</b> under and around the RV1106. Left: top stubs from the supply pins to the ring vias, and the two GND stubs into the exposed pad. Right: bottom links from each via to its decoupling capacitor, and the DDR ZQ route (pin 52 via → R604, around C628).</figcaption></figure>
+  <h3 class="sub">Smooth, hand-taped style (your request, 2026-11-23)</h3>
+  <p>From now on every route is drawn like hand-taped artwork before CAD: straight runs at whatever angle the space allows, joined by <b>tangent arcs</b> instead of sharp corners. A new tool (<code>hardware/tools/smooth.py</code>) pulls each route into the fewest straight runs that keep clearance, then rounds every corner with the largest arc (up to 2 mm radius) that still clears everything around it. The clearance engine now sees arcs as their true curve, so later routes keep their distance. It has already run on Section 1. Most fan-out tracks are single straight stubs, so only the DDR ZQ route shows it here; the longer routes in the next sections will show it properly.</p>
+  <figure><img src="img/route/s1_zq_smooth.png" alt="DDR ZQ route before and after smoothing" width="1550" height="572" loading="lazy"><figcaption><b>DDR ZQ route</b> on the bottom: before (left), the router’s grid staircase; after (right), straight runs joined by arcs (green). DRC and connectivity are unchanged.</figcaption></figure>
+  <div class="approve"><b>Your call</b><p>Approve the fan-out. The next section is the USB pair (90 Ω, skew under 30 mil, HDG §3.3.3), then the RV1106 signal nets, its local rails and ground, and SD/SDIO tuning.</p></div>
+</section>
+
+<footer>Sources: TI datasheets in <code>hardware/datasheets/</code> (pages as cited). Worklog: <code>docs/worklog/2026-11-23-t41-placement.md</code>.</footer>
+</main>
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <div class="lb-bar"><span class="z" id="lbz">100%</span>
+    <button type="button" id="lbout" aria-label="Zoom out">−</button><button type="button" id="lbin" aria-label="Zoom in">+</button>
+    <button type="button" id="lbfit" aria-label="Fit to screen">Fit</button><button type="button" id="lb1" aria-label="Actual size">1:1</button>
+    <button type="button" id="lbx" aria-label="Close">✕</button></div>
+  <div class="lb-stage" id="lbs"><img id="lbi" alt=""></div>
+  <div class="lb-cap" id="lbc"></div>
+</div>
+<script>
+(()=>{const lb=document.getElementById('lb'),st=document.getElementById('lbs'),im=document.getElementById('lbi'),cap=document.getElementById('lbc'),zl=document.getElementById('lbz');
+let s=1,x=0,y=0,fit=1,ptr=new Map(),last=null,pinch=null;
+const apply=()=>{im.style.transform=`translate(${x}px,${y}px) scale(${s})`;zl.textContent=Math.round(s*100)+'%'};
+const doFit=()=>{const r=st.getBoundingClientRect(),w=im.naturalWidth||1,h=im.naturalHeight||1;fit=Math.min(r.width/w,r.height/h)*0.96;s=fit;x=(r.width-w*s)/2;y=(r.height-h*s)/2;apply()};
+const zoomAt=(f,cx,cy)=>{const n=Math.min(Math.max(s*f,fit*0.5),8);x=cx-(cx-x)*n/s;y=cy-(cy-y)*n/s;s=n;apply()};
+const centre=()=>{const r=st.getBoundingClientRect();return[r.width/2,r.height/2]};
+const open=img=>{im.src=img.currentSrc||img.src;im.alt=img.alt;const fc=img.closest('figure')?.querySelector('figcaption');cap.innerHTML=fc?fc.innerHTML:'';lb.hidden=false;document.body.style.overflow='hidden';
+  if(im.complete&&im.naturalWidth)doFit();else im.onload=doFit;document.getElementById('lbx').focus()};
+const close=()=>{lb.hidden=true;document.body.style.overflow='';im.removeAttribute('src')};
+document.querySelectorAll('main figure img').forEach(img=>{img.tabIndex=0;img.setAttribute('role','button');img.title='Click to enlarge';
+  img.addEventListener('click',()=>open(img));img.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(img)}})});
+document.getElementById('lbx').onclick=close;document.getElementById('lbfit').onclick=doFit;
+document.getElementById('lb1').onclick=()=>{const[cx,cy]=centre();zoomAt(1/s,cx,cy)};
+document.getElementById('lbin').onclick=()=>{const[cx,cy]=centre();zoomAt(1.4,cx,cy)};
+document.getElementById('lbout').onclick=()=>{const[cx,cy]=centre();zoomAt(1/1.4,cx,cy)};
+st.addEventListener('wheel',e=>{e.preventDefault();const r=st.getBoundingClientRect();zoomAt(Math.exp(-e.deltaY*0.0015),e.clientX-r.left,e.clientY-r.top)},{passive:false});
+st.addEventListener('dblclick',e=>{const r=st.getBoundingClientRect();if(s>fit*1.05)doFit();else zoomAt(2.5,e.clientX-r.left,e.clientY-r.top)});
+st.addEventListener('pointerdown',e=>{st.setPointerCapture(e.pointerId);ptr.set(e.pointerId,[e.clientX,e.clientY]);st.classList.add('drag');last=[e.clientX,e.clientY];pinch=null});
+st.addEventListener('pointermove',e=>{if(!ptr.has(e.pointerId))return;ptr.set(e.pointerId,[e.clientX,e.clientY]);const r=st.getBoundingClientRect();
+  if(ptr.size===2){const[a,b]=[...ptr.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]),cx=(a[0]+b[0])/2-r.left,cy=(a[1]+b[1])/2-r.top;if(pinch)zoomAt(d/pinch,cx,cy);pinch=d;return}
+  if(last){x+=e.clientX-last[0];y+=e.clientY-last[1];last=[e.clientX,e.clientY];apply()}});
+const up=e=>{ptr.delete(e.pointerId);pinch=null;last=ptr.size===1?[...ptr.values()][0]:null;if(!ptr.size)st.classList.remove('drag')};
+st.addEventListener('pointerup',up);st.addEventListener('pointercancel',up);
+document.addEventListener('keydown',e=>{if(lb.hidden)return;const[cx,cy]=centre();
+  if(e.key==='Escape')close();else if(e.key==='+'||e.key==='=')zoomAt(1.4,cx,cy);else if(e.key==='-')zoomAt(1/1.4,cx,cy);else if(e.key==='0')doFit()});
+window.addEventListener('resize',()=>{if(!lb.hidden)doFit()});})();
+</script>
+

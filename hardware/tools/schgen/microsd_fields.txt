@@ -1,0 +1,11 @@
+#PWR1205:Reference:127:85:0:hide
+R406:Reference:119.38:72.39:0:center
+R406:Value:119.38:73.91:0:center
+C401:Reference:127:72.39:0:center
+C401:Value:127:73.91:0:center
+C402:Reference:133.35:78.11:0:left
+C402:Value:133.35:79.63:0:left
+R403:Reference:110.49:131.45:0:left
+R403:Value:110.49:132.97:0:left
+R402:Reference:119:127:90:left
+R402:Value:119.8:127:90:right

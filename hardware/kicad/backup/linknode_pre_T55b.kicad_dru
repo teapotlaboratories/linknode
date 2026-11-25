@@ -1,0 +1,66 @@
+(version 1)
+
+# Rockchip RV1103G/RV1106G Hardware Design Guide V1.1 limits for the RV1106 high-speed interfaces (T30, 2026-11-22).
+# The routing does not meet these yet; KiCad DRC lists the violations until the USB pair and the SD/SDIO length
+# tuning are done (interactive diff-pair router and length tuner).
+
+# HDG 3.3.3 p.48, Table 3-3: USB2 intra-pair skew < 30 mil.
+# Connector side (R508/R509 -> U1): KiCad's skew counts the whole net, including the short BC1.2 stubs to U2 and their
+# vias, which carry no USB data. That side is checked on the signal path instead, with hardware/tools/pathlen.py
+# (R508.2 -> U1.4 vs R509.2 -> U1.6, plus the SoC side): 0.00 mm on 2026-11-22. The SoC side has no stubs and stays here.
+(rule "USB2 intra-pair skew, SoC side (HDG p.48)"
+	(condition "A.NetName == '/SoC/USB_SOC_DP' || A.NetName == '/SoC/USB_SOC_DN'")
+	(constraint skew (max 0.76mm)))
+
+# HDG 3.3.3 p.48: at most 6 vias per USB line (fewer than 4 recommended).
+(rule "USB2 via count (HDG p.48)"
+	(condition "A.NetName == '/SoC/USB_DP' || A.NetName == '/SoC/USB_DN' || A.NetName == '/SoC/USB_SOC_DP' || A.NetName == '/SoC/USB_SOC_DN'")
+	(constraint via_count (max 6)))
+
+# HDG 3.3.3 p.48: keep other signals more than 20 mil from the USB pair.
+# Applied to the routed pair (connector side, R508/R509 -> U2/U1). The SoC-side stubs leave U100 at its 0.35 mm pin pitch,
+# where no neighbouring signal can keep 20 mil.
+# T52: the charger's BC1.2 branch (CHG_DP/CHG_DN, behind the 0 ohm links R27/R26) is the same USB line, not a foreign signal.
+(rule "USB2 spacing to other signals > 20 mil (HDG p.48)"
+	(condition "(A.NetName == '/SoC/USB_DP' || A.NetName == '/SoC/USB_DN') && B.Type == 'Track' && !(B.NetName == '/SoC/USB_DP' || B.NetName == '/SoC/USB_DN' || B.NetName == '/SoC/USB_SOC_DP' || B.NetName == '/SoC/USB_SOC_DN' || B.NetName == '/USB and Charger/CHG_DP' || B.NetName == '/USB and Charger/CHG_DN')")
+	(constraint clearance (min 0.5mm)))
+
+# HDG 3.3.1 p.46 asks data and command within 120 mil of the clock (aimed at SD 3.0 UHS). LinkNode runs SD 2.0 at 3.3 V
+# and SDIO 2.0 at <= 50 MHz, so the owner relaxed it to a 12 mm spread (~0.08 ns of a 20 ns clock): requirements H-14, 2026-11-22.
+# T47 3b (2026-11-23): R511 (22 ohm clock series resistor) sits at the socket end, so the long clock line is the pin-side
+# net (pin 15 -> R511); the 1.4 mm SD_CLK piece after R511 is left out of the group.
+(rule "microSD group skew <= 12 mm (relaxed, 50 MHz)"
+	(condition "A.NetName == 'Net-(U100SD and SPI1-SDMMC_CLK{slash}GPIO3_A4)' || A.NetName == '/SoC/SD_CMD' || A.NetName == '/SoC/SD_D0' || A.NetName == '/SoC/SD_D1' || A.NetName == '/SoC/SD_D2' || A.NetName == '/SoC/SD_D3'")
+	(constraint skew (max 12mm)))
+
+# HDG 3.3.1 p.46: the same bias limit for the HaLow SDIO bus. T47 3b / T53 (2026-11-24): R513 (clock series resistor) sits
+# on the bottom inline on the clock's north run (134.65, 112.5), so the clock is two nets; KiCad's skew sees only one of
+# them and also counts the pull-up taps. The clock is therefore checked on its signal path with hardware/tools/pathlen.py
+# (U100.111 -> R513.2 plus R513.1 -> U701.18 against each data line U100 -> U701): 26.74 mm vs 26.42-31.66 mm,
+# spread <= 4.92 mm, on 2026-11-24.
+# KiCad keeps the CMD/data group (taps included).
+(rule "HaLow SDIO CMD/data skew <= 12 mm (relaxed, 50 MHz)"
+	(condition "A.NetName == '/HaLow/HALOW_SDIO_CMD' || A.NetName == '/HaLow/HALOW_SDIO_D0' || A.NetName == '/HaLow/HALOW_SDIO_D1' || A.NetName == '/HaLow/HALOW_SDIO_D2' || A.NetName == '/HaLow/HALOW_SDIO_D3'")
+	(constraint skew (max 12mm)))
+
+# HDG 3.3.1 p.46: package + PCB length of SDMMC/SDIO under 4 inches.
+(rule "SDMMC/SDIO length < 4 in (HDG p.46)"
+	(condition "A.NetName == '/SoC/SD_*' || A.NetName == '/HaLow/HALOW_SDIO_*'")
+	(constraint length (max 100mm)))
+
+# USB90 pair: D+ and D- run at the 0.127 mm diff-pair gap (impedance.py), below the 0.15 mm class clearance.
+(rule "USB2 pair gap 0.127 mm (connector side)"
+	(condition "(A.NetName == '/SoC/USB_DP' && B.NetName == '/SoC/USB_DN') || (A.NetName == '/SoC/USB_DN' && B.NetName == '/SoC/USB_DP')")
+	(constraint clearance (min 0.127mm)))
+(rule "USB2 pair gap 0.127 mm (SoC side)"
+	(condition "(A.NetName == '/SoC/USB_SOC_DP' && B.NetName == '/SoC/USB_SOC_DN') || (A.NetName == '/SoC/USB_SOC_DN' && B.NetName == '/SoC/USB_SOC_DP')")
+	(constraint clearance (min 0.127mm)))
+
+# T53 (owner, 2026-11-24): SD and SDIO buses at 50 ohm single-ended, HDG V1.1 Table 3-1 p.47. On the JLC04161H-3313 outer
+# layers that is 0.17 mm (docs/calc/impedance.py, closed form, EST +-10 %; confirm with JLC's calculator at order time).
+# Net class SD50 carries the width; this rule stops a narrower track on any bus net. The 2 x width spacing is met except
+# at three short necks (RV1106 pin escape, the Y502 keep-out / C630 corner, the socket pins); it is audited by
+# hardware/tools/t53_spacing.py, not here, because a DRC clearance rule cannot exempt the necks without rule areas.
+(rule "SD/SDIO 50 ohm width (HDG Table 3-1)"
+	(condition "A.NetClass == 'SD50'")
+	(constraint track_width (min 0.17mm) (opt 0.17mm) (max 0.17mm)))

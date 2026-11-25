@@ -1,0 +1,138 @@
+{
+ "U100": {
+  "model": "scratch/easyeda/easy.3dshapes/QFN-128_L12.3-W12.3-P0.35-TL-EP7.0-1.wrl",
+  "offset": [
+   0.0163,
+   -0.0093,
+   0.0
+  ],
+  "rotate": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "residual_mm": 0.081,
+  "pads": [
+   145,
+   129
+  ],
+  "fp_rot": 0
+ },
+ "U801": {
+  "model": "scratch/easyeda/easy.3dshapes/COMM-SMD_32P-L21.2-W18.0_ESP32-C5-WROOM-1U.wrl",
+  "offset": [
+   0.25,
+   -0.2778,
+   0.0
+  ],
+  "rotate": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "residual_mm": 0.1161,
+  "pads": [
+   40,
+   40
+  ],
+  "fp_rot": 0,
+  "note": "EasyEDA placed the model 1.64 mm toward the U.FL end; corrected so the shield sits 1.1 mm from the top / 0.5 mm from the bottom of the 21.2 mm module (Fig 10-2 p.51), checked on the render"
+ },
+ "U20": {
+  "model": "scratch/easyeda/easy.3dshapes/GPS-SMD_18P-L10.1-W9.7-P1.10-BR.wrl",
+  "offset": [
+   0.0,
+   -0.0,
+   0.0
+  ],
+  "rotate": [
+   0.0,
+   0.0,
+   180.0
+  ],
+  "residual_mm": 0.09,
+  "pads": [
+   18,
+   18
+  ],
+  "fp_rot": 180
+ },
+ "U2": {
+  "model": "scratch/easyeda/easy.3dshapes/QFN-29_L4.0-W4.0-P0.40-TL-BQ25792RQMR.wrl",
+  "offset": [
+   0.0141,
+   -0.0288,
+   0.0
+  ],
+  "rotate": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "residual_mm": 0.0712,
+  "pads": [
+   29,
+   29
+  ],
+  "fp_rot": 0
+ },
+ "J1": {
+  "model": "scratch/easyeda/easy.3dshapes/USB-C_SMD-TYPE-C-31-M-12_1.wrl",
+  "offset": [
+   0.0,
+   -1.045,
+   0.0
+  ],
+  "rotate": [
+   0.0,
+   0.0,
+   180.0
+  ],
+  "residual_mm": 0.0365,
+  "pads": [
+   20,
+   18
+  ],
+  "fp_rot": 0,
+  "note": "EasyEDA placed the shell 2.62 mm back over the pad row; corrected to the footprint fab body (y 172.50-179.90), checked on the render"
+ },
+ "J401": {
+  "model": "scratch/easyeda/easy.3dshapes/TF-SMD_TF-PUSH.wrl",
+  "offset": [
+   0.95,
+   3.36,
+   0.0
+  ],
+  "rotate": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "residual_mm": 0.0,
+  "pads": [
+   13,
+   15
+  ],
+  "fp_rot": 0,
+  "note": "y 5.70 -> 3.36 (T43, 2026-11-23): the STEP (what KiCad renders) has a different origin from the WRL used by align_easyeda_3d.py; STEP cover fitted to the ShouHan underside view: rear edge 10.54 mm behind the posts (Fab line), straight front 0.2 mm inside the board edge, lip 0.5 mm past it; pin tails on the pads"
+ },
+ "SW1": {
+  "model": "scratch/easyeda/easy.3dshapes/SW-SMD_4P-L5.1-W5.1-P3.70-LS6.5-TL_H1.5.wrl",
+  "offset": [
+   0.0,
+   0.025,
+   0.0
+  ],
+  "rotate": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "residual_mm": 0.0167,
+  "pads": [
+   4,
+   4
+  ],
+  "fp_rot": 0
+ }
+}
