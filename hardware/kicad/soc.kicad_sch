@@ -7811,6 +7811,10 @@
 		)
 	)
 	(no_connect
+		(at 114.3 53.34)
+		(uuid "d97b856a-3418-4bca-95f4-a9197d679556")
+	)
+	(no_connect
 		(at 254.0 68.58)
 		(uuid "0ae29ae1-a9b9-4b16-b569-76fb5fe1a40a")
 	)
@@ -7846,17 +7850,6 @@
 			(justify left)
 		)
 		(uuid "fb67a74a-3d41-4daa-9094-9588a3acf7bf")
-	)
-	(hierarchical_label "SD_PWREN"
-		(shape output)
-		(at 144.78 53.34 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "48f3cff0-eab4-4aa4-84fa-8ac160c0692f")
 	)
 	(hierarchical_label "USB_DP"
 		(shape bidirectional)
@@ -8678,16 +8671,6 @@
 			(type default)
 		)
 		(uuid "03d55183-2154-429d-a7f6-4e190492e5c7")
-	)
-	(wire
-		(pts
-			(xy 114.3 53.34) (xy 144.78 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e4264d8c-96f8-420e-bd35-c3bfd70d6f45")
 	)
 	(wire
 		(pts

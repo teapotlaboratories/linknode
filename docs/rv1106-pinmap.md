@@ -64,7 +64,7 @@ Status: draft, 2026-11-20. Checked against `Rockchip RV1106G_PinOut_V1.1_2022050
 | Charger I²C | 5 / 7 | GPIO3_C7 I2C4_SCL_M2 / GPIO3_D0 I2C4_SDA_M2 (VCCIO7, **1.8 V only**), 10k pull-ups R504/R505 to VCC_1V8. Moved from pins 64/65 (I2C1_M0) on 2026-11-26 (T69): those pins are boxed in at the chip's south-east corner once VCC_DDR takes the corridor under the chip. BQ25798 VIH 1.3 V with a 1.8 V pull-up rail (`hardware/datasheets/TI_BQ25798.pdf` p.16–17). Linux device tree: `&i2c4 { pinctrl-0 = <&i2c4m2_xfer>; }` instead of i2c1m0. Pins 64/65 unused |
 | Charger interrupt | 60 | GPIO0_A2 (CHG_INT) |
 | USB to laptop | 27 / 26 / 25 | USB_DP / USB_DM / USB_VBUSDET |
-| Still free | 41, 39, 47, 48, 76, 78, 58, 62, 63 | GPIO4_A4, A6, B0, B1 (probed by the boot ROM), GPIO1_A4, GPIO1_B1, GPIO0_A0, A3, A4 |
+| Still free | 41, 39, 47, 48, 76, 78, 58, 59, 62, 63 | GPIO4_A4, A6, B0, B1 (probed by the boot ROM), GPIO1_A4, GPIO1_B1, GPIO0_A0, A3, A4 |
 
 ## Firmware notes
 
@@ -93,7 +93,7 @@ Final for Rev 1, matching `hardware/kicad/soc.kicad_sch` (U100 units 2–5) and 
 
 - **C5_HANDSHAKE → pin 90 GPIO1_C5 and C5_DATA_READY → pin 83 GPIO1_C6** (were pins 44 and 42). Pins 44/42 are FSPI_D2/D1, which the boot ROM may drive while it probes for SPI flash. The VCCIO3 FSPI/eMMC pins 39, 41, 42, 44, 47 and 48 are left unconnected.
 - **GPS confirmed** on pins 87 (GPS_TXD → UART3_RX_M1), 89 (GPS_RXD ← UART3_TX_M1), 91 (GPS_PPS) and 73 (GPS_PWR_EN). VCCIO1 and VCCIO6 are 3.3 V, matching the module.
-- **SD card power:** SD_PWREN on pin 59 GPIO0_A1. Its reset pull-down keeps the card powered (REF p.19).
+- **SD card power:** the card VDD is on VCC_3V3 directly (T71, owner 2026-11-26). The REF p.19 switch (AO3401A Q401 on SD_PWREN, pin 59) was removed: the card is the only boot device and must be powered from reset anyway, and the Luckfox Pico and Pico Plus power TF1 straight from VCC_3V3. A hung card is recovered by power-cycling the node (BQ25798 System Power Reset, `TI_BQ25798.pdf` p.73). Pin 59 (GPIO0_A1) is free.
 - **SARADC_IN0** (pin 23): 10k to VCC_1V8 + 1 nF, with test pad TP501 "RECOVERY" (short it to GND at boot for Rockusb). SARADC_IN1 is unconnected.
 - **Debug console:** UART2_M1 pins 79/80 to J501, a 3-pin header (not fitted).
 - **Unused, no-connect:** pins 58, 62, 63 (GPIO0_A0/A3/A4), 76, 78, 92–95, 84, and all VCCIO7 camera, FEPHY and codec signal pins.

@@ -1766,216 +1766,6 @@
     		(embedded_fonts no)
     	)
   )
-	  (symbol (lib_id "Device:R_Small") (at 88.9 78.74 0) (unit 1)
-    (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no)
-    (uuid "a2fda55f-403a-4f1b-a921-f6e34a7bb5ca")
-    (property "Reference" "R404"
-      (at 90.66 70.23 0)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.016 1.016)
-    				) (justify left)
-    			)
-    )
-    (property "Value" "100k"
-      (at 90.66 72.01 0)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				) (justify left)
-    			)
-    )
-    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-      (at 88.9 78.74 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Datasheet" ""
-      (at 88.9 78.74 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Description" "Resistor, small symbol"
-      (at 88.9 78.74 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "LCSC" "C25741" (at 88.9 78.74 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid "3beb1db6-b6b4-4de9-bd23-0be2d2d2b18d"))
-    (pin "2" (uuid "2e32e534-c721-4aa7-8e22-6b5e53f4dd1d"))
-    (instances
-      (project "linknode"
-        (path "/d95cb237-0177-4440-a7e6-29dc79faada9/48504eac-3d02-4d0d-9f40-71572c492bc9"
-          (reference "R404")
-          (unit 1)
-        )
-      )
-    )
-  )
-    (symbol (lib_id "Device:C_Small") (at 93.98 78.74 0) (unit 1)
-    (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no)
-    (uuid "75adeffe-81a8-46ce-8a35-b9172dc22a1d")
-    (property "Reference" "C403"
-      (at 91.46 85.47 0)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				) (justify right)
-    			)
-    )
-    (property "Value" "100nF"
-      (at 91.46 87.25 0)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				) (justify right)
-    			)
-    )
-    (property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
-      (at 93.98 78.74 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Datasheet" ""
-      (at 93.98 78.74 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Description" "Unpolarized capacitor, small symbol"
-      (at 93.98 68.58 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "LCSC" "C1525" (at 93.98 78.74 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid "76b477c2-e77d-4139-b9a5-b2de356fad71"))
-    (pin "2" (uuid "36c10100-0344-42fc-bcc0-46888e01379a"))
-    (instances
-      (project "linknode"
-        (path "/d95cb237-0177-4440-a7e6-29dc79faada9/48504eac-3d02-4d0d-9f40-71572c492bc9"
-          (reference "C403")
-          (unit 1)
-        )
-      )
-    )
-  )
-    (symbol (lib_id "Device:R_Small") (at 81.28 83.82 90) (unit 1)
-    (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no)
-    (uuid "0ab7a823-e1e8-4f54-9d82-e0c9930469c4")
-    (property "Reference" "R405"
-      (at 81.28 79.14 90)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.016 1.016)
-    				)
-    			)
-    )
-    (property "Value" "10k"
-      (at 81.28 80.80 90)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-      (at 81.28 83.82 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Datasheet" ""
-      (at 81.28 83.82 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Description" "Resistor, small symbol"
-      (at 81.28 83.82 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "LCSC" "C25744" (at 81.28 83.82 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid "cff5a911-7c00-4e34-8017-78f25d74bab9"))
-    (pin "2" (uuid "a4894934-aa52-4ee1-bfa3-84a5bf971744"))
-    (instances
-      (project "linknode"
-        (path "/d95cb237-0177-4440-a7e6-29dc79faada9/48504eac-3d02-4d0d-9f40-71572c492bc9"
-          (reference "R405")
-          (unit 1)
-        )
-      )
-    )
-  )
     (symbol (lib_id "Device:C_Small") (at 114.3 78.74 0) (unit 1)
     (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no)
     (uuid "0ad5411b-b401-4511-8679-325c7028103d")
@@ -2041,76 +1831,6 @@
       (project "linknode"
         (path "/d95cb237-0177-4440-a7e6-29dc79faada9/48504eac-3d02-4d0d-9f40-71572c492bc9"
           (reference "C404")
-          (unit 1)
-        )
-      )
-    )
-  )
-    (symbol (lib_id "Device:R_Small") (at 119.38 78.74 0) (unit 1)
-    (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no)
-    (uuid "3f974b2a-2b7e-4d94-bf88-318e783794a4")
-    (property "Reference" "R406"
-      (at 119.38 72.39 0)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.016 1.016)
-    				)
-    			)
-    )
-    (property "Value" "10k"
-      (at 119.38 73.91 0)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-      (at 119.38 78.74 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Datasheet" ""
-      (at 119.38 78.74 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Description" "Resistor, small symbol"
-      (at 119.38 78.74 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "LCSC" "C25744" (at 119.38 78.74 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid "69bfd7a1-6d4a-41ad-afc7-0b8b8a76032f"))
-    (pin "2" (uuid "b323b856-1995-4fd5-901c-3d316c42558f"))
-    (instances
-      (project "linknode"
-        (path "/d95cb237-0177-4440-a7e6-29dc79faada9/48504eac-3d02-4d0d-9f40-71572c492bc9"
-          (reference "R406")
           (unit 1)
         )
       )
@@ -2535,7 +2255,7 @@
     				)
     			)
     )
-    (property "Value" "VCC3V3_SD"
+    (property "Value" "VCC_3V3"
       (at 139.70 68.21 0)
       (show_name no)
       (do_not_autoplace no)
@@ -2583,73 +2303,6 @@
       (project "linknode"
         (path "/d95cb237-0177-4440-a7e6-29dc79faada9/48504eac-3d02-4d0d-9f40-71572c492bc9"
           (reference "#PWR1202")
-          (unit 1)
-        )
-      )
-    )
-  )
-    (symbol (lib_id "power:PWR_FLAG") (at 109.22 76.2 0) (unit 1)
-    (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no)
-    (uuid "e58404c1-0a7c-4174-aa52-e03eaf68ddcf")
-    (property "Reference" "#FLG1201"
-      (at 109.22 74.93 0) (hide yes)
-     
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Value" "PWR_FLAG"
-      (at 109.22 74.93 0) (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Footprint" ""
-      (at 109.22 76.2 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Datasheet" ""
-      (at 109.22 76.2 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Description" "Special symbol for telling ERC where power comes from"
-      (at 109.22 76.2 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (pin "1" (uuid "87f70078-6f59-4a1b-87a2-038e2e6bccbb"))
-    (instances
-      (project "linknode"
-        (path "/d95cb237-0177-4440-a7e6-29dc79faada9/48504eac-3d02-4d0d-9f40-71572c492bc9"
-          (reference "#FLG1201")
           (unit 1)
         )
       )
@@ -2717,73 +2370,6 @@
       (project "linknode"
         (path "/d95cb237-0177-4440-a7e6-29dc79faada9/48504eac-3d02-4d0d-9f40-71572c492bc9"
           (reference "#PWR1203")
-          (unit 1)
-        )
-      )
-    )
-  )
-    (symbol (lib_id "power:GND") (at 119.38 81.28 0) (unit 1)
-    (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no)
-    (uuid "374c1794-ba41-461d-8d01-79c28446f3e3")
-    (property "Reference" "#PWR1204"
-      (at 119.38 85.46 0) (hide yes)
-     
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Value" "GND"
-      (at 119.38 85.46 0)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Footprint" ""
-      (at 119.38 81.28 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Datasheet" ""
-      (at 119.38 81.28 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-      (at 119.38 81.28 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (pin "1" (uuid "f433552a-7b81-4b16-8a61-3b6db10fd380"))
-    (instances
-      (project "linknode"
-        (path "/d95cb237-0177-4440-a7e6-29dc79faada9/48504eac-3d02-4d0d-9f40-71572c492bc9"
-          (reference "#PWR1204")
           (unit 1)
         )
       )
@@ -3124,91 +2710,6 @@
       )
     )
   )
-    (symbol (lib_id "Transistor_FET:AO3401A") (at 101.6 78.74 90) (mirror y) (unit 1)
-    (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no)
-    (uuid "16d01e32-0002-4b30-8db6-f15337249f23")
-    (property "Reference" "Q401"
-      (at 101.60 70.38 90)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Value" "AO3401A"
-      (at 101.60 72.03 90)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-      (at 99.695 73.66 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    					(italic yes)
-    				)
-    				(justify left)
-    			)
-    )
-    (property "Datasheet" "http://www.aosmd.com/pdfs/datasheet/AO3401A.pdf"
-      (at 97.79 73.66 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    				(justify left)
-    			)
-    )
-    (property "Description" "-4.0A Id, -30V Vds, P-Channel MOSFET, SOT-23"
-      (at 101.6 78.74 0)
-      (hide yes)
-      (show_name no)
-      (do_not_autoplace no)
-      (effects
-    				(font
-    					(size 1.27 1.27)
-    				)
-    			)
-    )
-    (property "LCSC" "C15127" (at 101.6 78.74 0)
-      (effects (font (size 1.27 1.27)) (hide yes))
-    )
-    (pin "1" (uuid "6b493faa-e314-465d-a18e-613cfc440b7a"))
-    (pin "2" (uuid "09f7783e-880b-439c-800d-ae56636622f0"))
-    (pin "3" (uuid "0abe4b88-0811-4b27-8164-5ea5cb941cc4"))
-    (instances
-      (project "linknode"
-        (path "/d95cb237-0177-4440-a7e6-29dc79faada9/48504eac-3d02-4d0d-9f40-71572c492bc9"
-          (reference "Q401")
-          (unit 1)
-        )
-      )
-    )
-  )
-	(hierarchical_label "SD_PWREN"
-		(shape input)
-		(at 71.12 83.82 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "d88ba0c1-7029-49a1-9b79-7b0967f4451c")
-	)
 	(hierarchical_label "SD_CLK"
 		(shape input)
 		(at 73.66 111.76 180)
@@ -3288,6 +2789,16 @@
 	)
 	(wire
 		(pts
+			(xy 96.52 76.2) (xy 106.68 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fab6ae8a-a5a8-4192-b77e-6b263f2c23ca")
+	)
+	(wire
+		(pts
 			(xy 86.36 76.2) (xy 96.52 76.2)
 		)
 		(stroke
@@ -3295,46 +2806,6 @@
 			(type default)
 		)
 		(uuid "2817b5d5-cad8-4415-8eb6-ebebcd2e3170")
-	)
-	(wire
-		(pts
-			(xy 88.9 81.28) (xy 88.9 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6b9c3cfa-e25f-4380-a7be-ebcc14042391")
-	)
-	(wire
-		(pts
-			(xy 93.98 81.28) (xy 93.98 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c42dbfcd-82c9-4176-9e97-55f9b67dda93")
-	)
-	(wire
-		(pts
-			(xy 83.82 83.82) (xy 101.6 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9e6401ca-c09b-4942-8b37-d1c652be95f1")
-	)
-	(wire
-		(pts
-			(xy 78.74 83.82) (xy 71.12 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "61d36b63-ffd1-4eb8-9d09-c9485c4dece7")
 	)
 	(wire
 		(pts
@@ -3665,36 +3136,6 @@
 		(uuid "798d86d0-e32b-4a71-8ada-3d0084011f8c")
 	)
 	(junction
-		(at 88.9 76.2)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "3539f002-61b6-4b57-929b-b6a2fb9f08ff")
-	)
-	(junction
-		(at 88.9 83.82)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "fa597bc2-5e0d-49a1-ba92-69354da15390")
-	)
-	(junction
-		(at 93.98 76.2)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "1672ee0d-82f2-46e9-993f-de0d8f565dea")
-	)
-	(junction
-		(at 93.98 83.82)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f6467977-8bb4-45b3-8877-43b5d5681a9d")
-	)
-	(junction
-		(at 109.22 76.2)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "81716c91-e833-4a4d-a1f2-c33ba4cb78bc")
-	)
-	(junction
 		(at 91.44 129.54)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3705,12 +3146,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "172ae27c-0935-49cf-8998-df5646017b50")
-	)
-	(junction
-		(at 119.38 76.2)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "b4f75ece-38c5-47a3-951e-d55d430876be")
 	)
 	(junction
 		(at 127.0 76.2)

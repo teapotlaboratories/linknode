@@ -406,16 +406,6 @@
 				(justify left)
 			)
 		)
-		(pin "SD_PWREN" output
-			(at 101.6 93.98 180)
-			(uuid "551097a3-985d-47d3-a223-b9f40287cf17")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
 		(pin "GPS_TXD" input
 			(at 101.6 109.22 180)
 			(uuid "c4a778bf-cbba-464e-84f2-5f334c4977e4")
@@ -1754,16 +1744,6 @@
 				(justify right)
 			)
 		)
-		(pin "SD_PWREN" input
-			(at 71.12 93.98 0)
-			(uuid "2414edac-efb2-4325-88e7-e87fd94bbbae")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
 	)
 	(wire
 		(pts
@@ -2164,16 +2144,6 @@
 			(type default)
 		)
 		(uuid "d8883c29-fc1d-4cbb-bcca-25f3b17e3e86")
-	)
-	(wire
-		(pts
-			(xy 71.12 93.98) (xy 101.6 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3d0b5ce4-045e-401a-af1a-aa16f23b3cd4")
 	)
 	(wire
 		(pts

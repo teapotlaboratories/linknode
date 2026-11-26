@@ -3454,7 +3454,7 @@
 				)
 			)
 		)
-		(property "Value" "VBAT"
+		(property "Value" "VSYS"
 			(at 55.88 102.50 0)
 			(show_name no)
 			(do_not_autoplace no)
