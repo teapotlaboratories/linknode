@@ -1,7 +1,8 @@
 """T47 tidy routing (owner, 2026-11-23: no jagged routes): route the unconnected pairs of the given nets with
 netroute.astar_turn (heading in the state, 45-degree turns only, a cost per turn, a straight run after each turn), so the
 paths come out as few long 45-degree runs instead of grid staircases.
-Usage: python3 t47_tidy.py <board.kicad_pcb> NET[,NET...] [--rip] [--bend 0.6] [--minrun 3] [--grid 0.05] [--margin 4] [--w 0.12]
+Usage: python3 t47_tidy.py <board.kicad_pcb> NET[,NET...] [--rip] [--bend 0.6] [--minrun 3] [--grid 0.05] [--margin 4] [--w 0.12] [--box x0,y0,x1,y1]
+  --box: only the pairs with both ends inside the box (T67: keeps a power net's far links, e.g. VSYS to the GPS LDO, for their own section).
   --rip: remove the nets' existing tracks and vias first (pads and parts stay); otherwise only the missing links are routed.
 Pairs are routed shortest first, each with a window of the two ends +- margin; a failed pair is retried at the end with
 twice the margin. Afterwards run bend45.py (no --pull) for the off-grid pad ends, refill and DRC."""
@@ -34,6 +35,10 @@ def fix_anchor(net, p, la):
     vs = [(t.GetPosition().x/1e6, t.GetPosition().y/1e6) for t in b.GetTracks() if t.GetClass() == 'PCB_VIA' and t.GetNetname() == net]
     return (min(vs, key=lambda v: math.dist(v, p)), (0, 2)) if vs else (p, la)
 pairs = [(n_, fix_anchor(n_, *a_), fix_anchor(n_, *c_)) for n_, a_, c_ in pairs]
+if '--box' in opt:
+    _bx = [float(v) for v in opt['--box'].split(',')]
+    _in = lambda p: _bx[0] <= p[0] <= _bx[2] and _bx[1] <= p[1] <= _bx[3]
+    pairs = [q for q in pairs if _in(q[1][0]) and _in(q[2][0])]
 done, failed = [], []
 def go(net, pa, la, pc, lc, margin):
     win = (min(pa[0], pc[0]) - margin, min(pa[1], pc[1]) - margin, max(pa[0], pc[0]) + margin, max(pa[1], pc[1]) + margin)
