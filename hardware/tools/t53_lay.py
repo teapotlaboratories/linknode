@@ -2,6 +2,7 @@
 20 mil keep, hole spacing, no via against a pad) before anything is written.
 Usage: python3 t53_lay.py <board.kicad_pcb> NET [--w 0.12] STEP...
   STEP = F:x,y/x,y/...   a polyline on F.Cu          B:x,y/x,y/...   a polyline on B.Cu
+         I2:x,y/x,y/...  a polyline on In2.Cu (T68: a thin VCC_1V8 trace inside the VDD_0V9 area; zone fills clear round it on refill)
          V:x,y           a through via, 0.4/0.2 mm unless --via D,H (T67: 0.6,0.3 for the battery and input paths)
 Stops on the first conflict (nothing saved) and prints what blocks it; otherwise saves the board and prints the length."""
 import sys, os, math, json, pcbnew
@@ -31,13 +32,13 @@ for kind, pts in plan:                                   # check everything firs
         if not ok: raise SystemExit('via blocked %s: %s' % (v, hits(G, CU)))
         for L_ in CU: g.add(NET, L_, G)   # T54: the planned via is the net's own copper on every layer (segments of the net may end on it)
         continue
-    L = pcbnew.F_Cu if kind == 'F' else pcbnew.B_Cu
+    L = {'F': pcbnew.F_Cu, 'B': pcbnew.B_Cu, 'I2': pcbnew.In2_Cu}[kind]
     for a, c in zip(pts, pts[1:]):
         G = ('seg', a, c, W/2)
         if not (g.clear(G, L, NET) and nr.usb_ok(g, G, L, NET)): raise SystemExit('blocked %s %s -> %s: %s' % (kind, a, c, hits(G, [L])))
         total += math.dist(a, c)
 for kind, pts in plan:
     if kind == 'V': g.add_via(pts[0][0], pts[0][1], NET, d=VD, h=VH); continue
-    L = pcbnew.F_Cu if kind == 'F' else pcbnew.B_Cu
+    L = {'F': pcbnew.F_Cu, 'B': pcbnew.B_Cu, 'I2': pcbnew.In2_Cu}[kind]
     for a, c in zip(pts, pts[1:]): g.add_track(a, c, W, L, NET)
 b.Save(B); print(json.dumps(dict(net=NET, length=round(total, 3))))

@@ -112,7 +112,7 @@ figure img{cursor:zoom-in}
   <div class="eyebrow">LinkNode Rev 1 · layout and routing · updated 2026-11-23</div>
   <h1>LinkNode Rev 1: board decisions</h1>
   <p class="lede">The final decision for every block of the board, as it stands today. Click any image to enlarge it; zoom with the wheel, pinch or +/−, drag to pan, Esc to close. How each decision was reached is in the worklog (<code>docs/worklog/2026-11-23-t41-placement.md</code>).</p>
-  <div class="status"><a href="#cost">Cost ≈ $110 / board (10), $57 (100)</a> · floorplan B6 <span class="pill ok">approved</span> <a href="#blk1">Connector edge and holes</a> <span class="pill ok">approved</span> <a href="#edge">Edge margin</a> <span class="pill ok">approved</span> <a href="#blk2">Power</a> <span class="pill ok">approved</span> <a href="#blk3">Radios</a> <span class="pill ok">approved</span> <a href="#blk4">RV1106 surroundings</a> <span class="pill ok">approved</span> <a href="#silk">Silkscreen</a> <span class="pill ok">approved</span> <a href="#labels">Labels</a> <span class="pill ok">approved</span> <a href="#expansion">Expansion</a> <span class="pill ok">approved</span> <a href="#route1">Routing rules + Section 1</a> <span class="pill ok">approved</span> <a href="#route2">Routing 2: USB</a> <span class="pill ok">approved</span> <a href="#route3a">Routing 3a: RV1106 local nets</a> <span class="pill ok">approved</span> <a href="#route3c">Routing 3b: SD + HaLow SDIO at 50 Ω</a> <span class="pill ok">approved</span> <a href="#exp3">Expansion v3: two FPCs (plan)</a> <span class="pill ok">approved</span> <a href="#exp3p">Expansion v3: placement</a> <span class="pill ok">approved</span> <a href="#route3e">Routing 3d: east side + FPC A</a> <span class="pill ok">approved</span> <a href="#route3f">Routing 3e: FPC B audio</a> <span class="pill ok">approved</span> <a href="#route3g">Routing 3f: microSD reference plane</a> <span class="pill ok">approved</span> <a href="#route3h">Routing 3g: HaLow SDIO reference plane</a> <span class="pill ok">approved</span> <a href="#route3i">Routing 3h: microSD escape stitching</a> <span class="pill ok">approved</span> <a href="#route3j">Routing 3i: ESP32-C5 SPI under the module</a> <span class="pill ok">approved</span> <a href="#route3k">Routing 3j: control lines to the power area</a> <span class="pill ok">approved</span> <a href="#route4a">Routing 4a: regulator cores</a> <span class="pill wait">for review</span> <a href="#route4a2">Routing 4a-2: U2 corner</a> <span class="pill ok">approved</span> <a href="#route4b">Routing 4b: input + battery</a> <span class="pill ok">approved</span></div>
+  <div class="status"><a href="#cost">Cost ≈ $110 / board (10), $57 (100)</a> · floorplan B6 <span class="pill ok">approved</span> <a href="#blk1">Connector edge and holes</a> <span class="pill ok">approved</span> <a href="#edge">Edge margin</a> <span class="pill ok">approved</span> <a href="#blk2">Power</a> <span class="pill ok">approved</span> <a href="#blk3">Radios</a> <span class="pill ok">approved</span> <a href="#blk4">RV1106 surroundings</a> <span class="pill ok">approved</span> <a href="#silk">Silkscreen</a> <span class="pill ok">approved</span> <a href="#labels">Labels</a> <span class="pill ok">approved</span> <a href="#expansion">Expansion</a> <span class="pill ok">approved</span> <a href="#route1">Routing rules + Section 1</a> <span class="pill ok">approved</span> <a href="#route2">Routing 2: USB</a> <span class="pill ok">approved</span> <a href="#route3a">Routing 3a: RV1106 local nets</a> <span class="pill ok">approved</span> <a href="#route3c">Routing 3b: SD + HaLow SDIO at 50 Ω</a> <span class="pill ok">approved</span> <a href="#exp3">Expansion v3: two FPCs (plan)</a> <span class="pill ok">approved</span> <a href="#exp3p">Expansion v3: placement</a> <span class="pill ok">approved</span> <a href="#route3e">Routing 3d: east side + FPC A</a> <span class="pill ok">approved</span> <a href="#route3f">Routing 3e: FPC B audio</a> <span class="pill ok">approved</span> <a href="#route3g">Routing 3f: microSD reference plane</a> <span class="pill ok">approved</span> <a href="#route3h">Routing 3g: HaLow SDIO reference plane</a> <span class="pill ok">approved</span> <a href="#route3i">Routing 3h: microSD escape stitching</a> <span class="pill ok">approved</span> <a href="#route3j">Routing 3i: ESP32-C5 SPI under the module</a> <span class="pill ok">approved</span> <a href="#route3k">Routing 3j: control lines to the power area</a> <span class="pill ok">approved</span> <a href="#route4a">Routing 4a: regulator cores</a> <span class="pill wait">for review</span> <a href="#route4a2">Routing 4a-2: U2 corner</a> <span class="pill ok">approved</span> <a href="#route4b">Routing 4b: input + battery</a> <span class="pill ok">approved</span> <a href="#route4c">Routing 4c: SoC supplies</a> <span class="pill ok">approved</span></div>
 </div></header>
 <main class="wrap">
 
@@ -1481,7 +1481,7 @@ figure img{cursor:zoom-in}
   </div>
 </section>
 
-<section id="route4b" class="current">
+<section id="route4b">
   <div class="shead"><span class="pill ok">approved</span><span class="num">Routing · Section 4b · input and battery path</span>
   <h2>Battery, DC input and USB input wired with widths sized for their current; the hold-off circuit and the U2 sense pins joined</h2>
   <p>Guidelines: BQ25798 Rev C §8.4.1 (p.139) and Fig 10-1 for the input FETs; widths from IPC-2221 (outer layer, 1 oz). Approved by the owner and installed on branch <code>section-4a</code> (not on main yet).</p></div>
@@ -1564,6 +1564,100 @@ figure img{cursor:zoom-in}
   <figure><img src="img/route/t67_3d_bottom_zoom_after.jpg" alt="3D bottom after" width="1288" height="1736" loading="lazy"><figcaption><b>3D, section 4b area bottom, AFTER</b> (mirrored).</figcaption></figure>
   <figure><img src="img/route/t67_3d_top.jpg" alt="3D whole top" width="1904" height="1488" loading="lazy"><figcaption><b>3D, whole board, top</b>.</figcaption></figure>
   <figure><img src="img/route/t67_3d_bottom.jpg" alt="3D whole bottom" width="1904" height="1488" loading="lazy"><figcaption><b>3D, whole board, bottom</b> (mirrored).</figcaption></figure>
+  </div>
+</section>
+<section id="route4c" class="current">
+  <div class="shead"><span class="pill ok">approved</span><span class="num">Routing · Section 4c · RV1106 supplies</span>
+  <h2>Every RV1106 supply is connected: core, DDR, 1.8 V, 3.3 V, the filtered supplies and nPOR. The charger I2C moved to pins 5/7 to make room</h2>
+  <p>Guidelines: RV1106 Hardware Design Guide V1.1 §2.2 (supplies, decoupling) and Table 2-6 / §2.3.7.2 (pin mux); widths from IPC-2221 (outer layer, 1 oz). Approved by the owner and installed on branch <code>section-4a</code> (not on main yet), together with the schematic change (T69). Installed board re-checked: DRC library warnings only, parity 0, unconnected 97, every bend 45°.</p></div>
+  <div class="tldr"><b>TL;DR</b><ul class="tight">
+    <li><b>Widths</b> (each from the rail's design current):
+      <ul class="tight">
+        <li>VDD_0V9 / VDD_ARM (1.1 A peak): 0.8 mm;</li>
+        <li>VCC_DDR (0.25 A): 0.25 mm;</li>
+        <li>VCC_3V3 (0.3–0.5 A): a 0.4 mm trunk, with 0.12–0.15 mm branches to single pins (about 3 °C at 0.3 A);</li>
+        <li>VCC_1V8 (40 mA): 0.15 mm.</li>
+      </ul></li>
+    <li><b>VDD_0V9 (core)</b>:
+      <ul class="tight">
+        <li>From L5 through two 0.6 mm vias to a 0.8 mm bottom run. Three vias then drop it into its In2 area under the chip, entering from the west.</li>
+        <li>C608 moved to the bottom beside that entry, at (132.3, 123.5).</li>
+        <li>R19 (the 0 Ω link to VDD_ARM) moved to the bottom next to C605.</li>
+      </ul></li>
+    <li><b>VCC_DDR</b>: two vias under L6, then a 0.25 mm bottom run. It takes the corridor the charger I2C used before (y 126.45) and reaches C624 between the exposed-pad vias under the chip.</li>
+    <li><b>Charger I2C moved (T69, your decision)</b>:
+      <ul class="tight">
+        <li>It moved from pins 64/65 (I2C1_M0, 3.3 V) to pins 5/7 (I2C4_SCL_M2 / I2C4_SDA_M2, VCCIO7 at 1.8 V). Source: HDG Table 2-6 p.19 and §2.3.7.2 p.36.</li>
+        <li>The pull-ups R504/R505 now go to VCC_1V8. The BQ25798 reads high from 1.3 V (TI_BQ25798.pdf p.16–17), so 1.8 V works.</li>
+        <li>The netlist diff is exactly the six intended pin changes; ERC 0/0. Pins 64/65 are now unused.</li>
+        <li>Firmware: the device tree must use <code>i2c4m2_xfer</code>.</li>
+        <li>R504 is on the bottom and R505 on top at (125.45, 127.85); R10's 3V3 runs straight down.</li>
+      </ul></li>
+    <li><b>VCC_1V8</b> (your choice A):
+      <ul class="tight">
+        <li>Thin In2 traces inside the VDD_0V9 area: an east column, plus a link under the south pins to the south-east corner via.</li>
+        <li>It reaches L7 by an 84 mm outer run around the north and east. This run takes space that section 4d will want, so it is flagged.</li>
+        <li>FB601 is fed by a straight top diagonal.</li>
+      </ul></li>
+    <li><b>VCC_3V3</b>:
+      <ul class="tight">
+        <li>0.4 mm on the bottom from L8.</li>
+        <li>Thin links between the pin vias and the exposed pad.</li>
+        <li>A north channel link along y 125.1.</li>
+        <li>The microSD switch Q401 is fed from the west, 24 mm with 3 vias.</li>
+      </ul></li>
+    <li><b>Parts moved</b>:
+      <ul class="tight">
+        <li>to the bottom: R19, R601, R603, R504, C608, TP17 (at (121.8, 126.29), centred on the 1.8 V link, like TP4);</li>
+        <li>to the top: R505.</li>
+      </ul></li>
+    <li><b>Vias moved</b>:
+      <ul class="tight">
+        <li>a 5 V via from (122.18, 123.05) to (124.4, 123.05);</li>
+        <li>the GND pin at (138.75, …) now has its own via, which frees the west channel for 3V3;</li>
+        <li>several 3V3 vias.</li>
+      </ul></li>
+    <li><b>GND</b>:
+      <ul class="tight">
+        <li>The breaks on the 4c list are fixed: C609.2 by a via; C630.2 by a via in its pour patch; C632 rejoined.</li>
+        <li>Two new breaks were fixed by moving a 3V3 link: C617.2 and C606.2.</li>
+      </ul></li>
+    <li><b>Open items</b>:
+      <ul class="tight">
+        <li>U20 pin 1 (GPS GND) was cut by the 1.8 V run. No legal via fits within 3.5 mm, so it goes to <b>4d</b> (GPS area).</li>
+        <li>The 84 mm VCC_1V8 run (see above).</li>
+        <li>The remaining GND pour islands go to <b>4f</b>.</li>
+        <li>Firmware: <code>i2c4m2</code>.</li>
+      </ul></li>
+    <li><b>Checks</b>:
+      <ul class="tight">
+        <li>DRC: the 4 known library warnings only;</li>
+        <li>parity 0, against the T69 schematic;</li>
+        <li>unconnected 139 → 97;</li>
+        <li>every bend 45°;</li>
+        <li>jagged routes: one more than before, the 3V3 north channel at (141.0, 125.1). That 0.17 mm offset is forced: the link has to pass between the north pin vias and CHG_INT, then between the MIPI via and CHG_INT's via;</li>
+        <li>In1 stays solid GND.</li>
+      </ul></li>
+  </ul></div>
+  <figure><img src="img/route/t69_sch.png" alt="Schematic I2C pins before and after" width="1304" height="486" loading="lazy"><figcaption><b>Schematic, SoC sheet, BEFORE (left) and AFTER (right)</b>: the charger I2C moves from pins 64/65 (I2C1_M0) to pins 5/7 (I2C4_M2), and the pull-ups R504/R505 move from VCC_3V3 to VCC_1V8.</figcaption></figure>
+  <figure><img src="img/route/t68_nets.png" alt="Section 4c by net" width="2200" height="1276" loading="lazy"><figcaption><b>Section 4c by net</b>: VDD_0V9/VDD_ARM orange, VCC_DDR red, VCC_1V8 blue, VCC_3V3 green, I2C purple, filtered supplies and nPOR brown. The In2 VCC_1V8 traces are in the inner-layer figure below.</figcaption></figure>
+  <div class="pair">
+  <figure><img src="img/route/t68_kicad_before.png" alt="KiCad before" width="3124" height="3188" loading="lazy"><figcaption><b>KiCad plot, BEFORE</b> (branch <code>d0976d8</code>).</figcaption></figure>
+  <figure><img src="img/route/t68_kicad.png" alt="KiCad after" width="3124" height="4052" loading="lazy"><figcaption><b>KiCad plot, AFTER</b>, with numbered notes.</figcaption></figure>
+  </div>
+  <figure><img src="img/route/t68_inner.png" alt="Inner layers after" width="2632" height="1468" loading="lazy"><figcaption><b>Inner layers, AFTER</b>: In1 is solid GND under the top tracks. On In2 the VDD_0V9 area (orange) sits under the chip, with the thin VCC_1V8 traces inside it (east column and south link); the 5 V plane and the SD/SDIO GND reference zones are unchanged.</figcaption></figure>
+  <div class="pair">
+  <figure><img src="img/inner/kicad/t68_before.png" alt="KiCad inner before" width="1992" height="1134" loading="lazy"><figcaption><b>KiCad plot of In1/In2, BEFORE.</b></figcaption></figure>
+  <figure><img src="img/inner/kicad/t68_after.png" alt="KiCad inner after" width="1992" height="1134" loading="lazy"><figcaption><b>KiCad plot of In1/In2, AFTER.</b></figcaption></figure>
+  </div>
+  <figure><img src="img/route/t68_all.png" alt="Whole board" width="4683" height="3814" loading="lazy"><figcaption><b>Whole board</b> (KiCad plot, after 4c).</figcaption></figure>
+  <div class="pair">
+  <figure><img src="img/route/t68_3d_top_zoom_before.jpg" alt="3D top before" width="1500" height="1500" loading="lazy"><figcaption><b>3D, section 4c area top, BEFORE</b>.</figcaption></figure>
+  <figure><img src="img/route/t68_3d_top_zoom_after.jpg" alt="3D top after" width="1500" height="1500" loading="lazy"><figcaption><b>3D, section 4c area top, AFTER</b>.</figcaption></figure>
+  <figure><img src="img/route/t68_3d_bottom_zoom_before.jpg" alt="3D bottom before" width="1500" height="1500" loading="lazy"><figcaption><b>3D, section 4c area bottom, BEFORE</b> (mirrored).</figcaption></figure>
+  <figure><img src="img/route/t68_3d_bottom_zoom_after.jpg" alt="3D bottom after" width="1500" height="1500" loading="lazy"><figcaption><b>3D, section 4c area bottom, AFTER</b> (mirrored).</figcaption></figure>
+  <figure><img src="img/route/t68_3d_top.jpg" alt="3D whole top" width="1904" height="1488" loading="lazy"><figcaption><b>3D, whole board, top</b>.</figcaption></figure>
+  <figure><img src="img/route/t68_3d_bottom.jpg" alt="3D whole bottom" width="1904" height="1488" loading="lazy"><figcaption><b>3D, whole board, bottom</b> (mirrored).</figcaption></figure>
   </div>
 </section>
 

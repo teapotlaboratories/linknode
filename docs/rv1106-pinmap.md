@@ -61,7 +61,7 @@ Status: draft, 2026-11-20. Checked against `Rockchip RV1106G_PinOut_V1.1_2022050
 | Use | Pin | GPIO / function |
 |---|---|---|
 | Debug console header | 79 / 80 | GPIO1_B2 UART2_TX_M1 / GPIO1_B3 UART2_RX_M1 |
-| Charger I²C | 64 / 65 | GPIO0_A5 I2C1_SCL_M0 / GPIO0_A6 I2C1_SDA_M0 (PMU domain, 3.3 V), 10k pull-ups |
+| Charger I²C | 5 / 7 | GPIO3_C7 I2C4_SCL_M2 / GPIO3_D0 I2C4_SDA_M2 (VCCIO7, **1.8 V only**), 10k pull-ups R504/R505 to VCC_1V8. Moved from pins 64/65 (I2C1_M0) on 2026-11-26 (T69): those pins are boxed in at the chip's south-east corner once VCC_DDR takes the corridor under the chip. BQ25798 VIH 1.3 V with a 1.8 V pull-up rail (`hardware/datasheets/TI_BQ25798.pdf` p.16–17). Linux device tree: `&i2c4 { pinctrl-0 = <&i2c4m2_xfer>; }` instead of i2c1m0. Pins 64/65 unused |
 | Charger interrupt | 60 | GPIO0_A2 (CHG_INT) |
 | USB to laptop | 27 / 26 / 25 | USB_DP / USB_DM / USB_VBUSDET |
 | Still free | 41, 39, 47, 48, 76, 78, 58, 62, 63 | GPIO4_A4, A6, B0, B1 (probed by the boot ROM), GPIO1_A4, GPIO1_B1, GPIO0_A0, A3, A4 |

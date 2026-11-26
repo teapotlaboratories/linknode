@@ -2,6 +2,7 @@
 netroute.astar_turn (heading in the state, 45-degree turns only, a cost per turn, a straight run after each turn), so the
 paths come out as few long 45-degree runs instead of grid staircases.
 Usage: python3 t47_tidy.py <board.kicad_pcb> NET[,NET...] [--rip] [--bend 0.6] [--minrun 3] [--grid 0.05] [--margin 4] [--w 0.12] [--box x0,y0,x1,y1]
+  --pair x,y,L/x,y,L: route just this pair (L = F, B or FB), e.g. a long supply run to a via (T68). --maxit N: A* iteration cap (default 4e6).
   --box: only the pairs with both ends inside the box (T67: keeps a power net's far links, e.g. VSYS to the GPS LDO, for their own section).
   --rip: remove the nets' existing tracks and vias first (pads and parts stay); otherwise only the missing links are routed.
 Pairs are routed shortest first, each with a window of the two ends +- margin; a failed pair is retried at the end with
@@ -39,12 +40,18 @@ if '--box' in opt:
     _bx = [float(v) for v in opt['--box'].split(',')]
     _in = lambda p: _bx[0] <= p[0] <= _bx[2] and _bx[1] <= p[1] <= _bx[3]
     pairs = [q for q in pairs if _in(q[1][0]) and _in(q[2][0])]
+if '--pair' in opt:   # T68: route one given pair (long runs whose ends are not a ratsnest pair): x,y,LAYERS/x,y,LAYERS with LAYERS from F,B
+    _net = sorted(NETS)[0]; _e = []
+    for _q in opt['--pair'].split('/'):
+        _x, _y, _l = _q.split(','); _e.append(((float(_x), float(_y)), tuple({'F': 0, 'B': 2}[c] for c in _l)))
+    pairs = [(_net, _e[0], _e[1])]
+MAXIT = int(float(opt.get('--maxit', 4e6)))
 done, failed = [], []
 def go(net, pa, la, pc, lc, margin):
     win = (min(pa[0], pc[0]) - margin, min(pa[1], pc[1]) - margin, max(pa[0], pc[0]) + margin, max(pa[1], pc[1]) + margin)
     d = {}
     path = nr.astar_turn(g, net, pa, pc, WID, GRID, win, la, lc, () if net in nr.USB_FAMILY else USB, nr.USB_EXTRA,
-                         bend=BEND, minrun=MINRUN, viacost=VIACOST, tol=GRID*0.8, diag=d)
+                         bend=BEND, minrun=MINRUN, viacost=VIACOST, tol=GRID*0.8, max_it=MAXIT, diag=d)
     if not path: return None, d
     path[0] = (pa[0], pa[1], path[0][2]); path[-1] = (pc[0], pc[1], path[-1][2])
     path = nr.simplify(path); nr.emit(g, net, path, WID)
