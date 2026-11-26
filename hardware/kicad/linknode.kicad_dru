@@ -57,7 +57,10 @@
 	(constraint clearance (min 0.127mm)))
 
 # T53 (owner, 2026-11-24): SD and SDIO buses at 50 ohm single-ended, HDG V1.1 Table 3-1 p.47. On the JLC04161H-3313 outer
-# layers that is 0.17 mm (docs/calc/impedance.py, closed form, EST +-10 %; confirm with JLC's calculator at order time).
+# layers that is 0.17 mm (docs/calc/impedance.py --jlc, closed form, EST +-10 %).
+# T79 (owner, 2026-11-26): fab is PCBWay's default stack-up (7628, 0.1855 mm, Er 4.74), no impedance control. 0.17 mm is
+# then about 66 ohm; 50 ohm would need 0.30 mm, which the buses have no room for. Kept at 0.17 mm: 26-33 mm at <= 50 MHz is
+# electrically short (about 0.2 ns against about 1 ns edges).
 # Net class SD50 carries the width; this rule stops a narrower track on any bus net. The 2 x width spacing is met except
 # at three short necks (RV1106 pin escape, the Y502 keep-out / C630 corner, the socket pins); it is audited by
 # hardware/tools/t53_spacing.py, not here, because a DRC clearance rule cannot exempt the necks without rule areas.

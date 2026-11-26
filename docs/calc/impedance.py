@@ -1,10 +1,13 @@
-"""Trace widths for JLC04161H-3313 (T26b). Stack-up from https://jlcpcb.com/impedance (fetched 2026-11-21):
-outer Cu 0.035 mm, prepreg 3313 0.0994 mm Er 4.1, inner Cu 0.0152 mm, core 1.265 mm Er 4.6.
+"""Trace widths for the fab stack-up (T79, owner 2026-11-26: PCBWay's default 4-layer 1.6 mm, no impedance control).
+PCBWay entry 1 (https://www.pcbway.com/multi-layer-laminated-structure.html, fetched 2026-11-26): outer 0.5 oz plated to
+1 oz (0.035 mm), 7628 RC46 % prepreg 0.1855 mm after lamination (70 % inner copper) Er 4.74, inner 1 oz, core 1.03 mm Er 4.6.
+Earlier basis (T26b, T53): JLC04161H-3313, prepreg 0.0994 mm Er 4.1 (https://jlcpcb.com/impedance): run with --jlc.
 Closed-form models (EST, about +-5-10 %): Hammerstad-Jensen microstrip with thickness correction, Wadell grounded
 coplanar waveguide (with the same thickness correction), and the edge-coupled microstrip approximation Zdiff = 2 Z0 (1 - 0.48 exp(-0.96 s/h)).
-Solder mask lowers these by a few ohms. Confirm with JLC's impedance calculator when ordering."""
-import math
-H, T, ER = 0.0994, 0.035, 4.1
+Solder mask lowers these by a few ohms (PCBWay: about 2 ohm single-ended, 8 ohm differential). Without impedance control
+the fab does not hold the prepreg or Er, so treat every value as nominal."""
+import math, sys
+H, T, ER = (0.0994, 0.035, 4.1) if '--jlc' in sys.argv else (0.1855, 0.035, 4.74)
 def dw(w, h=H, t=T, er=ER):     # Hammerstad-Jensen strip-thickness width correction
     return t / math.pi * (1 + math.log(4 * math.e / math.sqrt((t / h) ** 2 + (1 / math.pi / (w / t + 1.1)) ** 2))) * (1 + 1 / er) / 2
 def ms(w, h=H, t=T, er=ER):
