@@ -112,7 +112,7 @@ figure img{cursor:zoom-in}
   <div class="eyebrow">LinkNode Rev 1 · layout and routing · updated 2026-11-23</div>
   <h1>LinkNode Rev 1: board decisions</h1>
   <p class="lede">The final decision for every block of the board, as it stands today. Click any image to enlarge it; zoom with the wheel, pinch or +/−, drag to pan, Esc to close. How each decision was reached is in the worklog (<code>docs/worklog/2026-11-23-t41-placement.md</code>).</p>
-  <div class="status"><a href="#cost">Cost ≈ $110 / board (10), $57 (100)</a> · floorplan B6 <span class="pill ok">approved</span> <a href="#blk1">Connector edge and holes</a> <span class="pill ok">approved</span> <a href="#edge">Edge margin</a> <span class="pill ok">approved</span> <a href="#blk2">Power</a> <span class="pill ok">approved</span> <a href="#blk3">Radios</a> <span class="pill ok">approved</span> <a href="#blk4">RV1106 surroundings</a> <span class="pill ok">approved</span> <a href="#silk">Silkscreen</a> <span class="pill ok">approved</span> <a href="#labels">Labels</a> <span class="pill ok">approved</span> <a href="#expansion">Expansion</a> <span class="pill ok">approved</span> <a href="#route1">Routing rules + Section 1</a> <span class="pill ok">approved</span> <a href="#route2">Routing 2: USB</a> <span class="pill ok">approved</span> <a href="#route3a">Routing 3a: RV1106 local nets</a> <span class="pill ok">approved</span> <a href="#route3c">Routing 3b: SD + HaLow SDIO at 50 Ω</a> <span class="pill ok">approved</span> <a href="#exp3">Expansion v3: two FPCs (plan)</a> <span class="pill ok">approved</span> <a href="#exp3p">Expansion v3: placement</a> <span class="pill ok">approved</span> <a href="#route3e">Routing 3d: east side + FPC A</a> <span class="pill ok">approved</span> <a href="#route3f">Routing 3e: FPC B audio</a> <span class="pill ok">approved</span> <a href="#route3g">Routing 3f: microSD reference plane</a> <span class="pill ok">approved</span> <a href="#route3h">Routing 3g: HaLow SDIO reference plane</a> <span class="pill ok">approved</span> <a href="#route3i">Routing 3h: microSD escape stitching</a> <span class="pill ok">approved</span> <a href="#route3j">Routing 3i: ESP32-C5 SPI under the module</a> <span class="pill ok">approved</span> <a href="#route3k">Routing 3j: control lines to the power area</a> <span class="pill ok">approved</span> <a href="#route4a">Routing 4a: regulator cores</a> <span class="pill ok">approved</span> <a href="#route4a2">Routing 4a-2: U2 corner</a> <span class="pill ok">approved</span> <a href="#route4b">Routing 4b: input + battery</a> <span class="pill ok">approved</span> <a href="#route4c">Routing 4c: SoC supplies</a> <span class="pill ok">approved</span> <a href="#route4d">Routing 4d: radio, GPS, microSD, C5 supplies</a> <span class="pill ok">approved</span> <a href="#route4e">Routing 4e: RF, pull-downs, QON, CC</a> <span class="pill ok">approved</span> <a href="#route4f">Routing 4f: GND, 0 unconnected</a> <span class="pill ok">approved</span> <a href="#stack79">PCBWay default stack-up</a> <span class="pill ok">approved</span></div>
+  <div class="status"><a href="#cost">Cost ≈ $110 / board (10), $57 (100)</a> · floorplan B6 <span class="pill ok">approved</span> <a href="#blk1">Connector edge and holes</a> <span class="pill ok">approved</span> <a href="#edge">Edge margin</a> <span class="pill ok">approved</span> <a href="#blk2">Power</a> <span class="pill ok">approved</span> <a href="#blk3">Radios</a> <span class="pill ok">approved</span> <a href="#blk4">RV1106 surroundings</a> <span class="pill ok">approved</span> <a href="#silk">Silkscreen</a> <span class="pill ok">approved</span> <a href="#labels">Labels</a> <span class="pill ok">approved</span> <a href="#expansion">Expansion</a> <span class="pill ok">approved</span> <a href="#route1">Routing rules + Section 1</a> <span class="pill ok">approved</span> <a href="#route2">Routing 2: USB</a> <span class="pill ok">approved</span> <a href="#route3a">Routing 3a: RV1106 local nets</a> <span class="pill ok">approved</span> <a href="#route3c">Routing 3b: SD + HaLow SDIO at 50 Ω</a> <span class="pill ok">approved</span> <a href="#exp3">Expansion v3: two FPCs (plan)</a> <span class="pill ok">approved</span> <a href="#exp3p">Expansion v3: placement</a> <span class="pill ok">approved</span> <a href="#route3e">Routing 3d: east side + FPC A</a> <span class="pill ok">approved</span> <a href="#route3f">Routing 3e: FPC B audio</a> <span class="pill ok">approved</span> <a href="#route3g">Routing 3f: microSD reference plane</a> <span class="pill ok">approved</span> <a href="#route3h">Routing 3g: HaLow SDIO reference plane</a> <span class="pill ok">approved</span> <a href="#route3i">Routing 3h: microSD escape stitching</a> <span class="pill ok">approved</span> <a href="#route3j">Routing 3i: ESP32-C5 SPI under the module</a> <span class="pill ok">approved</span> <a href="#route3k">Routing 3j: control lines to the power area</a> <span class="pill ok">approved</span> <a href="#route4a">Routing 4a: regulator cores</a> <span class="pill ok">approved</span> <a href="#route4a2">Routing 4a-2: U2 corner</a> <span class="pill ok">approved</span> <a href="#route4b">Routing 4b: input + battery</a> <span class="pill ok">approved</span> <a href="#route4c">Routing 4c: SoC supplies</a> <span class="pill ok">approved</span> <a href="#route4d">Routing 4d: radio, GPS, microSD, C5 supplies</a> <span class="pill ok">approved</span> <a href="#route4e">Routing 4e: RF, pull-downs, QON, CC</a> <span class="pill ok">approved</span> <a href="#route4f">Routing 4f: GND, 0 unconnected</a> <span class="pill ok">approved</span> <a href="#stack79">PCBWay default stack-up</a> <span class="pill ok">approved</span> <a href="#long80">Long traces</a> <span class="pill wait">for review</span> <a href="#planes81">Power plane map</a> <span class="pill wait">for review</span> <a href="#planes82">Power on In2</a> <span class="pill ok">approved</span></div>
 </div></header>
 <main class="wrap">
 
@@ -1858,7 +1858,7 @@ figure img{cursor:zoom-in}
   <figure><img src="img/route/t78_3d_bottom.jpg" alt="3D whole bottom" width="1904" height="1488" loading="lazy"><figcaption><b>3D, whole board, bottom</b> (mirrored).</figcaption></figure>
   </div>
 </section>
-<section id="stack79" class="current">
+<section id="stack79">
   <div class="shead"><span class="pill ok">approved</span><span class="num">Fab · T79 · stack-up</span>
   <h2>The board now targets PCBWay's default 4-layer stack-up with no impedance control: RF lines widened to 0.28 mm, USB pair re-laid at 0.21 / 0.127 mm, SD/SDIO kept</h2>
   <p>Approved by the owner and installed (board, project net classes, rules-file comment, <code>docs/calc/impedance.py</code>). Installed board re-checked: DRC library warnings only, parity 0, unconnected 0, every bend 45°, USB skew 0. No schematic change.</p></div>
@@ -1909,6 +1909,100 @@ figure img{cursor:zoom-in}
   <figure><img src="img/route/t79_3d_rf_after.jpg" alt="3D RF after" width="1500" height="1200" loading="lazy"><figcaption><b>3D, RF area, AFTER.</b></figcaption></figure>
   <figure><img src="img/route/t79_3d_top.jpg" alt="3D top" width="1904" height="1488" loading="lazy"><figcaption><b>3D, whole board, top.</b></figcaption></figure>
   <figure><img src="img/route/t79_3d_bottom.jpg" alt="3D bottom" width="1904" height="1488" loading="lazy"><figcaption><b>3D, whole board, bottom</b> (mirrored).</figcaption></figure>
+  </div>
+</section>
+<section id="long80">
+  <div class="shead"><span class="pill wait">for review</span><span class="num">Review · T80 · long traces</span>
+  <h2>Long traces: two supply feeds are long enough to matter (the ESP32-C5 3.3 V and the RV1106 1.8 V); the long signals are all slow or within their limits</h2>
+  <p>Analysis of the installed board (<code>da81f33</code>). No change made. Lengths are copper along the shortest path between two pads (<code>scratch/t80/longest.py</code>: tracks split at every joint, vias join layers; only GND, VCC5V0_SYS and VDD_0V9 have planes, so for every other net the copper path is the real path). Board 78 × 62 mm.</p></div>
+  <div class="tldr"><b>TL;DR</b><ul class="tight">
+    <li><b>VCC_1V8 → RV1106 1.8 V pins: 99–108 mm of 0.12–0.15 mm track, 2.4–3.4× the straight distance, ≈ 0.35–0.38 Ω.</b> The feed loops round the east half of the board. The west 1.8 V branch (pull-ups R504/R505/R510, R602) ends about 8.5 mm (straight) from U100 pin 31, so one short link there would cut the feed to roughly half. <b>My recommendation: fix this one.</b></li>
+    <li><b>VCC3V3_C5 → ESP32-C5: 106.5 mm</b> (straight 74 mm, mostly bottom, 0.4–0.6 mm): the buck is in the west power block and the module is on the east edge. About 65 mV drop at 0.5 A Wi-Fi peaks, covered by the module's own capacitors. Shortening it means moving U10/L10 next to the C5 (a placement change). I'd leave it unless you want the C5 rail local.</li>
+    <li><b>VDD_FEM → HaLow FEM: 57 mm</b> at 0.3 mm, ≈ 50 mV at 0.5 A (FEM current unknown until measured). Acceptable.</li>
+    <li><b>VSYS → the two GPS-side LDOs: 104–114 mm</b> along the bottom edge (your T72 choice); low current, fine.</li>
+    <li><b>14 signals have a run of 30 mm or more</b>: enables, the charger interrupt, the NTC sense, the button line, the C5 SPI (33–43 mm) and one SD and one SDIO line. All are slow, or within the HDG 100 mm limit and the approved skew groups. Nothing to fix electrically.</li>
+  </ul></div>
+  <figure><img src="img/route/t80_rails.png" alt="Supply feeds" width="2368" height="1443" loading="lazy"><figcaption><b>Supply rails</b>: copper path from each regulator to its main load. Solid top, dashed bottom, dotted In2. (Feed 2 lies under feed 3.)</figcaption></figure>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Rail</th><th>From → to</th><th>Copper mm</th><th>Straight mm</th><th>Detour</th><th>R (mΩ, 1 oz)</th><th>Note</th></tr></thead>
+    <tbody><tr><td><code>VCC3V3_C5</code></td><td>L10.2 → U801.2</td><td class=n>106.5</td><td class=n>74.2</td><td class=n>1.4×</td><td class=n>130</td><td><b>Long.</b> The C5 buck (U10/L10) sits in the west power block, the module on the east edge; the feed runs along the top and east edges on the bottom layer. 0.4–0.6 mm wide: ≈ 65 mV drop at 0.5 A TX peaks (estimate).</td></tr><tr><td><code>VCC_1V8</code></td><td>L7.2 → U100.70</td><td class=n>99.0</td><td class=n>40.5</td><td class=n>2.4×</td><td class=n>351</td><td><b>Long and indirect.</b> The RV1106 1.8 V pins are fed the long way round: east under the HaLow module, down the east side, back west along y 141.5, then In2 to the south pins. Narrow (0.12–0.15 mm). The west branch (R504/R505/R510/R602) ends ≈ 8.5 mm (straight) from U100.31.</td></tr><tr><td><code>VCC_1V8</code></td><td>L7.2 → U100.31</td><td class=n>108.2</td><td class=n>31.7</td><td class=n>3.4×</td><td class=n>381</td><td>Same feed (3.4× the straight distance).</td></tr><tr><td><code>VDD_FEM</code></td><td>Q7.3 → U701.32</td><td class=n>57.0</td><td class=n>22.7</td><td class=n>2.5×</td><td class=n>93</td><td>Q7 is in the power block; the run goes along the top edge on the bottom layer. 0.3 mm: ≈ 50 mV at 0.5 A (FEM current not published; Heltec gives no figure).</td></tr><tr><td><code>VSYS</code></td><td>U2.25 → U22.3</td><td class=n>113.6</td><td class=n>50.8</td><td class=n>2.2×</td><td class=n>208</td><td>Owner-approved T72 feed to the XC6206 along the bottom edge. Low current.</td></tr><tr><td><code>VSYS</code></td><td>U2.25 → U21.1</td><td class=n>103.7</td><td class=n>47.4</td><td class=n>2.2×</td><td class=n>188</td><td>Same feed, GPS LDO. Low current (≈ 30 mA).</td></tr><tr><td><code>VCC_DDR</code></td><td>L6.2 → U100.50</td><td class=n>45.8</td><td class=n>31.4</td><td class=n>1.5×</td><td class=n>95</td><td>Fine.</td></tr><tr><td><code>VCC_3V3</code></td><td>L8.2 → U100.61</td><td class=n>52.4</td><td class=n>37.0</td><td class=n>1.4×</td><td class=n>165</td><td>Fine.</td></tr><tr><td><code>VCC3V3_HALOW</code></td><td>L11.2 → U701.25</td><td class=n>23.5</td><td class=n>18.2</td><td class=n>1.3×</td><td class=n>46</td><td>Fine.</td></tr></tbody></table></div>
+  <figure><img src="img/route/t80_signals.png" alt="Long signals" width="2322" height="1443" loading="lazy"><figcaption><b>Signals</b> whose longest pad-to-pad copper run is 30 mm or more.</figcaption></figure>
+  <div class="tablewrap"><table>
+    <thead><tr><th>#</th><th>Net</th><th>Run mm</th><th>Straight mm</th><th>Pads</th><th>Note</th></tr></thead>
+    <tbody><tr><td>1</td><td><code>TS</code></td><td class=n>47.6</td><td class=n>26.7</td><td>J4.1 → U2.16</td><td>NTC sense (10k divider, slow). J4 is on the west edge; runs south round U4.</td></tr><tr><td>2</td><td><code>GPS_PWR_EN</code></td><td class=n>47.5</td><td class=n>33.9</td><td>U100.4 → R200.1</td><td>GPIO, static. U100 to the GPS LDO enable at the east side.</td></tr><tr><td>3</td><td><code>CHG_INT</code></td><td class=n>43.8</td><td class=n>23.2</td><td>U2.21 → U100.60</td><td>Open-drain interrupt, slow.</td></tr><tr><td>4</td><td><code>C5_SPI_CS</code></td><td class=n>43.0</td><td class=n>34.6</td><td>U100.40 → U801.12</td><td>SPI to the C5 (U801, east). 33–43 mm is about 0.3 ns: fine at the SPI clock.</td></tr><tr><td>5</td><td><code>C5_EN</code></td><td class=n>42.1</td><td class=n>28.4</td><td>U100.74 → C801.1</td><td>Static enable.</td></tr><tr><td>6</td><td><code>C5_SPI_MISO</code></td><td class=n>39.9</td><td class=n>33.6</td><td>U801.4 → U100.46</td><td>SPI to the C5 (U801, east). 33–43 mm is about 0.3 ns: fine at the SPI clock.</td></tr><tr><td>7</td><td><code>C5_PWR_EN</code></td><td class=n>37.4</td><td class=n>32.3</td><td>U10.1 → U100.3</td><td>Static enable (buck U10, west).</td></tr><tr><td>8</td><td><code>C5_SPI_MOSI</code></td><td class=n>36.9</td><td class=n>32.9</td><td>U801.9 → U100.45</td><td>SPI to the C5 (U801, east). 33–43 mm is about 0.3 ns: fine at the SPI clock.</td></tr><tr><td>9</td><td><code>HALOW_PWR_EN</code></td><td class=n>36.9</td><td class=n></td><td>U100.104 → U11.1</td><td>Static enable (buck U11).</td></tr><tr><td>10</td><td><code>QON (U2)</code></td><td class=n>35.1</td><td class=n>20.7</td><td>U2.12 → SW1.2</td><td>Push-button line, slow.</td></tr><tr><td>11</td><td><code>C5_SPI_CLK</code></td><td class=n>33.1</td><td class=n>29.9</td><td>U801.8 → R512.2</td><td>SPI to the C5 (U801, east). 33–43 mm is about 0.3 ns: fine at the SPI clock.</td></tr><tr><td>12</td><td><code>HALOW_FEM_EN</code></td><td class=n>32.6</td><td class=n>23.7</td><td>U100.58 → R122.1</td><td>Static enable.</td></tr><tr><td>13</td><td><code>HALOW_SDIO_CMD</code></td><td class=n>31.5</td><td class=n>22.3</td><td>U100.112 → U701.21</td><td>SDIO, within HDG 100 mm and the approved 12 mm skew group.</td></tr><tr><td>14</td><td><code>SD_D1</code></td><td class=n>30.7</td><td class=n>17.2</td><td>U100.12 → U401.4</td><td>microSD, within HDG 100 mm and the 12 mm skew group.</td></tr></tbody></table></div>
+  <p style="color:var(--muted)">Resistance: 1.72e-8 Ω·m, 35 µm copper, from each segment's width; vias not counted. Drops are estimates at an assumed current; none of these currents is measured yet.</p>
+</section>
+<section id="planes81">
+  <div class="shead"><span class="pill wait">for review</span><span class="num">Review · T81 · power plane</span>
+  <h2>Power plane map: In2 is the 5 V plane with the VDD_0V9 island under the RV1106 and two GND reference zones. Every other rail is a track. One unfilled pocket under the RV1106 needs fixing</h2>
+  <p>Installed board (<code>da81f33</code>), no change made. Stack-up: F.Cu (signals), <b>In1 solid GND</b>, <b>In2 power</b>, B.Cu (signals).</p></div>
+  <div class="tldr"><b>TL;DR</b><ul class="tight">
+    <li><b>In2 carries three copper nets</b>:
+      <ul class="tight">
+        <li><b>VCC5V0_SYS</b> (the 5 V system bus from the boost): 3689 mm², nearly the whole layer.</li>
+        <li><b>VDD_0V9</b>: a 291 mm² island under the RV1106 (core supply, via the bucks' In2 tap).</li>
+        <li><b>GND</b>: two reference zones, SD_GND_REF (165 mm²) and SDIO_GND_REF (218 mm²), under the bottom-layer microSD and HaLow SDIO buses.</li>
+        <li>Plus the short VCC_1V8 In2 traces inside the VDD_0V9 island (4c and 4f).</li>
+      </ul></li>
+    <li><b>In1 is solid GND</b>: holes only for vias and through-hole parts.</li>
+    <li><b>All other rails are tracks on the outer layers</b>: VSYS, VSYS_SW, VBAT, VCELL, VBUS, VDCIN, VCC_DDR, VCC_1V8, VCC_3V3, VCC3V3_C5, VCC3V3_HALOW, VDD_FEM, VCC3V3_GPS. Second figure: each coloured by net, with its track length.</li>
+    <li><b>Finding: an unfilled pocket on In2 under the RV1106</b>, about 11 × 3 mm (x 138–149, y 135.4–138.4).
+      <ul class="tight">
+        <li>It lies inside the VDD_0V9 zone outline, but the In2 VCC_1V8 traces along y 135.4 cut it off from the rest of the island. KiCad drops the strip as an unconnected island, and the lower-priority 5 V plane cannot fill there.</li>
+        <li>10 bottom-layer nets cross it with no In2 plane under them, including <b>OSC_SOC_XIN</b> (crystal input), <b>DRAM_ZQ</b> and <b>nPOR</b>. They reference In1 instead, about 1.2 mm away rather than 0.19 mm.</li>
+        <li>It also breaks your zone rule (no trapped pockets). It is the tail of the long VCC_1V8 feed (T80), so the two should be fixed together.</li>
+      </ul></li>
+  </ul></div>
+  <figure><img src="img/route/t81_in2.png" alt="In2 plane map" width="2232" height="1248" loading="lazy"><figcaption><b>In2 by net.</b> Red 5 V plane, blue VDD_0V9 island, grey GND reference zones, green VCC_1V8 In2 traces; hatched = crystal keep-outs (HDG p.41 item 11); dots = vias (white: a hole in the plane). Dashed red box: the unfilled pocket.</figcaption></figure>
+  <figure><img src="img/route/t81_rails.png" alt="Power rails by net" width="1993" height="1248" loading="lazy"><figcaption><b>Every power rail on all layers</b>, coloured by net (line width follows track width); faint fill = In2 plane. GND is not drawn (In1 is solid GND).</figcaption></figure>
+  <figure><img src="img/inner/kicad/t81_board.png" alt="KiCad In1 In2" width="4870" height="2093" loading="lazy"><figcaption><b>KiCad's own plot</b> of In1 (left) and In2 (right), whole board, zones filled. The pocket is the white strip under the RV1106 on In2.</figcaption></figure>
+</section>
+<section id="planes82" class="current">
+  <div class="shead"><span class="pill ok">approved</span><span class="num">Routing · T82 · power on In2</span>
+  <h2>The empty pocket under the RV1106 is now a VCC_1V8 island (installed). The ESP32-C5 buck stays where it is: its enable line cannot reach a site next to the module</h2>
+  <p>Approved by the owner and installed on <code>hardware/kicad/linknode.kicad_pcb</code> (In2 change only; outer layers unchanged). Installed board re-checked: DRC library warnings only, parity 0, unconnected 0, every bend 45°. No schematic change.</p></div>
+  <div class="tldr"><b>TL;DR</b><ul class="tight">
+    <li><b>Pocket → VCC_1V8 island</b> (zone <code>VCC_1V8_ISL</code>, 30 mm², one piece):
+      <ul class="tight">
+        <li>It replaces the thin In2 VCC_1V8 trace along y 135.45; the 1.8 V pin and capacitor via stubs end in it.</li>
+        <li>The 7 bottom nets crossing it (incl. OSC_SOC_XIN, DRAM_ZQ, nPOR) now run over a plane decoupled by C625–C628, instead of over no copper.</li>
+        <li>No In2 area is left empty, and none became newly empty.</li>
+      </ul></li>
+    <li><b>The VCC3V3_C5 edge strip is withdrawn</b> (you: not along the board edge).
+      <ul class="tight">
+        <li>In2 has no interior path from the buck (north-west corner) to the C5 (east). The SDIO/SD GND reference zones and the VDD_0V9 island block the middle.</li>
+        <li>A strip round the south would cut the 5 V plane and leave its east part (FPC A's 5 V pins) disconnected.</li>
+        <li>Today's track also runs along the top and east edges, on the bottom layer.</li>
+      </ul></li>
+    <li><b>Buck move tried and dropped (T83, your option 1)</b>.
+      <ul class="tight">
+        <li>On a copy the cell moved to the free 10 × 6.5 mm south of U801 and its 3.3 V side routed: 10 mm to U801, no top copper under the module.</li>
+        <li>But C5_PWR_EN cannot reach it, from pin 3 or from the free south-side pins 59/62/63. The band between the RV1106's south pins and the C5 area is closed by the bottom microSD bus, the SD socket and ESD part, FPC B and the C5 bundle; the router exhausts its search even with top copper under the module allowed.</li>
+        <li>The buck stays in the north-west corner and the 3.3 V feed stays a bottom-layer track. The Q7 move for VDD_FEM is skipped for the same reason (its gate is on pin 58, same side).</li>
+        <li>On the way, <code>docs/rv1106-pinmap.md</code> was corrected from the netlist: C5_PWR_EN is pin 3 (GPIO3_C5), C5_HANDSHAKE pin 90, C5_DATA_READY pin 83; the free-pin list is rebuilt.</li>
+      </ul></li>
+    <li><b>Not moved</b>, with reasons:
+      <ul class="tight">
+        <li><b>VCC_1V8 feed, VCC_3V3, VCC_DDR</b>: blocked on In2 by the GND reference zones round the RV1106. The 1.8 V feed has no outer-layer path either (the router finds none at 0.12 mm).</li>
+        <li><b>VDD_FEM</b>: Q7 next to the FEM pin would need its gate line from the same closed south side (pin 58).</li>
+        <li><b>VSYS to the GPS LDOs</b>: always-on, low current.</li>
+      </ul></li>
+    <li><b>Checks</b>:
+      <ul class="tight">
+        <li>DRC: library warnings only (saved and refilled).</li>
+        <li>Parity 0; unconnected 0 (DRC and pcbnew).</li>
+        <li>Every bend 45°; jagged routes unchanged.</li>
+        <li>Zone corners: 4 × 90°, 1.0 mm fillets.</li>
+      </ul></li>
+  </ul></div>
+  <figure><img src="img/route/t82_in2.png" alt="In2 after" width="2232" height="1248" loading="lazy"><figcaption><b>In2 AFTER</b>: green VCC_1V8 island in the old pocket under the RV1106.</figcaption></figure>
+  <div class="pair"><figure><img src="img/route/t82_inner_pocket_before.png" alt="pocket before" width="1592" height="690" loading="lazy"><figcaption><b>In1/In2 at the pocket, BEFORE</b>: white strip, no copper under the bottom tracks.</figcaption></figure><figure><img src="img/route/t82_inner_pocket.png" alt="pocket after" width="1592" height="690" loading="lazy"><figcaption><b>In1/In2 at the pocket, AFTER</b>: VCC_1V8 island.</figcaption></figure></div>
+  
+  <div class="pair"><figure><img src="img/route/t82_kicad.png" alt="KiCad after" width="4681" height="3811" loading="lazy"><figcaption><b>Whole board, AFTER</b> (KiCad, outer layers; unchanged).</figcaption></figure><figure><img src="img/inner/kicad/t82_board.png" alt="KiCad inner after" width="4870" height="2093" loading="lazy"><figcaption><b>KiCad plot of In1/In2 AFTER</b>, whole board.</figcaption></figure></div>
+  <figure><img src="img/route/t82_rails.png" alt="rails" width="1993" height="1248" loading="lazy"><figcaption><b>Power rails on all layers</b> (candidate).</figcaption></figure>
+  <div class="pair">
+  <figure><img src="img/route/t82_3d_top.jpg" alt="3D top" width="1904" height="1488" loading="lazy"><figcaption><b>3D, whole board, top</b> (outer layers unchanged by T82).</figcaption></figure>
+  <figure><img src="img/route/t82_3d_bottom.jpg" alt="3D bottom" width="1904" height="1488" loading="lazy"><figcaption><b>3D, whole board, bottom</b> (mirrored).</figcaption></figure>
   </div>
 </section>
 

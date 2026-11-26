@@ -48,13 +48,13 @@ Status: draft, 2026-11-20. Checked against `Rockchip RV1106G_PinOut_V1.1_2022050
 | ESP32-C5 | 45 | GPIO4_A1 | SPI1_MOSI_M0 | C5_SPI_MOSI | ESP32-C5-WROOM-1U | SPI slave MOSI |  |
 | ESP32-C5 | 46 | GPIO4_A0 | SPI1_MISO_M0 | C5_SPI_MISO | ESP32-C5-WROOM-1U | SPI slave MISO |  |
 | ESP32-C5 | 40 | GPIO4_A5 | SPI1_CS0_M0 | C5_SPI_CS | ESP32-C5-WROOM-1U | SPI slave CS |  |
-| ESP32-C5 | 44 | GPIO4_A2 | GPIO in | C5_HANDSHAKE | ESP32-C5-WROOM-1U | GPIO (TBD) |  |
-| ESP32-C5 | 42 | GPIO4_A3 | GPIO in | C5_DATA_READY | ESP32-C5-WROOM-1U | GPIO (TBD) |  |
+| ESP32-C5 | 90 | GPIO1_C5 | GPIO in | C5_HANDSHAKE | ESP32-C5-WROOM-1U | GPIO (TBD) | moved from pin 44 during routing (netlist 2026-11-26) |
+| ESP32-C5 | 83 | GPIO1_C6 | GPIO in | C5_DATA_READY | ESP32-C5-WROOM-1U | GPIO (TBD) | moved from pin 42 during routing (netlist 2026-11-26) |
 | ESP32-C5 | 85 | GPIO1_D3 | UART5_TX_M1 | C5_UART_RX | ESP32-C5-WROOM-1U | U0RXD | console + esptool |
 | ESP32-C5 | 86 | GPIO1_D2 | UART5_RX_M1 | C5_UART_TX | ESP32-C5-WROOM-1U | U0TXD |  |
 | ESP32-C5 | 74 | GPIO1_A2 | GPIO out (open drain) | C5_EN | ESP32-C5-WROOM-1U | EN (CHIP_PU) | 10k pull-up + 1 µF |
 | ESP32-C5 | 77 | GPIO1_B0 | GPIO out (open drain) | C5_BOOT | ESP32-C5-WROOM-1U | GPIO28 | 10k pull-up; low at reset = download mode (Table 4-3) |
-| ESP32-C5 | 75 | GPIO1_A3 | GPIO out | C5_PWR_EN | Radio Power | TLV62569 EN |  |
+| ESP32-C5 | 3 | GPIO3_C5 | GPIO out | C5_PWR_EN | Radio Power | TLV62569 EN | VI_CIF_VSYNC_M0/GPIO3_C5_d, default pull-down (`Rockchip_RV1106_Datasheet_V2.2` p.21) + R100 100k; next to the 1.8 V VCCIO7 pins 5/7, EN VIH ≤ 1.2 V (`TI_TLV62569.pdf` p.4). Was listed as pin 75 (now I2C0_SCL); corrected 2026-11-26 from the netlist |
 
 ## Other SoC pins
 
@@ -64,7 +64,7 @@ Status: draft, 2026-11-20. Checked against `Rockchip RV1106G_PinOut_V1.1_2022050
 | Charger I²C | 5 / 7 | GPIO3_C7 I2C4_SCL_M2 / GPIO3_D0 I2C4_SDA_M2 (VCCIO7, **1.8 V only**), 10k pull-ups R504/R505 to VCC_1V8. Moved from pins 64/65 (I2C1_M0) on 2026-11-26 (T69): those pins are boxed in at the chip's south-east corner once VCC_DDR takes the corridor under the chip. BQ25798 VIH 1.3 V with a 1.8 V pull-up rail (`hardware/datasheets/TI_BQ25798.pdf` p.16–17). Linux device tree: `&i2c4 { pinctrl-0 = <&i2c4m2_xfer>; }` instead of i2c1m0. Pins 64/65 unused |
 | Charger interrupt | 60 | GPIO0_A2 (CHG_INT) |
 | USB to laptop | 27 / 26 / 25 | USB_DP / USB_DM / USB_VBUSDET |
-| Still free | 41, 39, 47, 48, 76, 78, 58, 59, 62, 63 | GPIO4_A4, A6, B0, B1 (probed by the boot ROM), GPIO1_A4, GPIO1_B1, GPIO0_A0, A3, A4 |
+| Still free (netlist 2026-11-26) | 2, 6, 8, 9; 39, 41, 42, 44, 47, 48; 59, 62, 63, 64, 65; 117–128 | GPIO3_C4, D1–D3 (pins 2–9 side, VCCIO7 1.8 V like pins 5/7); GPIO4_A2–A4, A6, B0, B1 (EMMC pins; A4, A6, B0, B1 are probed by the boot ROM); GPIO0_A1, A3–A6; GPIO3_B0–C3 (VI_CIF camera bus, unused). Pins 58, 76, 78 are no longer free (HALOW_FEM_EN, I2C0_SDA, EXP_GPIO1_B1) |
 
 ## Firmware notes
 
